@@ -1,0 +1,15 @@
+* Navbar Styles */
+.Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #a2b826;
+    padding: 10px 20px;
+    
+}
+
+.App-logo {
+    height: 30px;
+    width: 30px;
+    justify-content: right;
+}
