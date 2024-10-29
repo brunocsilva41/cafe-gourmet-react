@@ -9,7 +9,7 @@ const CriarConta = () => {
     const password = event.target.password.value;
 
     try {
-      const response = await axios.post('http://localhost:3000/criar-conta', {
+      const response = await axios.post('http://localhost:3005/criar-conta', {
         name,
         email,
         password,

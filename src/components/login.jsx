@@ -1,31 +1,35 @@
 import axios from 'axios';
-import React from 'react';
+import { default as React } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import 'reactjs-popup/dist/index.css';
 import '../assets/styles/global.css';
 import '../assets/styles/login.css';
 
+
 const Login = () => {
   const navigate = useNavigate();
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
 
     try {
-      const response = await axios.post('http://localhost:3000/login-conta', {
+      const response = await axios.post('http://localhost:3005/login-conta', {
         email,
         password,
       });
 
-      if (response.status === 200 && response.data.message === 'teste') {
-        const { userId, userName, userEmail } = response.data;
+      if (response.status === 200 && response.data.token) {
+        const { token, userId, userName, userEmail , role} = response.data;
+        localStorage.setItem('token', token); 
         localStorage.setItem('userId', userId);
         localStorage.setItem('userName', userName);
         localStorage.setItem('userEmail', userEmail);
-
-        alert('Login realizado com sucesso!');
-        navigate('/account'); // Redireciona para a página de conta
+        localStorage.setItem('role', role);
+        navigate('/conta'); // Redireciona para a página de conta
+  
+        
       } else {
         console.error('Erro ao fazer login:', response.data.message);
         alert('Erro ao fazer login.');
@@ -35,7 +39,6 @@ const Login = () => {
       alert('Erro ao realizar o login. Tente novamente mais tarde.');
     }
   };
-
   return (
     
 
@@ -63,9 +66,13 @@ const Login = () => {
             <button>
               <Link to="/create-account" className="criarconta">CRIAR CONTA</Link>
             </button>
+
           </div>
         </div>
+        
       </div>
+        
+      
   );
 };
 
