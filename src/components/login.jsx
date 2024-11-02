@@ -1,56 +1,58 @@
-import axios from 'axios';
-import { default as React } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { default as React, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'reactjs-popup/dist/index.css';
 import '../assets/styles/global.css';
 import '../assets/styles/login.css';
-
+import Header from '../components/Header';
+import { useAuth } from '../context/AuthContext';
+import { loginUser } from '../utils/authUtils';
 
 const Login = () => {
   const navigate = useNavigate();
-  
+  const location = useLocation();
+  const { login } = useAuth();
+  const [email, setUseremail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-
     try {
-      const response = await axios.post('http://localhost:3005/login-conta', {
-        email,
-        password,
-      });
-
-      if (response.status === 200 && response.data.token) {
-        const { token, userId, userName, userEmail , role} = response.data;
-        localStorage.setItem('token', token); 
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('userName', userName);
-        localStorage.setItem('userEmail', userEmail);
-        localStorage.setItem('role', role);
-        navigate('/conta'); // Redireciona para a página de conta
-  
-        
-      } else {
-        console.error('Erro ao fazer login:', response.data.message);
-        alert('Erro ao fazer login.');
-      }
-    } catch (error) {
-      console.error('Erro na requisição:', error);
-      alert('Erro ao realizar o login. Tente novamente mais tarde.');
+      await loginUser(email, password, login, navigate, location);
+    } catch (err) {
+      console.error('Erro no login:', err);
+      setError('Falha no login. Verifique suas credenciais e tente novamente.');
     }
   };
-  return (
-    
 
+  return (
+    <>
+      <Header />
       <div className="container">
         <div className="login-form">
           <img src="" alt="Logo da Empresa" className="logo" />
           <h2> Realize o Login com:</h2>
+          {error && <p className="error-message">{error}</p>}
           <form id="loginForm" onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" required />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setUseremail(e.target.value)}
+              required
+            />
             <label htmlFor="password">Senha:</label>
-            <input type="password" id="password" name="password" minLength="3" required />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              minLength="3"
+              required
+            />
             <button type="submit">Login</button>
             <br />
             <a href="../services/recuperasenha.js">Esqueci a senha</a>
@@ -64,15 +66,12 @@ const Login = () => {
           <div>
             <h2>Não tem uma conta?</h2>
             <button>
-              <Link to="/create-account" className="criarconta">CRIAR CONTA</Link>
+              <Link to="/Criarconta" className="criarconta">CRIAR CONTA</Link>
             </button>
-
           </div>
         </div>
-        
       </div>
-        
-      
+    </>
   );
 };
 

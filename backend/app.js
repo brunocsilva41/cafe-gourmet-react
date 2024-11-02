@@ -8,8 +8,8 @@ const cors = require('cors');
 const app = express();
 const jwt = require('jsonwebtoken');
 
-app.use(cors({ origin: 'http://localhost:3000' }));
 
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -50,26 +50,30 @@ app.post('/login-conta', [
     body('email').isEmail().normalizeEmail(),
     body('password').isLength({ min: 1 }).trim().escape()
 ], (req, res) => {
+    console.log('Dados recebidos para login:', req.body); // Adicionar log para depuração
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log('Erros de validação:', errors.array()); // Adicionar log para depuração
         return res.status(400).json({ errors: errors.array() });
     }
     const { email, password } = req.body;
     const sql = `SELECT * FROM usuarios WHERE email = ?`;
     db.query(sql, [email], async (err, result) => {
-        if (err){
+        if (err) {
+            console.error('Erro na consulta ao banco de dados:', err); // Adicionar log para depuração
             return res.status(500).json({ message: 'Erro no servidor' });
         }
         if (result.length > 0) {
             const user = result[0];
+            console.log('Usuário encontrado:', user); // Adicionar log para depuração
             const match = await bcrypt.compare(password, user.senha);
             if (match) {
                 const token = jwt.sign(
-                    {userId: user.Id,
-                    role: user.role},
+                    { userId: user.Id, role: user.role },
                     process.env.JWT_SECRET,
-                    {expiresIn: '1h'},
+                    { expiresIn: '1h' }
                 );
+                console.log('Login realizado com sucesso, gerando token'); // Adicionar log para depuração
                 res.status(200).json({
                     message: 'Login realizado com sucesso!',
                     token,
@@ -79,9 +83,11 @@ app.post('/login-conta', [
                     role: user.role,
                 });
             } else {
+                console.log('Senha inválida'); // Adicionar log para depuração
                 res.status(401).json({ message: 'Senha inválida' });
             }
         } else {
+            console.log('Usuário não encontrado'); // Adicionar log para depuração
             res.status(401).json({ message: 'Usuário não encontrado' });
         }
     });
@@ -167,11 +173,11 @@ app.get('/api/produtos', (req, res) => {
     const sql = 'SELECT id, name, preco, categoria, imagem FROM produtos';
     db.query(sql, (err, results) => {
         if (err) return res.status(500).json({ message: 'Erro no servidor' });
+        // Adiciona log para verificar os dados recuperados
+        console.log('Produtos recuperados:', results);
         res.status(200).json(results);
     });
 });
-
-
 
 // Iniciar o servidor HTTP
 app.listen(3005, (err) => {

@@ -1,0 +1,21 @@
+/* src/assets/styles/header.css */
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info span {
+  margin-right: 10px;
+}
+
+.user-info button {
+  margin-left: 10px;
+}

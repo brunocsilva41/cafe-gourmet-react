@@ -1,8 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../assets/styles/produtos.css';
+import CartIcon from '../components/CartIcon'; // Novo componente
+import Header from '../components/Header';
+import { blobToUrl } from '../utils/blobToUrl'; // Importa a função de conversão
+import { useAuth } from '../context/AuthContext';
 
 const Products = () => {
+  const { user } = useAuth();
   const [produtos, setProdutos] = useState([]);
   const [filtro, setFiltro] = useState({
     tipo: '',
@@ -10,12 +15,25 @@ const Products = () => {
     precoMin: '',
     precoMax: ''
   });
+  const [carrinho, setCarrinho] = useState([]);
 
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
         const response = await axios.get('http://localhost:3005/api/produtos');
-        setProdutos(response.data);
+        const produtosComImagens = response.data.map(produto => {
+          // Verifica se o produto tem uma imagem
+          if (produto.imagem) {
+            // Converte o BLOB da imagem para uma URL utilizável
+            const imagemUrl = blobToUrl(produto.imagem);
+            console.log(`Produto ID ${produto.id} - Nome: ${produto.name} - URL da imagem:`, imagemUrl);
+            return { ...produto, imagemUrl };
+          } else {
+            console.warn(`Produto com ID ${produto.id} não tem imagem.`);
+            return produto;
+          }
+        });
+        setProdutos(produtosComImagens);
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
       }
@@ -24,15 +42,28 @@ const Products = () => {
     fetchProdutos();
   }, []);
 
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem('carrinho')) || [];
+    setCarrinho(savedCart);
+  }, []);
+
   const handleFiltroChange = (e) => {
     const { name, value } = e.target;
     setFiltro({ ...filtro, [name]: value });
   };
 
   const adicionarAoCarrinho = (produto) => {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    carrinho.push(produto);
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    const produtoExistente = carrinho.find(item => item.id === produto.id);
+    let novoCarrinho;
+    if (produtoExistente) {
+      novoCarrinho = carrinho.map(item =>
+        item.id === produto.id ? { ...item, quantidade: item.quantidade + 1 } : item
+      );
+    } else {
+      novoCarrinho = [...carrinho, { ...produto, quantidade: 1 }];
+    }
+    setCarrinho(novoCarrinho);
+    localStorage.setItem('carrinho', JSON.stringify(novoCarrinho));
   };
 
   const produtosFiltrados = produtos
@@ -49,6 +80,8 @@ const Products = () => {
 
   return (
     <>
+      <Header user={user} />
+      <CartIcon carrinho={carrinho} setCarrinho={setCarrinho} /> {/* Passar carrinho e setCarrinho */}
       <main>
         <h2>Produtos</h2>
         <div className="filter">
@@ -79,9 +112,13 @@ const Products = () => {
         <div className="product-list">
           {produtosFiltrados.map((produto, index) => (
             <div key={index} className="product-item">
-              <img src={produto.imagem} alt={produto.name} />
+              {produto.imagemUrl ? (
+                <img src={produto.imagemUrl} alt={produto.name} />
+              ) : (
+                <p>Imagem não disponível</p>
+              )}
               <h3>{produto.name}</h3>
-              <p>R$ {produto.preco.toFixed(2)}</p>
+              <p>R$ {Number(produto.preco).toFixed(2)}</p>
               <button onClick={() => adicionarAoCarrinho(produto)}>Adicionar ao Carrinho</button>
             </div>
           ))}

@@ -2,8 +2,12 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+
 }
-/* background-image: url('../imagens/backgroundarvores.jpg'); */
+/*
+
+    background-image: url('../imagens/backgroundarvores.jpg'); 
+*/
 body {
     
     background-size: cover;
