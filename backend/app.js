@@ -152,7 +152,7 @@ app.get('/logs', (req, res) => {
 
 // Middleware para proteger rota
 function verificarAutenticacao(req, res, next) {
-    const token = req.headers['authorization'];
+    const token = req.headers['authorization']?.split(' ')[1];
     if (!token) return res.status(403).json({ message: 'Token não fornecido' });
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -170,12 +170,32 @@ app.get('/admin-dashboard', verificarAutenticacao, (req, res) => {
 
 // Rota para buscar produtos na tela produtos.
 app.get('/api/produtos', (req, res) => {
-    const sql = 'SELECT id, name, preco, categoria, imagem FROM produtos';
+    const sql = 'SELECT id, name, preco, categoria, quantidade, imagem FROM produtos';
     db.query(sql, (err, results) => {
         if (err) return res.status(500).json({ message: 'Erro no servidor' });
         // Adiciona log para verificar os dados recuperados
         console.log('Produtos recuperados:', results);
         res.status(200).json(results);
+    });
+});
+
+// Rota para buscar produto por ID
+app.get('/api/produtos/:id', (req, res) => {
+    const { id } = req.params; 
+    console.log(`Buscando produto com ID: ${id}`); 
+    const sql = 'SELECT * FROM produtos WHERE id = ?';
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.log('Erro ao buscar produto:', err); // Log para depuração
+            console.error('Erro ao buscar produto:', err); // Log para depuração
+            return res.status(500).json({ message: 'Erro no servidor' });
+        }
+        if (result.length === 0) {
+            console.warn(`Produto com ID ${id} não encontrado`); // Log para depuração
+            return res.status(404).json({ message: 'Produto não encontrado' });
+        }
+        console.log('Produto recuperado:', result[0]); // Log para depuração
+        res.status(200).json(result[0]);
     });
 });
 
