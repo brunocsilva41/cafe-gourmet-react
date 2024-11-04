@@ -1,34 +1,30 @@
-* Navbar Styles */
-.Navbar {
-    display: flex;
+/* Navbar Styles */
+header.Navbar {
+    width: 100%;
     align-items: center;
-    justify-content: space-between;
-    background-color: #a2b826;
-    padding: 10px 20px;
-    
+    box-sizing: border-box;
 }
-
+.App-logo {
+    height: 270px;
+}
 .App-logo img{
-    height: 350px;
-    width: 350px;
-    justify-content: right;
+    display: flex;
+    height: 180px;
+    width: 300px;
+    margin: 0 auto;
+    align-items: center;
+    color: white;
 }
-
-.navbar {
+.linksnavbar{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #333;
-  color: white;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
 }
-
-.navbar a {
+.linksnavbar a{
   color: white;
   text-decoration: none;
-  margin: 0 10px;
-}
-
-.navbar a:hover {
-  text-decoration: underline;
+  font-size: 20px;
+  margin: 0 15px; /* Adiciona espaço entre os links */
 }

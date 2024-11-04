@@ -2,14 +2,20 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-
-}
-/*
-
-    background-image: url('../imagens/backgroundarvores.jpg'); 
-*/
-body {
-    
-    background-size: cover;
+    background-image: url('../imagens/fundosite.png');
     background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
 }
