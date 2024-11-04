@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { FaTrash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import '../assets/styles/carrinho.css';
 import Header from '../components/Header';
-import { FaTrash } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 
 const Cart = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -24,7 +26,11 @@ const Cart = () => {
   };
 
   const finalizarCompra = () => {
-    window.location.href = '/checkout';
+    if (user) {
+      navigate('/checkout');
+    } else {
+      navigate('/login');
+    }
   };
 
   return (

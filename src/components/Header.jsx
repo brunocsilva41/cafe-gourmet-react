@@ -17,10 +17,10 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="user-info">
-        <span>{userName}</span>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
+        <div className="buttonLogout">
+          <span>{userName}</span>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
     </header>
   );
 };

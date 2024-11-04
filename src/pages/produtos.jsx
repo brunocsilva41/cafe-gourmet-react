@@ -1,14 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import '../assets/styles/produtos.css';
-import CartIcon from '../components/CartIcon'; // Novo componente
+import { Link } from 'react-router-dom';
+import '../assets/styles/produtos.css'; // Importa o CSS para estilizar os produtos
+import CartIcon from '../components/CartIcon';
 import Header from '../components/Header';
-import { blobToUrl } from '../utils/blobToUrl'; // Importa a função de conversão
 import { useAuth } from '../context/AuthContext';
+import { blobToUrl } from '../utils/blobToUrl';
 
 const Products = () => {
   const { user } = useAuth();
   const [produtos, setProdutos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
   const [filtro, setFiltro] = useState({
     tipo: '',
     ordenar: '',
@@ -34,6 +36,10 @@ const Products = () => {
           }
         });
         setProdutos(produtosComImagens);
+
+        // Obter categorias únicas
+        const categoriasUnicas = [...new Set(response.data.map(produto => produto.categoria))];
+        setCategorias(categoriasUnicas);
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
       }
@@ -86,10 +92,10 @@ const Products = () => {
         <h2>Produtos</h2>
         <div className="filter">
           <select name="tipo" onChange={handleFiltroChange}>
-            <option value="">Todos os Tipos</option>
-            <option value="tipo1">Tipo 1</option>
-            <option value="tipo2">Tipo 2</option>
-            {/* Adicione mais opções conforme necessário */}
+            <option value="">Por Categoria</option>
+            {categorias.map((categoria, index) => (
+              <option key={index} value={categoria}>{categoria}</option>
+            ))}
           </select>
           <select name="ordenar" onChange={handleFiltroChange}>
             <option value="">Ordenar</option>
@@ -112,12 +118,14 @@ const Products = () => {
         <div className="product-list">
           {produtosFiltrados.map((produto, index) => (
             <div key={index} className="product-item">
-              {produto.imagemUrl ? (
-                <img src={produto.imagemUrl} alt={produto.name} />
-              ) : (
-                <p>Imagem não disponível</p>
-              )}
-              <h3>{produto.name}</h3>
+              <Link to={`/produto/${produto.id}`}>
+                {produto.imagemUrl ? (
+                  <img src={produto.imagemUrl} alt={produto.name} />
+                ) : (
+                  <p>Imagem não disponível</p>
+                )}
+                <h3>{produto.name}</h3>
+              </Link>
               <p>R$ {Number(produto.preco).toFixed(2)}</p>
               <button onClick={() => adicionarAoCarrinho(produto)}>Adicionar ao Carrinho</button>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/imagens/logo.png';
+import logo from '../assets/imagens/logoOF.png';
 import '../assets/styles/global.css';
 import '../assets/styles/Navbar.css';
 import { useAuth } from '../context/AuthContext';
@@ -10,12 +10,12 @@ const Navbar = ({ carrinho }) => {
   const { user } = useAuth();
 
   return (
-    <header>
+    <header className="Navbar">
       <div className="App-logo">
         <img src={logo} alt="Logo da Empresa"/>
         <h1>Coffe For U</h1>
       </div>
-      <div className="Navbar">
+      <div className="linksnavbar">
         <nav>
           <Link to="/">Home</Link>
           <Link to="/produtos">Produtos</Link>
@@ -28,7 +28,7 @@ const Navbar = ({ carrinho }) => {
           ) : (
             <Link to="/login">Login</Link>
           )}
-        </nav>
+        </nav> 
       </div>
     </header>
   );

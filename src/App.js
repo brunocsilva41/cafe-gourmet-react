@@ -11,6 +11,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import Cart from './pages/cart';
 import Conta from './pages/conta';
 import Home from './pages/home';
+import ProdutoDetalhes from './pages/ProdutoDetalhes';
 import Produtos from './pages/produtos';
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/produtos" element={<Produtos />} />
+          <Route path="/produto/:id" element={<ProdutoDetalhes />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/conta" element={<PrivateRoute><Conta /></PrivateRoute>} />
           <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
