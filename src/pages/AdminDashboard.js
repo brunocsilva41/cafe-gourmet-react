@@ -2,19 +2,22 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import { useAuth } from '../context/AuthContext';
 import LogsPanel from '../services/LogsPanel';
 import UsersPanel from '../services/UsersPanel';
+import { isAdmin } from '../utils/authUtils';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
+    if (!user || !isAdmin(user)) {
       navigate('/login');
+      return;
     }
     fetch('http://localhost:3005/admin-dashboard', {
-      headers: { Authorization: token },
+      headers: { Authorization: `Bearer ${user.token}` },
     })
       .then((res) => {
         if (res.status !== 200) {
@@ -22,15 +25,17 @@ const AdminDashboard = () => {
         }
       })
       .catch(() => navigate('/login'));
-  }, [navigate]);
+  }, [navigate, user]);
 
   return (
     <>
       <Header />
       <div>
         <h1>Admin Dashboard</h1>
-        <LogsPanel />
         <UsersPanel />
+        <div>
+          <LogsPanel />
+        </div>
       </div>
     </>
   );

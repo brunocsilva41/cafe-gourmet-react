@@ -199,8 +199,3 @@ app.get('/api/produtos/:id', (req, res) => {
     });
 });
 
-// Iniciar o servidor HTTP
-app.listen(3005, (err) => {
-    if (err) console.log(err);
-    console.log('Servidor rodando em http://localhost:3005');
-});

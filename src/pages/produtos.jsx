@@ -7,6 +7,10 @@ import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { blobToUrl } from '../utils/blobToUrl';
 
+
+const base_URL = process.env.REACT_APP_BASE_URL;
+
+
 const Products = () => {
   const { user } = useAuth();
   const [produtos, setProdutos] = useState([]);
@@ -19,10 +23,11 @@ const Products = () => {
   });
   const [carrinho, setCarrinho] = useState([]);
 
+
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
-        const response = await axios.get('http://localhost:3005/api/produtos');
+        const response = await axios.get(`http://${base_URL}/api/produtos`);
         const produtosComImagens = response.data.map(produto => {
           // Verifica se o produto tem uma imagem
           if (produto.imagem) {

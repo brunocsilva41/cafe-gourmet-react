@@ -17,10 +17,12 @@ const Header = () => {
 
   return (
     <header className="header">
+      {user && (
         <div className="buttonLogout">
           <span>{userName}</span>
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout}>Sair</button>
         </div>
+      )}
     </header>
   );
 };

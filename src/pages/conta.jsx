@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 
 const Conta = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useAuth(); // Adicione setUser aqui
+  const { user, setUser } = useAuth();
   const [orders, setOrders] = useState([]);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [newCard, setNewCard] = useState('');
@@ -34,10 +34,9 @@ const Conta = () => {
 
     setOrders(fetchedOrders);
     setPaymentMethods(fetchedPaymentMethods);
-  }, [setUser]); // Adicionado setUser como dependência
+  }, [setUser]);
 
   const handleReorder = (orderId) => {
-    // Logic to reorder
     console.log(`Reordering order ${orderId}`);
     navigate(`/reorder/${orderId}`);
   };
