@@ -27,7 +27,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
-        const response = await axios.get(`${base_URL}/api/produtos`);
+        const response = await axios.get(`${base_URL}api/produtos`);
         const produtosComImagens = response.data.map(produto => {
           // Verifica se o produto tem uma imagem
           if (produto.imagem) {
