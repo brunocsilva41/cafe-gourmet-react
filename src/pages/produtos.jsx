@@ -29,8 +29,8 @@ const Products = () => {
       try {
         const response = await axios.get(`${base_URL}/api/produtos`);
         console.log('Resposta da API:', response.data); // Adicionar log para verificar a resposta da API
-        if (response.headers['content-type'].includes('application/json') && Array.isArray(response.data)) { // Verificação adicionada
-          const produtosComImagens = response.data.map(produto => {
+        if (response.headers['content-type'].includes('application/json') && Array.isArray(response.data.produtos)) { // Verificação ajustada
+          const produtosComImagens = response.data.produtos.map(produto => {
             // Verifica se o produto tem uma imagem
             if (produto.imagem) {
               // Converte o BLOB da imagem para uma URL utilizável
@@ -45,10 +45,10 @@ const Products = () => {
           setProdutos(produtosComImagens);
 
           // Obter categorias únicas
-          const categoriasUnicas = [...new Set(response.data.map(produto => produto.categoria))];
+          const categoriasUnicas = [...new Set(response.data.produtos.map(produto => produto.categoria))];
           setCategorias(categoriasUnicas);
         } else {
-          console.error('Resposta da API não é um array ou não é JSON:', response.data);
+          console.error('Resposta da API não é um JSON ou não é um array.');
         }
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
