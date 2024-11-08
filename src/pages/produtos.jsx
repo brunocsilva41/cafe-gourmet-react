@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import { blobToUrl } from '../utils/blobToUrl';
 
 
-const base_URL = process.env.REACT_APP_BASE_URL;
+const base_URL = process.env.BASE_URL;
 
 
 const Products = () => {
