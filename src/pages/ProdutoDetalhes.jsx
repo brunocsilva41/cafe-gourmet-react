@@ -6,6 +6,8 @@ import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { blobToUrl } from '../utils/blobToUrl';
 
+const base_URL = process.env.REACT_APP_BASE_URL;
+
 const ProdutoDetalhes = () => {
   const { user } = useAuth();
   const { id } = useParams();
@@ -15,7 +17,7 @@ const ProdutoDetalhes = () => {
     const fetchProduto = async () => {
       try {
         console.log(`Buscando produto com ID: ${id}`); // Log para depuração
-        const response = await axios.get(`http://localhost:3005/api/produtos/${id}`);
+        const response = await axios.get(`http://${base_URL}/api/produtos/${id}`);
         console.log('Resposta do servidor:', response); // Log para depuração
         const produtoData = response.data;
         console.log('Dados do produto:', produtoData); // Log para depuração

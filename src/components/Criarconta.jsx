@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 
+const base_URL = process.env.REACT_APP_BASE_URL;
+
 const CriarConta = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -9,7 +11,7 @@ const CriarConta = () => {
     const password = event.target.password.value;
 
     try {
-      const response = await axios.post('http://localhost:3005/criar-conta', {
+      const response = await axios.post(`http://${base_URL}/criar-conta`, {
         name,
         email,
         password,
