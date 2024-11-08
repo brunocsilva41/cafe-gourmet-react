@@ -28,23 +28,28 @@ const Products = () => {
     const fetchProdutos = async () => {
       try {
         const response = await axios.get(`${base_URL}/api/produtos`);
-        const produtosComImagens = response.data.map(produto => {
-          // Verifica se o produto tem uma imagem
-          if (produto.imagem) {
-            // Converte o BLOB da imagem para uma URL utilizável
-            const imagemUrl = blobToUrl(produto.imagem);
-            console.log(`Produto ID ${produto.id} - Nome: ${produto.name} - URL da imagem:`, imagemUrl);
-            return { ...produto, imagemUrl };
-          } else {
-            console.warn(`Produto com ID ${produto.id} não tem imagem.`);
-            return produto;
-          }
-        });
-        setProdutos(produtosComImagens);
+        console.log('Resposta da API:', response.data); // Adicionar log para verificar a resposta da API
+        if (Array.isArray(response.data)) {
+          const produtosComImagens = response.data.map(produto => {
+            // Verifica se o produto tem uma imagem
+            if (produto.imagem) {
+              // Converte o BLOB da imagem para uma URL utilizável
+              const imagemUrl = blobToUrl(produto.imagem);
+              console.log(`Produto ID ${produto.id} - Nome: ${produto.name} - URL da imagem:`, imagemUrl);
+              return { ...produto, imagemUrl };
+            } else {
+              console.warn(`Produto com ID ${produto.id} não tem imagem.`);
+              return produto;
+            }
+          });
+          setProdutos(produtosComImagens);
 
-        // Obter categorias únicas
-        const categoriasUnicas = [...new Set(response.data.map(produto => produto.categoria))];
-        setCategorias(categoriasUnicas);
+          // Obter categorias únicas
+          const categoriasUnicas = [...new Set(response.data.map(produto => produto.categoria))];
+          setCategorias(categoriasUnicas);
+        } else {
+          console.error('Resposta da API não é um array:', response.data);
+        }
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
       }

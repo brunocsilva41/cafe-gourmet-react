@@ -18,7 +18,7 @@ const ProdutoDetalhes = () => {
       try {
         console.log(`Buscando produto com ID: ${id}`); // Log para depuração
         const response = await axios.get(`${base_URL}/api/produtos/${id}`);
-        console.log('Resposta do servidor:', response); // Log para depuração
+        console.log('Resposta do servidor:', response.data); // Adicionar log para verificar a resposta da API
         const produtoData = response.data;
         console.log('Dados do produto:', produtoData); // Log para depuração
         if (produtoData.imagem) {
