@@ -19,7 +19,7 @@ const AdminDashboard = () => {
       navigate('/login');
       return;
     }
-    fetch(`http://${base_URL}/admin-dashboard`, {
+    fetch(`${base_URL}admin-dashboard`, {
       headers: { Authorization: `Bearer ${user.token}` },
     })
       .then((res) => {

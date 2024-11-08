@@ -17,7 +17,7 @@ const ProdutoDetalhes = () => {
     const fetchProduto = async () => {
       try {
         console.log(`Buscando produto com ID: ${id}`); // Log para depuração
-        const response = await axios.get(`http://${base_URL}/api/produtos/${id}`);
+        const response = await axios.get(`${base_URL}/api/produtos/${id}`);
         console.log('Resposta do servidor:', response); // Log para depuração
         const produtoData = response.data;
         console.log('Dados do produto:', produtoData); // Log para depuração

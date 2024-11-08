@@ -11,7 +11,7 @@ const CriarConta = () => {
     const password = event.target.password.value;
 
     try {
-      const response = await axios.post(`http://${base_URL}/criar-conta`, {
+      const response = await axios.post(`${base_URL}/criar-conta`, {
         name,
         email,
         password,
