@@ -27,7 +27,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
-        const response = await axios.get(`${base_URL}/api/produtos`);
+        const response = await axios.get(`${base_URL}api/produtos`);
         console.log('Resposta da API:', response.data); // Adicionar log para verificar a resposta da API
         if (response.headers['content-type'].includes('application/json') && Array.isArray(response.data.produtos)) { // Verificação ajustada
           const produtosComImagens = response.data.produtos.map(produto => {
