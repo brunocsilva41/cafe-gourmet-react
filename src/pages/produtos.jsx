@@ -12,6 +12,8 @@ const base_URL = process.env.REACT_APP_BASE_URL;
 
 if (!base_URL) {
   console.error('REACT_APP_BASE_URL não está definida. Verifique suas variáveis de ambiente.');
+} else {
+  console.log('Base URL da API:', base_URL);
 }
 
 const Products = () => {
@@ -30,10 +32,11 @@ const Products = () => {
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
-        const response = await axios.get(`${base_URL}api/produtos`);
+        const response = await axios.get(`${base_URL}/api/produtos`);
         console.log('Resposta da API:', response); // Adicionar log para verificar a resposta completa da API
         if (response.headers['content-type'].includes('application/json')) { // Verificação ajustada
           const data = response.data;
+          console.log('Dados da API:', data); // Adicionar log para verificar os dados da API
           if (Array.isArray(data.produtos)) {
             const produtosComImagens = data.produtos.map(produto => {
               // Verifica se o produto tem uma imagem
