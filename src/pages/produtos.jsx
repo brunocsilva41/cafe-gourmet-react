@@ -33,25 +33,18 @@ const Products = () => {
     const fetchProdutos = async () => {
       try {
         const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/produtos`);
-        console.log('Resposta da API:', response); // Adicionar log para verificar a resposta completa da API
         const data = response.data;
-        console.log('Dados da API:', data); // Adicionar log para verificar os dados da API
-        if (Array.isArray(data)) { // Verificação ajustada
+        if (Array.isArray(data)) {
           const produtosComImagens = data.map(produto => {
-            // Verifica se o produto tem uma imagem
             if (produto.imagem) {
-              // Converte o BLOB da imagem para uma URL utilizável
               const imagemUrl = blobToUrl(produto.imagem);
-              console.log(`Produto ID ${produto.id} - Nome: ${produto.name} - URL da imagem:`, imagemUrl);
               return { ...produto, imagemUrl };
             } else {
-              console.warn(`Produto com ID ${produto.id} não tem imagem.`);
               return produto;
             }
           });
           setProdutos(produtosComImagens);
 
-          // Obter categorias únicas
           const categoriasUnicas = [...new Set(data.map(produto => produto.categoria))];
           setCategorias(categoriasUnicas);
         } else {
