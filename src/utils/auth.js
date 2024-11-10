@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 
-const base_URL = process.env.REACT_APP_BASE_URL;
+const base_URL = process.env.REACT_APP_BASE_URL.endsWith('/') ? process.env.REACT_APP_BASE_URL : `${process.env.REACT_APP_BASE_URL}/`;
 
 export const loginUser = async (email, password, login, navigate, location) => {
   try {
