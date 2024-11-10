@@ -52,7 +52,7 @@ const CartIcon = ({ carrinho = [], setCarrinho }) => {
           {carrinho.length > 0 ? (
             carrinho.map((item, index) => (
               <div key={index} className="cart-item">
-                <img src={item.imagem} alt={item.nome} />
+                <img src={item.imagemUrl} alt={item.nome} /> {/* Corrigir para usar imagemUrl */}
                 <div className="cart-item-details">
                   <h3>{item.nome}</h3>
                   <p>Preço: R$ {Number(item.preco).toFixed(2)}</p>

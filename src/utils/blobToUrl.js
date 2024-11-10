@@ -3,13 +3,13 @@ export const blobToUrl = (blobData) => {
     console.warn('blobData está vazio ou indefinido.');
     return '';
   }
-  console.log('Convertendo BLOB para URL:', blobData);
 
   // Verifica se o blobData é do tipo Buffer
   if (blobData.type === 'Buffer') {
     blobData = new Uint8Array(blobData.data);
   }
 
-  const blob = new Blob([blobData], { type: 'image/jpeg' });
+  // Determina o tipo de imagem com base na extensão do arquivo ou tipo MIME
+  const blob = new Blob([blobData], { type: 'image/jpeg' }); // Ajuste o tipo conforme necessário
   return URL.createObjectURL(blob);
 };
