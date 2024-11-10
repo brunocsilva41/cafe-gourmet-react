@@ -27,7 +27,9 @@ export const getToken = () => {
 export const loginUser = async (email, password, login, navigate, location) => {
   try {
     console.log('Enviando requisição de login para o servidor');
-    const response = await axios.post(`${base_URL}login-conta`, { email, password });
+    const url = `${base_URL}login-conta`;
+    console.log('URL de requisição:', url);
+    const response = await axios.post(url, { email, password });
     if (response.status === 200) {
       login(response.data);
       localStorage.setItem('token', response.data.token);

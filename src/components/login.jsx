@@ -18,6 +18,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      console.log('Tentando login com:', { email, password });
       await loginUser(email, password, login, navigate, location);
     } catch (err) {
       console.error('Erro no login:', err);
