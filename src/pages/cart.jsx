@@ -13,6 +13,7 @@ const Cart = () => {
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('carrinho')) || [];
+    console.log('Itens do carrinho:', savedCart); // Adicione este log para depuração
     setCart(savedCart);
     setTotal(savedCart.reduce((acc, item) => acc + Number(item.preco) * item.quantidade, 0));
   }, []);
