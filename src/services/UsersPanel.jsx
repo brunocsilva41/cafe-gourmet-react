@@ -6,7 +6,7 @@ import 'reactjs-popup/dist/index.css';
 import '../assets/styles/dashboard.css';
 
 
-const base_URL = `https://${process.env.REACT_APP_BASE_URL}`;
+const base_URL = process.env.REACT_APP_BASE_URL;
 
 const UsersPanel = () => {
     const [users, setUsers] = useState([]);
