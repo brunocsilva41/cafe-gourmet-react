@@ -5,7 +5,7 @@ import '../assets/styles/global.css';
 import '../assets/styles/login.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
-import { loginUser } from '../utils/authUtils';
+import { loginUser } from '../utils/auth';
 
 const Login = () => {
   const navigate = useNavigate();

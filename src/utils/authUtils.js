@@ -33,6 +33,7 @@ export const loginUser = async (email, password, login, navigate, location) => {
     if (response.status === 200) {
       login(response.data);
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userName', response.data.userName);
       const from = location.state?.from?.pathname || '/conta';
       navigate(from, { replace: true });
     } else {
