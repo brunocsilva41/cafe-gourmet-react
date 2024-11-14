@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const base_URL = process.env.REACT_APP_BASE_URL;
+const base_URL = `https://${process.env.REACT_APP_BASE_URL}`;
 
 export const useVerificarLogin = () => {
   const navigate = useNavigate();
