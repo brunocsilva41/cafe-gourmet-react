@@ -3,13 +3,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../assets/styles/dashboard.css';
 
-const base_URL = process.env.REACT_APP_BASE_URL;
+const base_URL = `https://${process.env.REACT_APP_BASE_URL}`;
 
 const LogsPanel = () => {
     const [logs, setLogs] = useState([]);
 
     useEffect(() => {
-        axios.get(`${base_URL}/logs`)
+        axios.get(`https://${base_URL}/logs`)
             .then(response => setLogs(response.data))
             .catch(error => console.error('Erro ao carregar logs:', error));
     }, []);
