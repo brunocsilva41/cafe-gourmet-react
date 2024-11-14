@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 
-const base_URL = process.env.REACT_APP_BASE_URL.endsWith('/') ? process.env.REACT_APP_BASE_URL : `${process.env.REACT_APP_BASE_URL}/`;
+const base_URL = process.env.REACT_APP_BASE_URL;
 
 export const loginUser = async (email, password, login, navigate, location) => {
   try {
     console.log('Enviando requisição de login para o servidor');
-    const url = `${base_URL}login-conta`;
+    const url = `${base_URL}/login-conta`;
     console.log('URL de requisição:', url);
     const response = await axios.post(url, { email, password });
     if (response.status === 200) {
