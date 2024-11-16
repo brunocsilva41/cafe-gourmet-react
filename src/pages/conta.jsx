@@ -56,39 +56,45 @@ const Conta = () => {
   return (
     <>
       <Header />
-      <div>
+      <div className="profile-container">
         <h1>Perfil do Usuário</h1>
-        <p>Nome: {user?.userName}</p>
-        <p>Email: {user?.userEmail}</p>
-        {user?.role === 'admin' && (
-          <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
-        )}
+        <div className="profile-info">
+          <p><strong>Nome:</strong> {user?.userName}</p>
+          <p><strong>Email:</strong> {user?.userEmail}</p>
+          {user?.role === 'admin' && (
+            <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
+          )}
+        </div>
 
         <h2>Pedidos Recentes</h2>
-        <ul>
-          {orders.map(order => (
-            <li key={order.id}>
-              Pedido #{order.id} - {order.date} - R$ {order.total.toFixed(2)}
-              <button onClick={() => handleReorder(order.id)}>Refazer Pedido</button>
-            </li>
-          ))}
-        </ul>
+        <div className="orders-container">
+          <ul>
+            {orders.map(order => (
+              <li key={order.id}>
+                Pedido #{order.id} - {order.date} - R$ {order.total.toFixed(2)}
+                <button onClick={() => handleReorder(order.id)}>Refazer Pedido</button>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <h2>Formas de Pagamento</h2>
-        <ul>
-          {paymentMethods.map(method => (
-            <li key={method.id}>
-              {method.type} - {method.type === 'Credit Card' ? `**** **** **** ${method.last4}` : method.email}
-            </li>
-          ))}
-        </ul>
-        <input 
-          type="text" 
-          value={newCard} 
-          onChange={(e) => setNewCard(e.target.value)} 
-          placeholder="Número do Cartão" 
-        />
-        <button onClick={handleAddCard}>Adicionar Cartão</button>
+        <div className="payment-methods-container">
+          <ul>
+            {paymentMethods.map(method => (
+              <li key={method.id}>
+                {method.type} - {method.type === 'Credit Card' ? `**** **** **** ${method.last4}` : method.email}
+              </li>
+            ))}
+          </ul>
+          <input 
+            type="text" 
+            value={newCard} 
+            onChange={(e) => setNewCard(e.target.value)} 
+            placeholder="Número do Cartão" 
+          />
+          <button onClick={handleAddCard}>Adicionar Cartão</button>
+        </div>
       </div>
     </>
   );
