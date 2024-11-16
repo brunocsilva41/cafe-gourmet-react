@@ -8,7 +8,16 @@ const Confirmacao = ({ pedido }) => {
 
   const processarCompra = () => {
     console.log('Processando pedido:', pedido);
-    navigate('/checkout', { state: { pedido } });
+    const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+    const novoPedido = {
+      ...pedido,
+      numero: pedidos.length + 1,
+      data: new Date().toLocaleDateString(),
+      mostrarDetalhes: false,
+    };
+    pedidos.push(novoPedido);
+    localStorage.setItem('pedidos', JSON.stringify(pedidos));
+    navigate('/pedidos');
   };
 
   return (

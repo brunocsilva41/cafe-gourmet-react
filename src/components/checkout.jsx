@@ -48,7 +48,12 @@ const Checkout = () => {
   };
 
   const handleCheckoutConfirmation = () => {
-    navigate('/confirmacao', { state: { pedido: orderDetails } });
+    const pedido = {
+      itens: orderDetails,
+      total: orderTotal,
+      totalComFrete: orderTotalWithShipping,
+    };
+    navigate('/confirmacao', { state: { pedido } });
   };
 
   const handleCepChange = (e) => {

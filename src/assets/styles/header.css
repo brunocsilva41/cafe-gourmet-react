@@ -22,4 +22,7 @@
 .buttonlogout:hover {
   background-color: #004494; /* Adiciona um efeito de hover */
 }
-
+.buttonlogout-span{
+  border-radius: 2px solid blue;
+  color: white;
+}
