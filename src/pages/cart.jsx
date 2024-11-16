@@ -42,7 +42,15 @@ const Cart = () => {
         <div id="carrinhoItens" className="cart-items">
           {cart.map((item, index) => (
             <div key={index} className="cart-item">
-              <img src={item.imagem} alt={item.name} style={{ width: '100px', height: '100px' }} onError={(e) => { e.target.onerror = null; e.target.src = 'default-image-url'; }} />
+              <img 
+                src={item.imagem} 
+                alt={item.name} 
+                style={{ width: '100px', height: '100px' }} 
+                onError={(e) => { 
+                  e.target.onerror = null; 
+                  e.target.src = 'default-image-url'; 
+                }} 
+              />
               <h3>{item.name}</h3>
               <p>Preço: R$ {Number(item.preco).toFixed(2)} x {item.quantidade}</p>
               <button onClick={() => removerItem(index)} className="remove-item-button">
