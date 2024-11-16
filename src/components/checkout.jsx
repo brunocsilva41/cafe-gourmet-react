@@ -93,7 +93,7 @@ const Checkout = () => {
           <ul>
             {orderDetails.map((item, index) => (
               <li key={index}>
-                <img src={item.imagem} alt={item.name} />
+                <img src={item.imagemURL} alt={item.name} />
                 <div className="item-info">
                   <p>{item.name}</p>
                   <p>R$ {Number(item.preco).toFixed(2)}</p>
