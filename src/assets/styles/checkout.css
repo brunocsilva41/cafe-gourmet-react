@@ -23,12 +23,44 @@ h2 {
 }
 
 .order-details li {
+  display: flex;
+  align-items: center;
   background-color: #fff;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   color: #333;
+}
+
+.order-details img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.order-details .item-info {
+  flex-grow: 1;
+}
+
+.order-details .item-actions {
+  display: flex;
+  align-items: center;
+}
+
+.order-details .item-actions button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.order-details .item-actions button:hover {
+  background-color: #45a049;
 }
 
 .cep-input, .calculate-shipping-button, .login-button, .confirm-checkout-button {

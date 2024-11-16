@@ -1,10 +1,18 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../assets/styles/confirmacao.css';
 import Header from './Header';
 
-const Confirmacao = ({ pedido }) => {
+const Confirmacao = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { pedido } = location.state || {};
+
+  useEffect(() => {
+    if (!pedido) {
+      navigate('/');
+    }
+  }, [pedido, navigate]);
 
   const processarCompra = () => {
     console.log('Processando pedido:', pedido);
@@ -17,6 +25,8 @@ const Confirmacao = ({ pedido }) => {
     };
     pedidos.push(novoPedido);
     localStorage.setItem('pedidos', JSON.stringify(pedidos));
+    localStorage.removeItem('carrinho');
+    alert('Pedido efetuado com sucesso!');
     navigate('/pedidos');
   };
 

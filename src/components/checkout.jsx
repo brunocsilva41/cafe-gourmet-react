@@ -66,6 +66,20 @@ const Checkout = () => {
     handleOrderChange(newOrderDetails);
   };
 
+  const increaseQuantity = (index) => {
+    const newOrderDetails = [...orderDetails];
+    newOrderDetails[index].quantidade += 1;
+    handleOrderChange(newOrderDetails);
+  };
+
+  const decreaseQuantity = (index) => {
+    const newOrderDetails = [...orderDetails];
+    if (newOrderDetails[index].quantidade > 1) {
+      newOrderDetails[index].quantidade -= 1;
+      handleOrderChange(newOrderDetails);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -79,14 +93,21 @@ const Checkout = () => {
           <ul>
             {orderDetails.map((item, index) => (
               <li key={index}>
-                {item.nome} - 
-                <input 
-                  type="number" 
-                  value={item.quantidade} 
-                  onChange={(e) => handleQuantityChange(index, Number(e.target.value))} 
-                  min="1"
-                /> 
-                x R$ {Number(item.preco).toFixed(2)}
+                <img src={item.foto} alt={item.nome} />
+                <div className="item-info">
+                  <p>{item.nome}</p>
+                  <p>R$ {Number(item.preco).toFixed(2)}</p>
+                </div>
+                <div className="item-actions">
+                  <button onClick={() => decreaseQuantity(index)}>-</button>
+                  <input 
+                    type="number" 
+                    value={item.quantidade} 
+                    onChange={(e) => handleQuantityChange(index, Number(e.target.value))} 
+                    min="1"
+                  />
+                  <button onClick={() => increaseQuantity(index)}>+</button>
+                </div>
               </li>
             ))}
           </ul>
