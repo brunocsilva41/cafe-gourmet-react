@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f8f8f8;
-    color: #333;
+    color: #444; /* Melhor visibilidade */
     align-items: center;
     width: 100%;
     overflow-x: hidden;
@@ -35,7 +35,7 @@ body {
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 40px;
-    animation: slideInUp 1s ease-in-out;
+    animation: slideInUp 1s ease-in-out, fadeIn 0.5s ease-in-out;
 }
 
 .content {
@@ -136,6 +136,7 @@ body {
 .main-panel h1, p1{
     width: 50%;
     background-color: aqua;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .display-panel {
@@ -159,6 +160,7 @@ body {
     flex-wrap: wrap;
     max-width: 1200px;
     margin: 0 auto;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .footer-logo img {

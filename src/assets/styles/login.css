@@ -39,6 +39,7 @@ form button:hover {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .login-form img.logo {
@@ -58,6 +59,7 @@ form button:hover {
 
 .login-form label {
     text-align: left;
+    color: #333;
 }
 
 .login-form input {
@@ -120,4 +122,14 @@ form button:hover {
     justify-content: center;
     align-items: center;
     text-decoration: none;
+}
+
+.login-form p {
+    color: #333;
+}
+
+/* Adicionando animação de fade-in */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

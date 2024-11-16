@@ -4,6 +4,7 @@
   right: 20px;
   cursor: pointer;
   z-index: 1000; /* Garantir que o ícone esteja acima de outros elementos */
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .cart-button {
@@ -17,7 +18,7 @@
 
 .cart-count {
   background-color: red;
-  color: white;
+  color: #fff; /* Melhor visibilidade */
   border-radius: 50%;
   padding: 5px 10px;
   position: static; /* Remover a posição absoluta */
@@ -96,4 +97,10 @@
 
 .finalizar-compra:hover {
   background-color: #45a049;
+}
+
+/* Adicionando animação de fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

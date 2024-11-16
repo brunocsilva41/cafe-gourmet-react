@@ -10,12 +10,16 @@
   cursor: pointer;
 }
 .buttonlogout{
-  background-color: #333;
+  background-color: #0056b3; /* Melhor visibilidade */
   color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 12px solid blue;
   background-color: blue;
+}
+
+.buttonlogout:hover {
+  background-color: #004494; /* Adiciona um efeito de hover */
 }
 

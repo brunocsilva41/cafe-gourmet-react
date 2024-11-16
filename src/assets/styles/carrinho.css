@@ -1,6 +1,7 @@
 .cart-items {
   display: flex;
   flex-direction: column;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .cart-item {
@@ -17,10 +18,12 @@
 
 .cart-item h3 {
   margin: 0;
+  color: #333;
 }
 
 .cart-item p {
   margin: 2px 0;
+  color: #333;
 }
 
 .remove-item-button {
@@ -47,4 +50,9 @@
 
 button:hover {
   background-color: #45a049;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

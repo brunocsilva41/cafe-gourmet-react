@@ -23,8 +23,12 @@ header.Navbar {
   box-sizing: border-box;
 }
 .linksnavbar a{
-  color: white;
+  color: #f0f0f0; /* Melhor visibilidade */
   text-decoration: none;
   font-size: 20px;
   margin: 0 15px; /* Adiciona espaço entre os links */
+}
+
+.linksnavbar a:hover {
+    color: #ff9900; /* Adiciona um efeito de hover */
 }
