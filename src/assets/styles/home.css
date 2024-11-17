@@ -105,17 +105,12 @@ body {
     justify-content: space-between;
     padding: 0 20px;
     pointer-events: none; /* Permite clicar na imagem */
-}
-
-.slide-button {
     background-color: rgba(0, 0, 0, 0.5);
     border: none;
     color: white;
     padding: 10px;
     cursor: pointer;
     border-radius: 50%;
-    pointer-events: auto; /* Permite clicar no botão */
-    z-index: 1; /* Garante que os botões fiquem acima das imagens */
 }
 
 .slide-button:hover {
