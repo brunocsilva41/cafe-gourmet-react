@@ -99,20 +99,11 @@ body {
 .slide-buttons {
     position: absolute;
     top: 50%;
-    width: 100%; /* Garante que os botões cubram a largura do slide */
+    width: 50%; 
     transform: translateY(-50%);
     display: flex;
-    justify-content: space-between; /* Espaçamento entre os botões */
-    pointer-events: none; /* Evita que interfiram no clique na imagem */
-}
-.slide-buttons#prev {
-    position: absolute;
-    left: 10px; /* Ajuste a posição para a esquerda */
-}
-
-.slide-buttons#next {
-    position: absolute;
-    right: 10px; /* Ajuste a posição para a direita */
+    justify-content: space-between; 
+    pointer-events: none; 
 }
 .slide-buttons:hover {
     background-color: rgba(0, 0, 0, 0.8);
