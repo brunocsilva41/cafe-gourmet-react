@@ -61,8 +61,8 @@ const Home = () => {
             <div className="footer-links">
               <h3>Quick Links</h3>
               <ul>
-                <li><a href="/shop">Shop</a></li>
-                <li><a href="/account">Account</a></li>
+                <li><a href="/produtos">Shop</a></li>
+                <li><a href="/conta">Account</a></li>
                 <li><a href="/cart">Cart</a></li>
               </ul>
             </div>
