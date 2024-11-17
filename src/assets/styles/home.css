@@ -99,16 +99,22 @@ body {
 .slide-buttons {
     position: absolute;
     top: 50%;
+    width: 100%; /* Garante que os botões cubram a largura do slide */
     transform: translateY(-50%);
-    justify-content: space-between;
-    padding: 0 20px;
-    pointer-events: none; /* Permite clicar na imagem */
-    cursor: pointer;
-    border-radius: 50%;
-    text-align: justify;
+    display: flex;
+    justify-content: space-between; /* Espaçamento entre os botões */
+    pointer-events: none; /* Evita que interfiram no clique na imagem */
+}
+.slide-buttons#prev {
+    position: absolute;
+    left: 10px; /* Ajuste a posição para a esquerda */
 }
 
-.slide-button:hover {
+.slide-buttons#next {
+    position: absolute;
+    right: 10px; /* Ajuste a posição para a direita */
+}
+.slide-buttons:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
