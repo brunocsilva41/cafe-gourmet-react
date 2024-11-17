@@ -96,7 +96,7 @@ body {
     margin-top: 10px;
 }
 
-.slide-button{
+.slide-buttons{
     position: absolute;
     top: 50%;
     width: 50%; 
@@ -104,6 +104,15 @@ body {
     display: flex;
     justify-content: space-between; 
     pointer-events: none; 
+}
+.slide-button#prev {
+    position: absolute;
+    left: 30px; /* Ajuste a posição para a esquerda */
+}
+
+.slide-button#next {
+    position: absolute;
+    right: 30px; /* Ajuste a posição para a direita */
 }
 .slide-buttons:hover {
     background-color: rgba(0, 0, 0, 0.8);
