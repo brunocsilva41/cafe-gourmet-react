@@ -94,23 +94,32 @@ body {
 }
 
 .slide-buttons {
-    position: absolute;
     top: 50%;
     width: 100%; /* Ajuste a largura para 100% */
     transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
     pointer-events: none;
+    position: absolute; /* Adicionado para posicionar corretamente */
+}
+
+.slide-button {
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px; /* Tamanho da fonte ajustado */
+    pointer-events: all;
+    z-index: 1; /* Garantir que os botões fiquem acima das imagens */
 }
 
 .slide-button#prev {
-    position: absolute;
     left: 10px; /* Ajuste a posição para a esquerda */
     pointer-events: all;
 }
 
 .slide-button#next {
-    position: absolute;
     right: 10px; /* Ajuste a posição para a direita */
     pointer-events: all;
 }
