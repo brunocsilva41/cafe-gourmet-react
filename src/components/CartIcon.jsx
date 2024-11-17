@@ -50,13 +50,13 @@ const CartIcon = ({ carrinho = [], setCarrinho }) => {
           </button>
           <h2>Seu Carrinho</h2>
           {carrinho.length > 0 ? (
-            carrinho.map((item, index) => (
+            carrinho.map((produto, index) => (
               <div key={index} className="cart-item">
-                <img src={item.imagemUrl} alt={item.nome} /> {/* Certifique-se de que imagemUrl está correto */}
+                <img src={produto.imagemUrl} alt={produto.nome} /> {/* Certifique-se de que imagemUrl está correto */}
                 <div className="cart-item-details">
-                  <h3>{item.nome}</h3>
-                  <p>Preço: R$ {Number(item.preco).toFixed(2)}</p>
-                  <p>Quantidade: {item.quantidade}</p>
+                  <h3>{produto.nome}</h3>
+                  <p>Preço: R$ {Number(produto.preco).toFixed(2)}</p>
+                  <p>Quantidade: {produto.quantidade}</p>
                 </div>
                 <button onClick={() => removerItem(index)} className="remove-item-button">
                   <FaTrash />
