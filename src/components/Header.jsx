@@ -19,7 +19,7 @@ const Header = () => {
     <header className="header">
       {user && (
         <div className="buttonLogout">
-          <span>{userName}</span>
+          <span classname="UserName">{userName}</span>
           <button onClick={handleLogout}>Sair</button>
         </div>
       )}
