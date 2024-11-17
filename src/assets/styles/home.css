@@ -66,6 +66,7 @@ body {
 }
 
 .slides {
+    min-width: 100%;
     display: flex;
     transition: transform 0.5s ease-in-out;
     align-items: center;
@@ -78,11 +79,14 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    animation: fadeIn 0.5s ease-in-out;
+    
 }
 
 .slide img {
     width: 80%; /* Ajuste o tamanho da imagem */
     border-radius: 10px;
+    border: 1px solid #000000;
 }
 
 .slide .caption {
@@ -94,35 +98,44 @@ body {
 }
 
 .slide-buttons {
-    top: 50%;
-    width: 100%; /* Ajuste a largura para 100% */
+    position: absolute;
+    top: 50%; /* Centraliza verticalmente */
+    width: 100%; /* Garante que os botões cubram a largura do slide */
     transform: translateY(-50%);
     display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-    position: absolute; /* Adicionado para posicionar corretamente */
+    justify-content: space-between; /* Coloca as setas nas extremidades */
+    pointer-events: none; /* Evita que interfiram no clique */
 }
 
 .slide-button {
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo semitransparente */
     color: #fff;
     border: none;
-    padding: 10px;
+    padding: 5px;
+    width: 10%;
     cursor: pointer;
-    font-size: 24px; /* Tamanho da fonte ajustado */
-    pointer-events: all;
-    z-index: 1; /* Garantir que os botões fiquem acima das imagens */
+    font-size: 15px;
+    border-radius: 20%; /* Formato circular */
+    pointer-events: auto; /* Permite o clique nos botões */
+    z-index: 2; /* Garante que os botões fiquem acima da imagem */
+    transition: background-color 0.3s ease;
+}
+
+.slide-button:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* Fundo mais escuro no hover */
 }
 
 .slide-button#prev {
-    left: 10px; /* Ajuste a posição para a esquerda */
-    pointer-events: all;
+    position: absolute;
+    left: 0px; /* Afasta o botão da borda esquerda */
 }
 
 .slide-button#next {
-    right: 10px; /* Ajuste a posição para a direita */
-    pointer-events: all;
+    position: absolute;
+    right: 0px; /* Afasta o botão da borda direita */
 }
+
+
 
 @keyframes fadeIn {
     from { opacity: 0; }
