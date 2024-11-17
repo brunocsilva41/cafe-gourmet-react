@@ -98,11 +98,11 @@ body {
 .slide-buttons {
     position: absolute;
     top: 50%;
-    width: 100%;
+    width: calc(100% + 40px); /* Aumente a largura para incluir os botões */
     display: flex;
     justify-content: space-between;
     transform: translateY(-50%);
-    padding: 0 10px; /* Ajuste a posição das setas */
+    padding: 0 20px; /* Ajuste a posição das setas */
 }
 
 .slide-button {
