@@ -38,6 +38,10 @@ const Home = () => {
           </div>
           <div className="slides-panel">
             <h2>Nossas Filiais</h2>
+            <div className="slide-buttons">
+              <button className="slide-button" id="prev" onClick={prevSlide}>&#10094;</button>
+              <button className="slide-button" id="next" onClick={nextSlide}>&#10095;</button>
+            </div>
             <div className="slides" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
               {slides.map((slide, index) => (
                 <div className="slide" key={index}>
@@ -45,10 +49,6 @@ const Home = () => {
                   <div className="caption">{captions[index]}</div>
                 </div>
               ))}
-            </div>
-            <div className="slide-buttons">
-              <button className="slide-button" id="prev" onClick={prevSlide}>&#10094;</button>
-              <button className="slide-button" id="next" onClick={nextSlide}>&#10095;</button>
             </div>
           </div>
         </div>
