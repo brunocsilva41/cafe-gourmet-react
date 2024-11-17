@@ -43,7 +43,7 @@ const Cart = () => {
           {cart.map((item, index) => (
             <div key={index} className="cart-item">
               <img 
-                src={item.imagem} 
+                src={item.imagemUrl} 
                 alt={item.name} 
                 style={{ width: '100px', height: '100px' }} 
                 onError={(e) => { 

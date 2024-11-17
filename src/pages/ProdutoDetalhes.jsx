@@ -33,6 +33,17 @@ const ProdutoDetalhes = () => {
     fetchProduto();
   }, [id]);
 
+  const adicionarAoCarrinho = () => {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const produtoNoCarrinho = carrinho.find(item => item.id === produto.id);
+    if (produtoNoCarrinho) {
+      produtoNoCarrinho.quantidade += 1;
+    } else {
+      carrinho.push({ ...produto, quantidade: 1 });
+    }
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  };
+
   if (!produto) {
     return <p>Carregando...</p>;
   }
@@ -52,6 +63,7 @@ const ProdutoDetalhes = () => {
         <p>{produto.descricao}</p>
         <p>Quantidade disponível: {produto.estoque}</p>
         {/* Adicione mais detalhes conforme necessário */}
+        <button onClick={adicionarAoCarrinho}>Adicionar ao Carrinho</button>
         </div>
       </main>
     </>
