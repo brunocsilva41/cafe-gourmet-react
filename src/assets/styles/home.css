@@ -40,11 +40,10 @@ body {
 
 .content {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* Alinha o conteúdo à esquerda */
     width: 100%;
     max-width: 1200px;
-    margin: 10px 0; /* Aumente o espaço entre as seções */
-
+    margin: 10px 0;
 }
 
 .company-info {
@@ -52,11 +51,10 @@ body {
     padding: 30px;
     padding-right: 20px;
     box-sizing: border-box;
-    margin-right: 200px;
+    margin-right: 20px; /* Reduz a margem direita */
 }
 
 .slides-panel {
-    margin-left: 200px;
     width: 50%;
     max-width: 900px;
     overflow: hidden;
@@ -65,7 +63,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    justify-content: space-between;
 }
 
 .slides {
@@ -96,26 +93,26 @@ body {
     margin-top: 10px;
 }
 
-.slide-buttons{
+.slide-buttons {
     position: absolute;
     top: 50%;
-    width: 50%; 
+    width: 100%; /* Ajuste a largura para 100% */
     transform: translateY(-50%);
     display: flex;
-    justify-content: space-between; 
-    pointer-events: none; 
+    justify-content: space-between;
+    pointer-events: none;
 }
+
 .slide-button#prev {
     position: absolute;
-    left: 30px; /* Ajuste a posição para a esquerda */
+    left: 10px; /* Ajuste a posição para a esquerda */
+    pointer-events: all;
 }
 
 .slide-button#next {
     position: absolute;
-    right: 30px; /* Ajuste a posição para a direita */
-}
-.slide-buttons:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    right: 10px; /* Ajuste a posição para a direita */
+    pointer-events: all;
 }
 
 @keyframes fadeIn {
