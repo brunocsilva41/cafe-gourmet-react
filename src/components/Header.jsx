@@ -19,8 +19,7 @@ const Header = () => {
     <header className="header">
       {user && (
         <div className="userContainer">
-          <span className="userNameIcon">{userName ? userName.charAt(0) : ''}</span>
-          <span className="userName">{userName}</span>
+          <span className="userNameIcon">{userName}</span>
           <button className="buttonLogout" onClick={handleLogout}>Sair</button>
         </div>
       )}
