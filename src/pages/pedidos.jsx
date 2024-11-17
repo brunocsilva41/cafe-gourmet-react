@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assets/styles/pedidos.css';
 import Header from '../components/Header';
 
@@ -16,6 +16,12 @@ const Pedidos = () => {
     setPedidos(novosPedidos);
   };
 
+  const removerPedido = (index) => {
+    const novosPedidos = pedidos.filter((_, i) => i !== index);
+    setPedidos(novosPedidos);
+    localStorage.setItem('pedidos', JSON.stringify(novosPedidos));
+  };
+
   return (
     <>
       <Header />
@@ -29,6 +35,7 @@ const Pedidos = () => {
                 <p>Data: {pedido.data}</p>
                 <p>Total: R$ {pedido.total.toFixed(2)}</p>
                 <button>Acompanhar Rastreio</button>
+                <button onClick={() => removerPedido(index)}>Remover Pedido</button>
               </div>
               {pedido.mostrarDetalhes && (
                 <div className="pedido-detalhes">
