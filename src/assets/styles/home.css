@@ -1,11 +1,12 @@
-/* Estilização da tela home */
-
+/* Geral */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f8f8;
     color: #444; /* Melhor visibilidade */
+    display: flex;
+    flex-direction: column;
     align-items: center;
     width: 100%;
     overflow-x: hidden;
@@ -21,57 +22,25 @@ body {
     box-sizing: border-box;
 }
 
-.main-panel img {
-    width: 100%;
-    max-width: 800px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    animation: zoomIn 1s ease-in-out;
-}
-
-.company-text {
-    max-width: 800px;
-    text-align: center;
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 40px;
-    animation: slideInUp 1s ease-in-out, fadeIn 0.5s ease-in-out;
-}
-
-.content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-    margin: 10px 0; /* Aumente o espaço entre as seções */
-
-}
-
-.company-info {
-    width: 45%;
-    padding: 30px;
-    padding-right: 20px;
-    box-sizing: border-box;
-    margin-right: 200px;
-}
-
 .slides-panel {
-    margin-left: 200px;
-    width: 50%;
-    max-width: 900px;
+    width: 100%;
+    max-width: 800px;
     overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    justify-content: space-between;
+    margin: 20px 0;
+    border-radius: 10px;
+    background-color: #000; /* Fundo preto para dar destaque */
 }
 
 .slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    align-items: center;
+    width: 100%;
+    height: auto;
 }
 
 .slide {
@@ -81,74 +50,101 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .slide img {
-    width: 80%; /* Ajuste o tamanho da imagem */
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ajuste automático para manter proporção */
     border-radius: 10px;
 }
 
 .slide .caption {
-    text-align: center;
-    font-size: 20px; /* Aumente o tamanho da fonte */
+    position: absolute;
+    bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
     font-weight: bold;
-    color: #fff; /* Cor branca */
-    margin-top: 10px;
+    text-align: center;
+    max-width: 80%;
 }
 
 .slide-buttons {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: calc(100% - 40px); /* Ajuste para considerar o padding */
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
-    pointer-events: none; /* Permite clicar na imagem */
+    pointer-events: none; /* Evitar interferência no clique da imagem */
 }
 
 .slide-button {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     border: none;
     color: white;
-    padding: 10px;
+    padding: 15px;
     cursor: pointer;
     border-radius: 50%;
-    pointer-events: auto; /* Permite clicar no botão */
-    z-index: 1; /* Garante que os botões fiquem acima das imagens */
+    pointer-events: auto; /* Ativar clique nas setas */
+    z-index: 1; /* Garantir que as setas fiquem acima de tudo */
+    transition: background-color 0.3s ease;
 }
 
 .slide-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 1);
 }
 
+.slide-button#prev {
+    left: 10px;
+}
+
+.slide-button#next {
+    right: 10px;
+}
+
+/* Animações Melhoradas */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
 @keyframes zoomIn {
-    from { transform: scale(0.5); }
-    to { transform: scale(1); }
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
 }
 
-@keyframes slideInUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
 }
 
-.main-panel h1, p1{
-    width: 50%;
-    background-color: aqua;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-.display-panel {
-    display: flex;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
+/* Footer */
 .footer {
     background-color: #333;
     color: #fff;
@@ -156,6 +152,7 @@ body {
     text-align: center;
     width: 100%;
     box-sizing: border-box;
+    margin-top: 20px;
 }
 
 .footer-content {
@@ -164,7 +161,6 @@ body {
     flex-wrap: wrap;
     max-width: 1200px;
     margin: 0 auto;
-    animation: fadeIn 0.5s ease-in-out;
 }
 
 .footer-logo img {
@@ -176,61 +172,10 @@ body {
     font-size: 14px;
 }
 
-.footer-links, .footer-contact, .footer-newsletter {
-    margin: 20px 0;
-}
-
-.footer-links h3, .footer-contact h3, .footer-newsletter h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
-
-.footer-links ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links ul li {
-    margin: 5px 0;
-}
-
-.footer-links ul li a {
-    color: #fff;
-    text-decoration: none;
-}
-
 .footer-links ul li a:hover {
     text-decoration: underline;
 }
 
-.footer-contact p, .footer-newsletter p {
-    margin: 5px 0;
-}
-
-.footer-newsletter input {
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 300px;
-}
-
-.footer-newsletter button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ff9900;
-    color: #fff;
-    cursor: pointer;
-}
-
 .footer-newsletter button:hover {
     background-color: #e68a00;
-}
-
-.footer-bottom {
-    margin-top: 20px;
-    font-size: 14px;
 }
