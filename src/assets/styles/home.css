@@ -65,7 +65,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 40px; /* Adicione padding para espaço dos botões */
+    justify-content: space-between;
 }
 
 .slides {
@@ -99,12 +99,12 @@ body {
 .slide-buttons {
     position: absolute;
     top: 50%;
-    width: calc(100% + 80px); /* Aumente a largura para incluir os botões */
+    transform: translateY(-50%);
+    width: calc(100% - 40px); /* Ajuste para considerar o padding */
     display: flex;
     justify-content: space-between;
-    transform: translateY(-50%);
+    padding: 0 20px;
     pointer-events: none; /* Permite clicar na imagem */
-    padding: 0 20px; /* Ajuste a posição das setas */
 }
 
 .slide-button {
@@ -115,6 +115,7 @@ body {
     cursor: pointer;
     border-radius: 50%;
     pointer-events: auto; /* Permite clicar no botão */
+    z-index: 1; /* Garante que os botões fiquem acima das imagens */
 }
 
 .slide-button:hover {
