@@ -100,15 +100,10 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: calc(100% - 40px); /* Ajuste para considerar o padding */
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
     pointer-events: none; /* Permite clicar na imagem */
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
-    color: white;
-    padding: 10px;
     cursor: pointer;
     border-radius: 50%;
 }
