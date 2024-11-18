@@ -1,6 +1,7 @@
 import { default as React, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'reactjs-popup/dist/index.css';
+import logo from '../assets/imagens/logoOF.png';
 import '../assets/styles/global.css';
 import '../assets/styles/login.css';
 import Header from '../components/Header';
@@ -31,7 +32,7 @@ const Login = () => {
       <Header />
       <div className="container">
         <div className="login-form">
-          <img src="" alt="Logo da Empresa" className="logo" />
+          <img src={logo} alt="Logo da Empresa" className="logo" />
           <h2> Realize o Login com:</h2>
           {error && <p className="error-message">{error}</p>}
           <form id="loginForm" onSubmit={handleSubmit}>

@@ -1,0 +1,76 @@
+.painel-criarconta {
+    height: 80vh;
+    width: 80%;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Ajuste a largura conforme necessário */
+    max-width: 90vw; /* Para garantir que o formulário não ultrapasse a largura da tela */
+    text-align: center;
+}
+
+.texto {
+    margin-bottom: 20px;
+}
+
+.formulario label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.formulario input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.formulario button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.formulario button:hover {
+    background-color: #45a049;
+}
+
+.links-adicionais {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social-login {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.social-login.google {
+    background-color: #db4437;
+    color: white;
+}
+
+.social-login.facebook {
+    background-color: #3b5998;
+    color: white;
+}
