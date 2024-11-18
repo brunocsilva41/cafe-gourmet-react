@@ -9,7 +9,7 @@ const LogsPanel = () => {
     const [logs, setLogs] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://${base_URL}/logs`)
+        axios.get(`{base_URL}/logs`)
             .then(response => setLogs(response.data))
             .catch(error => console.error('Erro ao carregar logs:', error));
     }, []);
