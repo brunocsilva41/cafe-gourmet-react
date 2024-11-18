@@ -104,3 +104,36 @@ h1 {
 .panel button:hover {
     background-color: #0056b3;
 }
+
+.logs-panel {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 45%;
+    margin: 20px auto;
+}
+
+.logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.logs-table th, .logs-table td {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    text-align: left;
+}
+
+.logs-table th {
+    background-color: #f4f4f9;
+}
+
+.logs-table tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.logs-table tr:nth-child(even) {
+    background-color: #fff;
+}

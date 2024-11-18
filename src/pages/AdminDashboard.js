@@ -32,10 +32,10 @@ const AdminDashboard = () => {
   return (
     <>
       <Header />
-      <div>
+      <div className='users-panel'>
         <h1>Admin Dashboard</h1>
         <UsersPanel />
-        <div>
+        <div className='logs-panel'>
           <LogsPanel />
         </div>
       </div>
