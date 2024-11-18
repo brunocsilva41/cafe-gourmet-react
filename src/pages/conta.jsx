@@ -8,7 +8,6 @@ import { useAuth } from '../context/AuthContext';
 const Conta = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
-  const [orders, setOrders] = useState([]);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [newCard, setNewCard] = useState('');
 
@@ -22,33 +21,27 @@ const Conta = () => {
       setUser({ userId, userName, userEmail, role });
     }
 
-    // Fetch orders and payment methods from an API or local storage
-    const fetchedOrders = [
-      { id: 1, date: '2023-09-01', total: 150.00 },
-      { id: 2, date: '2023-08-15', total: 200.00 }
-    ];
-    const fetchedPaymentMethods = [
-      { id: 1, type: 'Credit Card', last4: '1234' },
-      { id: 2, type: 'PayPal', email: 'user@example.com' }
-    ];
+    // Fetch payment methods from the backend
+    const fetchPaymentMethods = async () => {
+      try {
+        const response = await axios.get(`/api/metodos-de-pagamento/${userId}`);
+        setPaymentMethods(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar métodos de pagamento:', error);
+      }
+    };
 
-    setOrders(fetchedOrders);
-    setPaymentMethods(fetchedPaymentMethods);
+    fetchPaymentMethods();
   }, [setUser]);
-
-  const handleReorder = (orderId) => {
-    console.log(`Reordering order ${orderId}`);
-    navigate(`/reorder/${orderId}`);
-  };
 
   const handleAddCard = async () => {
     if (newCard) {
       try {
-        const response = await axios.post('/api/add-card', { cardNumber: newCard });
-        setPaymentMethods([...paymentMethods, response.data]);
+        const response = await axios.post(`/api/add-metodos-de-pagamento/${user.userId}`, { metodo: newCard });
+        setPaymentMethods([...paymentMethods, { id: response.data.id, type: 'Credit Card', last4: newCard.slice(-4) }]);
         setNewCard('');
       } catch (error) {
-        console.error('Error adding card:', error);
+        console.error('Erro ao adicionar método de pagamento:', error);
       }
     }
   };
@@ -64,18 +57,6 @@ const Conta = () => {
           {user?.role === 'admin' && (
             <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
           )}
-        </div>
-
-        <h2>Pedidos Recentes</h2>
-        <div className="orders-container">
-          <ul>
-            {orders.map(order => (
-              <li key={order.id}>
-                Pedido #{order.id} - {order.date} - R$ {order.total.toFixed(2)}
-                <button onClick={() => handleReorder(order.id)}>Refazer Pedido</button>
-              </li>
-            ))}
-          </ul>
         </div>
 
         <h2>Formas de Pagamento</h2>
