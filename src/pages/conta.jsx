@@ -21,21 +21,23 @@ const Conta = () => {
       setUser({ userId, userName, userEmail, role });
     }
 
-    // Fetch payment methods from the backend
-    const fetchPaymentMethods = async () => {
-      try {
-        const response = await axios.get(`/api/metodos-de-pagamento/${userId}`);
-        setPaymentMethods(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar métodos de pagamento:', error);
-      }
-    };
+    if (userId) {
+      // Fetch payment methods from the backend
+      const fetchPaymentMethods = async () => {
+        try {
+          const response = await axios.get(`/api/metodos-de-pagamento/${userId}`);
+          setPaymentMethods(response.data);
+        } catch (error) {
+          console.error('Erro ao buscar métodos de pagamento:', error);
+        }
+      };
 
-    fetchPaymentMethods();
+      fetchPaymentMethods();
+    }
   }, [setUser]);
 
   const handleAddCard = async () => {
-    if (newCard) {
+    if (newCard && user?.userId) {
       try {
         const response = await axios.post(`/api/add-metodos-de-pagamento/${user.userId}`, { metodo: newCard });
         setPaymentMethods([...paymentMethods, { id: response.data.id, type: 'Credit Card', last4: newCard.slice(-4) }]);
