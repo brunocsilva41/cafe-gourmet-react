@@ -7,8 +7,7 @@ import LogsPanel from '../services/LogsPanel';
 import UsersPanel from '../services/UsersPanel';
 import { isAdmin } from '../utils/authUtils';
 
-const base_URL = `https://${process.env.REACT_APP_BASE_URL}`;
-
+const base_URL = process.env.REACT_APP_BASE_URL || 'https://api-cafe-gourmet.vercel.app';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
