@@ -3,7 +3,7 @@ import React from 'react';
 import '../assets/styles/criarConta.css';
 import Header from '../components/Header';
 
-const base_URL = process.env.REACT_APP_BASE_URL;
+const base_URL = 'https://api-cafe-gourmet.vercel.app';
 
 const CriarConta = () => {
   const handleSubmit = async (event) => {
