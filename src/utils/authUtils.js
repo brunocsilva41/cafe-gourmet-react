@@ -32,6 +32,7 @@ export const loginUser = async (email, password, login, navigate, location) => {
     const response = await axios.post(url, { email, password });
     if (response.status === 200) {
       login(response.data);
+      localStorage.setItem('userId', response.data.token);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userName', response.data.userName);
       const from = location.state?.from?.pathname || '/conta';

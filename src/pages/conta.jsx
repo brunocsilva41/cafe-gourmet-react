@@ -12,7 +12,7 @@ const Conta = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
-    const userId = user?.userId;
+    const userId = user?.userId || localStorage.getItem('userId');
     const userName = localStorage.getItem('userName');
     const userEmail = localStorage.getItem('userEmail');
     const role = localStorage.getItem('role');
