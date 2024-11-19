@@ -50,6 +50,8 @@ const Conta = () => {
           detalhesConcatenados = detalhes.chave_pix;
         }
 
+        console.log('Enviando detalhes:', { tipo, detalhes: detalhesConcatenados });
+
         const response = await axios.post(`/api/add-metodos-de-pagamento/${userId}`, {
           tipo,
           detalhes: detalhesConcatenados,
