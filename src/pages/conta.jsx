@@ -43,9 +43,13 @@ const Conta = () => {
     const userId = localStorage.getItem('userId');
     if (tipo && detalhes && userId) {
       try {
+        const detalhesConcatenados = Object.entries(detalhes)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join(', ');
+
         const response = await axios.post(`/api/add-metodos-de-pagamento/${userId}`, {
           tipo,
-          detalhes,
+          detalhes: detalhesConcatenados,
         });
         alert(response.data.message);
         setTipo('');
