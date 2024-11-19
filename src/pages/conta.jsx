@@ -36,10 +36,6 @@ const Conta = () => {
   }, [setUser, user]);
 
   const handleFileChange = (e) => {
-    if (!user?.userId) {
-      console.error('Erro: userId está indefinido.');
-      return;
-    }
     setSelectedFile(e.target.files[0]);
   };
 
@@ -84,13 +80,13 @@ const Conta = () => {
         <h1>Perfil do Usuário</h1>
         <div className="profile-image">
           <img src={user?.userImage} alt="Imagem do Usuário" />
-          <input type="file" onChange={handleFileChange} disabled={!user?.userId} />
+          <input type="file" onChange={handleFileChange} />
           <button onClick={handleImageUpload} disabled={!selectedFile}>Confirmar Upload</button>
         </div>
         <div className="profile-info">
           <p><strong>Nome:</strong> {user?.userName}</p>
           <p><strong>Email:</strong> {user?.userEmail}</p>
-          <p><strong>Data de Criação:</strong> {userDetails.createdAt}</p>
+          <p><strong>Data de Criação:</strong> {userDetails.data_criacao}</p>
           <p><strong>Endereço:</strong> {userDetails.address}</p>
           <p><strong>Telefone:</strong> {userDetails.phone}</p>
           {user?.role === 'admin' && (
