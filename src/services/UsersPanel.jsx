@@ -52,7 +52,7 @@ const UsersPanel = () => {
     };
 
     return (
-        <div>
+        <div className="users-table">
             <h2>Usuários</h2>
             <table className="users-table">
                 <thead>
