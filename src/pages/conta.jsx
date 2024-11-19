@@ -33,7 +33,7 @@ const Conta = () => {
 
       fetchUserDetails();
     }
-  }, [setUser]);
+  }, [setUser, user?.userId]);
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
