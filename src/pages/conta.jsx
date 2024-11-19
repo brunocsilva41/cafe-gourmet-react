@@ -10,6 +10,7 @@ const Conta = () => {
   const { user, setUser } = useAuth();
   const [tipo, setTipo] = useState('');
   const [detalhes, setDetalhes] = useState({});
+  const [metodosPagamento, setMetodosPagamento] = useState([]);
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -27,9 +28,7 @@ const Conta = () => {
         try {
           const response = await axios.get(`/api/metodos-de-pagamento/${userId}`);
           const { data } = response.data;
-          if (data.length === 0) {
-          } else {
-          }
+          setMetodosPagamento(data);
         } catch (error) {
           console.error('Erro ao buscar métodos de pagamento:', error);
         }
@@ -61,7 +60,13 @@ const Conta = () => {
         setDetalhes({});
         // Recarregar métodos de pagamento
         const fetchPaymentMethods = async () => {
-          return await axios.get(`/api/metodos-de-pagamento/${userId}`);
+          try {
+            const response = await axios.get(`/api/metodos-de-pagamento/${userId}`);
+            const { data } = response.data;
+            setMetodosPagamento(data);
+          } catch (error) {
+            console.error('Erro ao buscar métodos de pagamento:', error);
+          }
         };
         await fetchPaymentMethods();
       } catch (error) {
@@ -82,6 +87,12 @@ const Conta = () => {
             <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
           )}
         </div>
+        <h3>Métodos de Pagamento</h3>
+        <ul>
+          {metodosPagamento.map((metodo, index) => (
+            <li key={index}>{metodo.tipo}: {metodo.detalhes}</li>
+          ))}
+        </ul>
         <h3>Adicionar Método de Pagamento</h3>
         <select onChange={(e) => setTipo(e.target.value)} value={tipo}>
           <option value="">Selecione o tipo</option>
