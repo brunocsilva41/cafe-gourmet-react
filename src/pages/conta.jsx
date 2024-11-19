@@ -33,14 +33,14 @@ const Conta = () => {
 
       fetchUserDetails();
     }
-  }, [setUser, user]);
+  }, [setUser]);
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
 
   const handleImageUpload = async () => {
-    const userId = user?.userId;
+    const userId = user?.userId || localStorage.getItem('userId');
 
     if (!userId) {
       console.error('Erro: userId está indefinido.');
