@@ -8,11 +8,8 @@ import { useAuth } from '../context/AuthContext';
 const Conta = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
-  const [paymentMethods, setPaymentMethods] = useState([]);
-  const [newCard, setNewCard] = useState('');
   const [tipo, setTipo] = useState('');
   const [detalhes, setDetalhes] = useState({});
-  const [mensagem, setMensagem] = useState('');
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -31,9 +28,7 @@ const Conta = () => {
           const response = await axios.get(`/api/metodos-de-pagamento/${userId}`);
           const { data, message } = response.data;
           if (data.length === 0) {
-            setMensagem(message || 'Não há métodos de pagamento cadastrados');
           } else {
-            setPaymentMethods(data);
           }
         } catch (error) {
           console.error('Erro ao buscar métodos de pagamento:', error);
@@ -43,18 +38,6 @@ const Conta = () => {
       fetchPaymentMethods();
     }
   }, [setUser]);
-
-  const handleAddCard = async () => {
-    if (newCard && user?.userId) {
-      try {
-        const response = await axios.post(`/api/add-metodos-de-pagamento/${user.userId}`, { metodo: newCard });
-        setPaymentMethods([...paymentMethods, { id: response.data.id, type: 'Credit Card', last4: newCard.slice(-4) }]);
-        setNewCard('');
-      } catch (error) {
-        console.error('Erro ao adicionar método de pagamento:', error);
-      }
-    }
-  };
 
   const adicionarMetodo = async () => {
     const userId = localStorage.getItem('userId');
@@ -67,11 +50,9 @@ const Conta = () => {
         alert(response.data.message);
         setTipo('');
         setDetalhes({});
-        setMensagem('');
         // Recarregar métodos de pagamento
         const fetchPaymentMethods = async () => {
           const res = await axios.get(`/api/metodos-de-pagamento/${userId}`);
-          setPaymentMethods(res.data.data);
         };
         fetchPaymentMethods();
       } catch (error) {
