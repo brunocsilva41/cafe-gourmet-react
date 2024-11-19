@@ -52,7 +52,7 @@ const Conta = () => {
         setDetalhes({});
         // Recarregar métodos de pagamento
         const fetchPaymentMethods = async () => {
-          const res = await axios.get(`/api/metodos-de-pagamento/${userId}`);
+          await axios.get(`/api/metodos-de-pagamento/${userId}`);
         };
         await fetchPaymentMethods(); // Adicionado await
       } catch (error) {
