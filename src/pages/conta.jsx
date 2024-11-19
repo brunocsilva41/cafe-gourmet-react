@@ -13,7 +13,7 @@ const Conta = () => {
   const [metodosPagamento, setMetodosPagamento] = useState([]);
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
+    const userId = user?.userId;
     const userName = localStorage.getItem('userName');
     const userEmail = localStorage.getItem('userEmail');
     const role = localStorage.getItem('role');
@@ -36,10 +36,10 @@ const Conta = () => {
 
       fetchPaymentMethods();
     }
-  }, [setUser]);
+  }, [setUser, user]);
 
   const adicionarMetodo = async () => {
-    const userId = localStorage.getItem('userId');
+    const userId = user?.userId;
     if (tipo && detalhes && userId) {
       try {
         let detalhesConcatenados = '';
