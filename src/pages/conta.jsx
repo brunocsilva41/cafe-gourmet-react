@@ -92,26 +92,6 @@ const Conta = () => {
             <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
           )}
         </div>
-
-        <h2>Formas de Pagamento</h2>
-        <div className="payment-methods-container">
-          <ul>
-            {paymentMethods.map(method => (
-              <li key={method.id}>
-                {method.type} - {method.type === 'Credit Card' ? `**** **** **** ${method.last4}` : method.email}
-              </li>
-            ))}
-          </ul>
-          {paymentMethods.length === 0 && <p>{mensagem}</p>}
-          <input 
-            type="text" 
-            value={newCard} 
-            onChange={(e) => setNewCard(e.target.value)} 
-            placeholder="Número do Cartão" 
-          />
-          <button onClick={handleAddCard}>Adicionar Cartão</button>
-        </div>
-
         <h3>Adicionar Método de Pagamento</h3>
         <select onChange={(e) => setTipo(e.target.value)} value={tipo}>
           <option value="">Selecione o tipo</option>
