@@ -18,7 +18,7 @@ h1 {
 
 .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center; /* Alterado de space-around para center */
     margin: 20px;
 }
 
