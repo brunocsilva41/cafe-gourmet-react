@@ -26,7 +26,7 @@ const Conta = () => {
       const fetchPaymentMethods = async () => {
         try {
           const response = await axios.get(`/api/metodos-de-pagamento/${userId}`);
-          const { data, message } = response.data;
+          const { data } = response.data;
           if (data.length === 0) {
           } else {
           }
@@ -54,7 +54,7 @@ const Conta = () => {
         const fetchPaymentMethods = async () => {
           const res = await axios.get(`/api/metodos-de-pagamento/${userId}`);
         };
-        fetchPaymentMethods();
+        await fetchPaymentMethods(); // Adicionado await
       } catch (error) {
         console.error('Erro ao adicionar método de pagamento:', error);
       }
