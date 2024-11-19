@@ -52,9 +52,9 @@ const Conta = () => {
         setDetalhes({});
         // Recarregar métodos de pagamento
         const fetchPaymentMethods = async () => {
-          await axios.get(`/api/metodos-de-pagamento/${userId}`);
+          return await axios.get(`/api/metodos-de-pagamento/${userId}`);
         };
-        await fetchPaymentMethods(); // Adicionado await
+        await fetchPaymentMethods();
       } catch (error) {
         console.error('Erro ao adicionar método de pagamento:', error);
       }
