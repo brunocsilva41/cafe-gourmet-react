@@ -9,6 +9,7 @@ const Conta = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
   const [userDetails, setUserDetails] = useState({});
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const userId = user?.userId;
@@ -34,9 +35,23 @@ const Conta = () => {
     }
   }, [setUser, user]);
 
-  const handleImageUpload = async (e) => {
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleImageUpload = async () => {
     const userId = user?.userId;
-    const file = e.target.files[0];
+
+    if (!userId) {
+      console.error('Erro: userId está indefinido.');
+      return;
+    }
+
+    if (!selectedFile) {
+      console.error('Erro: Nenhum arquivo selecionado.');
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onloadend = async () => {
@@ -49,12 +64,13 @@ const Conta = () => {
           },
         });
         alert(response.data.message);
+        setUser({ ...user, userImage: reader.result }); // Atualiza a imagem do usuário na tela
       } catch (error) {
         console.error('Erro ao fazer upload da imagem:', error);
       }
     };
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(selectedFile);
   };
 
   return (
@@ -64,7 +80,8 @@ const Conta = () => {
         <h1>Perfil do Usuário</h1>
         <div className="profile-image">
           <img src={user?.userImage} alt="Imagem do Usuário" />
-          <input type="file" onChange={handleImageUpload} />
+          <input type="file" onChange={handleFileChange} />
+          <button onClick={handleImageUpload}>Confirmar Upload</button>
         </div>
         <div className="profile-info">
           <p><strong>Nome:</strong> {user?.userName}</p>
