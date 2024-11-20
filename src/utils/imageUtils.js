@@ -14,14 +14,9 @@ export const uploadImage = (file) => {
 
 export const uploadAndSetImage = async (file, userId) => {
   const base64String = await uploadImage(file);
-  const binaryData = atob(base64String);
-  const blob = new Blob([binaryData], { type: 'image/jpeg' }); // Ajuste o tipo conforme necessário
-  const formData = new FormData();
-  formData.append('imagem_usuario', blob);
-
-  const response = await axios.post(`https://api-cafe-gourmet.vercel.app/api/upload-imagem/${userId}`, formData, {
+  const response = await axios.post(`https://api-cafe-gourmet.vercel.app/api/upload-imagem/${userId}`, { imagem_usuario: base64String }, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': 'application/json',
     },
   });
 

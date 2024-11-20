@@ -78,6 +78,7 @@ const Conta = () => {
         ...prevDetails,
         imagem_usuario: base64String,
       }));
+      localStorage.setItem('userImage', base64String); // Armazena a imagem no localStorage
     } catch (error) {
       console.error('Erro ao fazer upload da imagem:', error);
     }
