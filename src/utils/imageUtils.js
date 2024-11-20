@@ -29,7 +29,7 @@ export const uploadAndSetImage = async (file, userId, setUser, user) => {
   }
 };
 
-export const convertImageToBlobAndStore = async (file, userId) => {
+export const convertImageToBlobAndStore = async (file, userId, setUser, user) => {
   const base64String = await uploadImage(file);
   const binaryData = atob(base64String);
   const blob = new Blob([binaryData], { type: 'image/jpeg' }); // Ajuste o tipo conforme necessário
@@ -43,5 +43,11 @@ export const convertImageToBlobAndStore = async (file, userId) => {
   });
 
   alert(response.data.message);
-  return blobToUrl(base64String); // Retorna a URL para visualização
+  const imageUrl = blobToUrl(base64String);
+  if (typeof setUser === 'function') {
+    setUser({ ...user, userImage: imageUrl }); // Atualiza a imagem do usuário na tela
+  } else {
+    console.error('setUser não é uma função');
+  }
+  return imageUrl; // Retorna a URL para visualização
 };

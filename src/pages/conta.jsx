@@ -72,7 +72,7 @@ const Conta = () => {
     }
 
     try {
-      const imageUrl = await convertImageToBlobAndStore(selectedFile, userId);
+      const imageUrl = await convertImageToBlobAndStore(selectedFile, userId, setUser, user);
       setUser({ ...user, userImage: imageUrl }); // Atualiza a imagem do usuário na tela
     } catch (error) {
       console.error('Erro ao fazer upload da imagem:', error);
@@ -86,7 +86,7 @@ const Conta = () => {
         <h1>Perfil do Usuário</h1>
         <div className="profile-image">
           {userDetails.imagem_usuario ? null : <p>Foto não cadastrada</p>}
-          <img src={userDetails.imagem_usuario || user?.userImage} alt="Imagem do Usuário" />
+          <img src={userDetails.imagem_usuario || user?.userImage} alt="Sua Foto" />
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleImageUpload} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
         </div>
