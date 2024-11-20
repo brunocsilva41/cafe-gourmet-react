@@ -40,6 +40,7 @@ const Conta = () => {
   };
 
   const handleImageUpload = async () => {
+    console.log('handleImageUpload chamado'); // Adicione este log para verificar se a função está sendo chamada
     const userId = user?.userId || localStorage.getItem('userId'); 
 
     if (!userId) {
@@ -61,6 +62,7 @@ const Conta = () => {
     const reader = new FileReader();
 
     reader.onloadend = async () => {
+      console.log('reader.onloadend chamado'); // Adicione este log para verificar se o FileReader está funcionando
       const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
 
       try {

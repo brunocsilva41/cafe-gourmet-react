@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-
 const base_URL = `https://${process.env.REACT_APP_BASE_URL}`;
 
 export const loginUser = async (email, password, login, navigate, location) => {
@@ -13,6 +12,7 @@ export const loginUser = async (email, password, login, navigate, location) => {
     const response = await axios.post(url, { email, password });
     if (response.status === 200) {
       login(response.data);
+      localStorage.setItem('userId', response.data.userId); // Armazena o userId no localStorage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userName', response.data.userName);
       const from = location.state?.from?.pathname || '/conta';
@@ -28,6 +28,7 @@ export const loginUser = async (email, password, login, navigate, location) => {
 
 export const logoutUser = (logout, navigate) => {
   localStorage.removeItem('token');
+  localStorage.removeItem('userId'); // Remova o userId do localStorage ao fazer logout
   localStorage.removeItem('userName');
   logout();
   navigate('/');
