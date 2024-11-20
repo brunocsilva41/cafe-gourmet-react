@@ -28,3 +28,20 @@ export const uploadAndSetImage = async (file, userId, setUser, user) => {
     console.error('setUser não é uma função');
   }
 };
+
+export const convertImageToBlobAndStore = async (file, userId) => {
+  const base64String = await uploadImage(file);
+  const binaryData = atob(base64String);
+  const blob = new Blob([binaryData], { type: 'image/jpeg' }); // Ajuste o tipo conforme necessário
+  const formData = new FormData();
+  formData.append('imagem_usuario', blob);
+
+  const response = await axios.post(`https://api-cafe-gourmet.vercel.app/api/upload-imagem/${userId}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  alert(response.data.message);
+  return blobToUrl(base64String); // Retorna a URL para visualização
+};

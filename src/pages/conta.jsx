@@ -6,14 +6,13 @@ import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { getuserId } from '../utils/auth';
 import { blobToUrl } from '../utils/blobToUrl';
-import { uploadAndSetImage } from '../utils/imageUtils';
+import { convertImageToBlobAndStore } from '../utils/imageUtils';
 
 const Conta = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
   const [userDetails, setUserDetails] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
- 
 
   useEffect(() => {    
     const userId = getuserId();
@@ -31,7 +30,6 @@ const Conta = () => {
       setUser({ userId, userName, userEmail, role });
     } else {
       console.error('Dados do usuário incompletos no localStorage.');
-
     }
 
     const fetchUserDetails = async () => {
@@ -74,7 +72,8 @@ const Conta = () => {
     }
 
     try {
-      await uploadAndSetImage(selectedFile, userId, setUser, user);
+      const imageUrl = await convertImageToBlobAndStore(selectedFile, userId);
+      setUser({ ...user, userImage: imageUrl }); // Atualiza a imagem do usuário na tela
     } catch (error) {
       console.error('Erro ao fazer upload da imagem:', error);
     }
@@ -86,6 +85,7 @@ const Conta = () => {
       <div className="profile-container">
         <h1>Perfil do Usuário</h1>
         <div className="profile-image">
+          {userDetails.imagem_usuario ? null : <p>Foto não cadastrada</p>}
           <img src={userDetails.imagem_usuario || user?.userImage} alt="Imagem do Usuário" />
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleImageUpload} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
