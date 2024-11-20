@@ -23,10 +23,11 @@ const Conta = () => {
     }
     const userName = localStorage.getItem('userName');
     const userEmail = localStorage.getItem('userEmail');
+    const userImage = localStorage.getItem('userImage');
     const role = localStorage.getItem('role');
 
-    if (userId && userName && userEmail && role) {
-      setUser({ userId, userName, userEmail, role });
+    if (userId && userName && userEmail && userImage && role) {
+      setUser({ userId, userName, userEmail, role, userImage });
     } else {
       console.error('Dados do usuário incompletos no localStorage.');
     }
@@ -70,12 +71,12 @@ const Conta = () => {
     }
 
     try {
-      const imageUrl = await handleImageUpload(selectedFile, userId);
-      console.log('Imagem URL:', imageUrl);
+      const base64String = await handleImageUpload(selectedFile, userId);
+      console.log('Imagem Base64:', base64String);
       // Atualiza a imagem do usuário na tela
       setUserDetails((prevDetails) => ({
         ...prevDetails,
-        imagem_usuario: imageUrl,
+        imagem_usuario: base64String,
       }));
     } catch (error) {
       console.error('Erro ao fazer upload da imagem:', error);

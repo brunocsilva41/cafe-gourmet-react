@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { blobToUrl } from './blobToUrl';
 
 export const uploadImage = (file) => {
   return new Promise((resolve, reject) => {
@@ -27,11 +26,11 @@ export const uploadAndSetImage = async (file, userId) => {
   });
 
   alert(response.data.message);
-  return blobToUrl(base64String); // Retorna a URL para visualização
+  return base64String; // Retorna a string base64 para visualização
 };
 
 export const handleImageUpload = async (file, userId) => {
-  // Gera a URL para exibição e armazena a imagem no banco de dados
-  const imageUrl = await uploadAndSetImage(file, userId);
-  return imageUrl;
+  // Gera a string base64 para exibição e armazena a imagem no banco de dados
+  const base64String = await uploadAndSetImage(file, userId);
+  return base64String;
 };
