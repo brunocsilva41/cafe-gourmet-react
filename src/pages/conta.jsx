@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/styles/conta.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
+import { getuserId } from '../utils/auth';
 import { blobToUrl } from '../utils/blobToUrl';
 
 const Conta = () => {
@@ -14,7 +15,7 @@ const Conta = () => {
  
 
   useEffect(() => {    
-    const userId = localStorage.getItem('userId');
+    const userId = getuserId();
     console.log('Obtido userId:', userId); // Adicione este log para verificar o userId
 
     if (!userId) {
@@ -31,6 +32,7 @@ const Conta = () => {
 
     const fetchUserDetails = async () => {
       try {
+        const userId = localStorage.getItem('userId');
         const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`);
         const userData = response.data;
         userData.imagem_usuario = blobToUrl(userData.imagem_usuario);
