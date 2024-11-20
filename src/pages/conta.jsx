@@ -72,12 +72,9 @@ const Conta = () => {
     }
 
     try {
-      const { imageUrl, blob } = await handleImageUpload(selectedFile, userId);
+      const imageUrl = await handleImageUpload(selectedFile, userId);
       console.log('Imagem URL:', imageUrl);
-      console.log('Blob:', blob);
       // Atualiza a imagem do usuário na tela
-      const updatedUser = { ...user, userImage: imageUrl };
-      setUser(updatedUser);
       setUserDetails((prevDetails) => ({
         ...prevDetails,
         imagem_usuario: imageUrl,
