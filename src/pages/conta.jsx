@@ -26,7 +26,7 @@ const Conta = () => {
     const userImage = localStorage.getItem('userImage');
     const role = localStorage.getItem('role');
 
-    if (userId && userName && userEmail && userImage && role) {
+    if (userId && userName && userEmail && role) {
       setUser({ userId, userName, userEmail, role, userImage });
     } else {
       console.error('Dados do usuário incompletos no localStorage.');
