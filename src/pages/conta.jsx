@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/styles/conta.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
+import { blobToUrl } from '../utils/blobToUrl';
 
 const Conta = () => {
   const navigate = useNavigate();
@@ -25,7 +26,9 @@ const Conta = () => {
       const fetchUserDetails = async () => {
         try {
           const response = await axios.get(`/api/user-details/${userId}`);
-          setUserDetails(response.data);
+          const userData = response.data;
+          userData.imagem_usuario = blobToUrl(userData.imagem_usuario);
+          setUserDetails(userData);
         } catch (error) {
           console.error('Erro ao buscar detalhes do usuário:', error);
         }
@@ -87,7 +90,7 @@ const Conta = () => {
       <div className="profile-container">
         <h1>Perfil do Usuário</h1>
         <div className="profile-image">
-          <img src={user?.userImage} alt="Imagem do Usuário" />
+          <img src={userDetails.imagem_usuario || user?.userImage} alt="Imagem do Usuário" />
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleImageUpload} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
         </div>
