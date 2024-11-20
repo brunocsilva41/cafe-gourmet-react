@@ -1,4 +1,4 @@
-import { default as React, useState } from 'react';
+import { default as React, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'reactjs-popup/dist/index.css';
 import logo from '../assets/imagens/logoOF.png';
@@ -6,7 +6,7 @@ import '../assets/styles/global.css';
 import '../assets/styles/login.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
-import { loginUser } from '../utils/auth';
+import { loginUser, isUserLoggedIn } from '../utils/auth';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +15,12 @@ const Login = () => {
   const [email, setUseremail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (isUserLoggedIn()) {
+      navigate('/conta');
+    }
+  }, [navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
