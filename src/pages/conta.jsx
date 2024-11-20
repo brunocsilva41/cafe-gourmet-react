@@ -11,16 +11,16 @@ const Conta = () => {
   const { user, setUser } = useAuth();
   const [userDetails, setUserDetails] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
+ 
 
-  useEffect(() => {
-    const userId = user?.userId || localStorage.getItem('userId');
+  useEffect(() => {    
+    const userId = localStorage.getItem('userId');
     console.log('Obtido userId:', userId); // Adicione este log para verificar o userId
 
     if (!userId) {
       console.error('Erro: userId não encontrado no contexto do usuário ou no localStorage.');
       return;
     }
-
     const userName = localStorage.getItem('userName');
     const userEmail = localStorage.getItem('userEmail');
     const role = localStorage.getItem('role');
