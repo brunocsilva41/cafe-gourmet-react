@@ -40,7 +40,7 @@ const Conta = () => {
   };
 
   const handleImageUpload = async () => {
-    const userId = user?.userId || localStorage.getItem('userId');
+    const userId = user?.userId || localStorage.getItem('userId'); 
 
     if (!userId) {
       console.error('Erro: userId está indefinido.');
@@ -49,6 +49,12 @@ const Conta = () => {
 
     if (!selectedFile) {
       console.error('Erro: Nenhum arquivo selecionado.');
+      return;
+    }
+
+    // Verifica se o arquivo selecionado é uma imagem
+    if (!selectedFile.type.startsWith('image/')) {
+      console.error('Erro: O arquivo selecionado não é uma imagem.');
       return;
     }
 
@@ -81,7 +87,7 @@ const Conta = () => {
         <div className="profile-image">
           <img src={user?.userImage} alt="Imagem do Usuário" />
           <input type="file" onChange={handleFileChange} />
-          <button onClick={handleImageUpload} disabled={!selectedFile}>Confirmar Upload</button>
+          <button onClick={handleImageUpload} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
         </div>
         <div className="profile-info">
           <p><strong>Nome:</strong> {user?.userName}</p>
