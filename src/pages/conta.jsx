@@ -71,14 +71,14 @@ const Conta = () => {
     }
 
     try {
-      const base64String = await uploadAndSetImage(selectedFile, userId);
-      console.log('Imagem Base64:', base64String);
+      const imageUrl = await uploadAndSetImage(selectedFile, userId);
+      console.log('URL da Imagem:', imageUrl);
       // Atualiza a imagem do usuário na tela
       setUserDetails((prevDetails) => ({
         ...prevDetails,
-        imagem_usuario: base64String,
+        imagem_usuario: imageUrl,
       }));
-      localStorage.setItem('userImage', base64String); // Armazena a imagem no localStorage
+      localStorage.setItem('userImage', imageUrl); // Armazena a URL da imagem no localStorage
     } catch (error) {
       console.error('Erro ao fazer upload da imagem:', error.response ? error.response.data : error.message); // Adicione este log para verificar o erro
     }
@@ -92,7 +92,7 @@ const Conta = () => {
         <div className="profile-image">
           {userDetails.imagem_usuario ? null : <p>Foto não cadastrada</p>}
           {userDetails.imagem_usuario && (
-            <img src={`data:image/jpeg;base64,${userDetails.imagem_usuario}`} alt="Sua Foto" />
+            <img src={userDetails.imagem_usuario} alt="Sua Foto" />
           )}
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleImageUploadClick} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
