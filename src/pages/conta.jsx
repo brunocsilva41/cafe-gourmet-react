@@ -5,7 +5,6 @@ import '../assets/styles/conta.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { getuserId } from '../utils/auth';
-import { blobToUrl } from '../utils/blobToUrl';
 import { handleImageUpload } from '../utils/imageUtils';
 
 const Conta = () => {
@@ -36,7 +35,6 @@ const Conta = () => {
       try {
         const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`);
         const userData = response.data;
-        userData.imagem_usuario = blobToUrl(userData.imagem_usuario);
         setUserDetails(userData);
       } catch (error) {
         console.error('Erro ao buscar detalhes do usuário:', error);
@@ -91,7 +89,7 @@ const Conta = () => {
         <h1>Perfil do Usuário</h1>
         <div className="profile-image">
           {userDetails.imagem_usuario ? null : <p>Foto não cadastrada</p>}
-          <img src={userDetails.imagem_usuario || user?.userImage} alt="Sua Foto" />
+          <img src={`data:image/jpeg;base64,${userDetails.imagem_usuario}`} alt="Sua Foto" />
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleImageUploadClick} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
         </div>
