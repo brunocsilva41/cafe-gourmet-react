@@ -18,7 +18,7 @@ const Conta = () => {
     console.log('Obtido userId:', userId); // Adicione este log para verificar o userId
 
     if (!userId) {
-      console.error('Erro: userId não encontrado no contexto do usuário ou no localStorage.');
+      console.error('Erro: userId não encontrado no localStorage.');
       return;
     }
     const userName = localStorage.getItem('userName');
@@ -41,7 +41,7 @@ const Conta = () => {
     };
 
     fetchUserDetails();
-  }, [setUser, user]);
+  }, [setUser]);
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
