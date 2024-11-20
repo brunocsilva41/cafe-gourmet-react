@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { getuserId } from '../utils/auth';
 import { blobToUrl } from '../utils/blobToUrl';
+import { uploadAndSetImage } from '../utils/imageUtils';
 
 const Conta = () => {
   const navigate = useNavigate();
@@ -72,26 +73,11 @@ const Conta = () => {
       return;
     }
 
-    const reader = new FileReader();
-
-    reader.onloadend = async () => {
-      console.log('reader.onloadend chamado'); // Adicione este log para verificar se o FileReader está funcionando
-      const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
-
-      try {
-        const response = await axios.post(`https://api-cafe-gourmet.vercel.app/api/upload-imagem/${userId}`, { imagem_usuario: base64String }, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        alert(response.data.message);
-        setUser({ ...user, userImage: reader.result }); // Atualiza a imagem do usuário na tela
-      } catch (error) {
-        console.error('Erro ao fazer upload da imagem:', error);
-      }
-    };
-
-    reader.readAsDataURL(selectedFile);
+    try {
+      await uploadAndSetImage(selectedFile, userId, setUser, user);
+    } catch (error) {
+      console.error('Erro ao fazer upload da imagem:', error);
+    }
   };
 
   return (

@@ -10,6 +10,7 @@ export const blobToUrl = (blobData) => {
   }
 
   // Determina o tipo de imagem com base na extensão do arquivo ou tipo MIME
-  const blob = new Blob([blobData], { type: 'image/jpeg' }); // Ajuste o tipo conforme necessário
+  const mimeType = blobData.type || 'image/jpeg'; // Ajuste o tipo conforme necessário
+  const blob = new Blob([blobData], { type: mimeType });
   return URL.createObjectURL(blob);
 };
