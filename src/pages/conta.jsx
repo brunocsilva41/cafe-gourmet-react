@@ -17,7 +17,6 @@ const Conta = () => {
   useEffect(() => {    
     const userId = getuserId();
     console.log('Obtido userId:', userId); // Adicione este log para verificar o userId
-
     if (!userId) {
       console.error('Erro: userId não encontrado no localStorage.');
       return;
@@ -27,12 +26,14 @@ const Conta = () => {
     const role = localStorage.getItem('role');
 
     if (userId && userName && userEmail && role) {
-      setUser({ userId, userName, userEmail, role }, console.log('Usuário:', { userId, userName, userEmail, role }));
+      setUser({ userId, userName, userEmail, role });
+    } else {
+      console.error('Dados do usuário incompletos no localStorage.');
+
     }
 
     const fetchUserDetails = async () => {
       try {
-        const userId = localStorage.getItem('userId');
         const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`);
         const userData = response.data;
         userData.imagem_usuario = blobToUrl(userData.imagem_usuario);
