@@ -25,7 +25,7 @@ const Conta = () => {
     if (userId) {
       const fetchUserDetails = async () => {
         try {
-          const response = await axios.get(`/api/user-details/${userId}`);
+          const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`);
           const userData = response.data;
           userData.imagem_usuario = blobToUrl(userData.imagem_usuario);
           setUserDetails(userData);
@@ -69,7 +69,7 @@ const Conta = () => {
       const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
 
       try {
-        const response = await axios.post(`/api/upload-imagem/${userId}`, { imagem_usuario: base64String }, {
+        const response = await axios.post(`https://api-cafe-gourmet.vercel.app/api/upload-imagem/${userId}`, { imagem_usuario: base64String }, {
           headers: {
             'Content-Type': 'application/json',
           },
