@@ -89,7 +89,9 @@ const Conta = () => {
         <h1>Perfil do Usuário</h1>
         <div className="profile-image">
           {userDetails.imagem_usuario ? null : <p>Foto não cadastrada</p>}
-          <img src={`data:image/jpeg;base64,${userDetails.imagem_usuario}`} alt="Sua Foto" />
+          {userDetails.imagem_usuario && (
+            <img src={`data:image/jpeg;base64,${userDetails.imagem_usuario}`} alt="Sua Foto" />
+          )}
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleImageUploadClick} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
         </div>
@@ -102,7 +104,6 @@ const Conta = () => {
           {user?.role === 'admin' && (
             <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
           )}
-          <button onClick={() => navigate('/edit-profile')}>Editar Perfil</button>
         </div>
       </div>
     </>
