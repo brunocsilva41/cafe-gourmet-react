@@ -11,6 +11,8 @@ const CriarConta = () => {
     const name = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
+    const address = event.target.address.value;
+    const phone = event.target.phone.value;
 
     try {
       const response = await axios.post(`${base_URL}/criar-conta`, {
@@ -45,6 +47,10 @@ const CriarConta = () => {
           <input type="email" name="email" required />
           <label>Senha:</label>
           <input type="password" name="password" required />
+          <label>Endereço:</label>
+          <input type="text" name="address" required />
+          <label>Telefone:</label>
+          <input type="text" name="phone" required />
           <button type="submit">Criar Conta</button>
         </form>
         <div className="links-adicionais">

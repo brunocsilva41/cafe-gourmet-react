@@ -9,11 +9,12 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const userId = localStorage.getItem('userId');
     const token = getToken();
     const userName = getUserName();
     const role = localStorage.getItem('role');
-    if (token && userName && role) {
-      setUser({ token, userName, role });
+    if (token && userId && userName && role) {
+      setUser({ token,userId,userName, role });
     }
   }, []);
 
