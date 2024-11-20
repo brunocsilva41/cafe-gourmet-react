@@ -5,6 +5,7 @@ import '../assets/styles/conta.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { getuserId } from '../utils/auth';
+import { blobToUrl } from '../utils/blobToUrl';
 import { uploadAndSetImage } from '../utils/imageUtils';
 
 const Conta = () => {
@@ -92,7 +93,7 @@ const Conta = () => {
         <div className="profile-image">
           {userDetails.imagem_usuario ? null : <p>Foto não cadastrada</p>}
           {userDetails.imagem_usuario && (
-            <img src={userDetails.imagem_usuario} alt="Sua Foto" />
+            <img src={blobToUrl(userDetails.imagem_usuario)} alt="Sua Foto" />
           )}
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleImageUploadClick} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
