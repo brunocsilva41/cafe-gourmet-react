@@ -18,7 +18,7 @@ const Conta = () => {
     const role = localStorage.getItem('role');
 
     if (userId && userName && userEmail && role) {
-      setUser({ userId, userName, userEmail, role });
+      setUser({ userId, userName, userEmail, role }, console.log('Usuário:', { userId, userName, userEmail, role }));
     }
 
     if (userId) {
@@ -95,8 +95,8 @@ const Conta = () => {
           <p><strong>Nome:</strong> {user?.userName}</p>
           <p><strong>Email:</strong> {user?.userEmail}</p>
           <p><strong>Data de Criação:</strong> {userDetails.data_criacao}</p>
-          <p><strong>Endereço:</strong> {userDetails.address}</p>
-          <p><strong>Telefone:</strong> {userDetails.phone}</p>
+          <p><strong>Endereço:</strong> {userDetails.endereco}</p>
+          <p><strong>Telefone:</strong> {userDetails.telefone_usuario}</p>
           {user?.role === 'admin' && (
             <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
           )}

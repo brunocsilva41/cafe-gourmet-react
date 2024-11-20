@@ -46,6 +46,14 @@ export const loginUser = async (email, password, login, navigate, location) => {
   }
 };
 
+export const logoutUser = (logout, navigate) => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userId'); // Remova o userId do localStorage ao fazer logout
+  localStorage.removeItem('userName');
+  logout();
+  navigate('/');
+};
+
 export const isAdmin = (user) => {
   return user && user.role === 'admin';
 };
