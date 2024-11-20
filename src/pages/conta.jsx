@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { getuserId } from '../utils/auth';
 import { blobToUrl } from '../utils/blobToUrl';
-import { convertImageToBlobAndStore } from '../utils/imageUtils';
+import { handleImageUpload } from '../utils/imageUtils';
 
 const Conta = () => {
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const Conta = () => {
     setSelectedFile(e.target.files[0]);
   };
 
-  const handleImageUpload = async () => {
+  const handleImageUploadClick = async () => {
     console.log('handleImageUpload chamado'); // Adicione este log para verificar se a função está sendo chamada
     const userId = user?.userId || localStorage.getItem('userId'); 
     console.log('Obtido userId para upload:', userId); // Adicione este log para verificar o userId
@@ -72,7 +72,7 @@ const Conta = () => {
     }
 
     try {
-      const imageUrl = await convertImageToBlobAndStore(selectedFile, userId, setUser, user);
+      const imageUrl = await handleImageUpload(selectedFile, userId, setUser, user);
       setUser({ ...user, userImage: imageUrl }); // Atualiza a imagem do usuário na tela
     } catch (error) {
       console.error('Erro ao fazer upload da imagem:', error);
@@ -88,7 +88,7 @@ const Conta = () => {
           {userDetails.imagem_usuario ? null : <p>Foto não cadastrada</p>}
           <img src={userDetails.imagem_usuario || user?.userImage} alt="Sua Foto" />
           <input type="file" onChange={handleFileChange} />
-          <button onClick={handleImageUpload} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
+          <button onClick={handleImageUploadClick} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
         </div>
         <div className="profile-info">
           <p><strong>Nome:</strong> {user?.userName}</p>
