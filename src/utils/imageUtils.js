@@ -22,5 +22,9 @@ export const uploadAndSetImage = async (file, userId, setUser, user) => {
   });
   alert(response.data.message);
   const imageUrl = blobToUrl(base64String);
-  setUser({ ...user, userImage: imageUrl }); // Atualiza a imagem do usuário na tela
+  if (typeof setUser === 'function') {
+    setUser({ ...user, userImage: imageUrl }); // Atualiza a imagem do usuário na tela
+  } else {
+    console.error('setUser não é uma função');
+  }
 };
