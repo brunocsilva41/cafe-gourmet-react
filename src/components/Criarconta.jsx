@@ -19,6 +19,8 @@ const CriarConta = () => {
         name,
         email,
         password,
+        address,
+        phone,
       });
 
       if (response.status === 201) {
