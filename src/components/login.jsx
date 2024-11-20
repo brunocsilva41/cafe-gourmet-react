@@ -20,7 +20,11 @@ const Login = () => {
     event.preventDefault();
     try {
       console.log('Tentando login com:', { email, password });
-      await loginUser(email, password, login, navigate, location);
+      const userData = await loginUser(email, password, login, navigate, location);
+      localStorage.setItem('userId', userData.userId);
+      localStorage.setItem('token', userData.token);
+      localStorage.setItem('userName', userData.userName);
+      localStorage.setItem('role', userData.role);
     } catch (err) {
       console.error('Erro no login:', err);
       setError('Falha no login. Verifique suas credenciais e tente novamente.');

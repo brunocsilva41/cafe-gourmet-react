@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     const userName = getUserName();
     const role = localStorage.getItem('role');
     if (token && userId && userName && role) {
-      setUser({ token,userId,userName, role });
+      setUser({ token, userId, userName, role });
     }
   }, []);
 
@@ -25,6 +25,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('role');
   };
 
   return (
