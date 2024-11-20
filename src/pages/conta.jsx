@@ -75,7 +75,13 @@ const Conta = () => {
       const { imageUrl, blob } = await handleImageUpload(selectedFile, userId);
       console.log('Imagem URL:', imageUrl);
       console.log('Blob:', blob);
-      setUser({ ...user, userImage: imageUrl }); // Atualiza a imagem do usuário na tela
+      // Atualiza a imagem do usuário na tela
+      const updatedUser = { ...user, userImage: imageUrl };
+      setUser(updatedUser);
+      setUserDetails((prevDetails) => ({
+        ...prevDetails,
+        imagem_usuario: imageUrl,
+      }));
     } catch (error) {
       console.error('Erro ao fazer upload da imagem:', error);
     }
