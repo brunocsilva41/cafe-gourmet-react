@@ -19,6 +19,10 @@ export const uploadAndSetImage = async (file, userId) => {
 
   const token = localStorage.getItem('token'); // Obtém o token do localStorage
 
+  if (!token) {
+    throw new Error('Token de autenticação não encontrado.');
+  }
+
   const response = await axios.post('https://api-cafe-gourmet.vercel.app/api/upload-image', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

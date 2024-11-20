@@ -71,6 +71,12 @@ const Conta = () => {
     }
 
     try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('Erro: Token de autenticação não encontrado.');
+        return;
+      }
+
       const base64String = await uploadAndSetImage(selectedFile, userId);
       console.log('Imagem Base64:', base64String);
       // Atualiza a imagem do usuário na tela
