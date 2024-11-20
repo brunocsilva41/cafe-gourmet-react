@@ -13,19 +13,23 @@ export const uploadImage = (file) => {
 };
 
 export const uploadAndSetImage = async (file, userId) => {
-  const base64String = await uploadImage(file);
-  const response = await axios.post(`https://api-cafe-gourmet.vercel.app/api/upload-imagem/${userId}`, { imagem_usuario: base64String }, {
+  const formData = new FormData();
+  formData.append('image', file);
+  formData.append('userId', userId);
+
+  const token = localStorage.getItem('token'); // Obtém o token do localStorage
+
+  const response = await axios.post('https://api-cafe-gourmet.vercel.app/api/upload-image', formData, {
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${token}` // Adiciona o token no cabeçalho da requisição
+    }
   });
 
-  alert(response.data.message);
-  return base64String; // Retorna a string base64 para visualização
+  return response.data.imageUrl; // Retorna a URL da imagem
 };
 
 export const handleImageUpload = async (file, userId) => {
-  // Gera a string base64 para exibição e armazena a imagem no banco de dados
   const base64String = await uploadAndSetImage(file, userId);
   return base64String;
 };

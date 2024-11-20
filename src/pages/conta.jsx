@@ -5,7 +5,7 @@ import '../assets/styles/conta.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { getuserId } from '../utils/auth';
-import { handleImageUpload } from '../utils/imageUtils';
+import { uploadAndSetImage } from '../utils/imageUtils';
 
 const Conta = () => {
   const navigate = useNavigate();
@@ -71,7 +71,7 @@ const Conta = () => {
     }
 
     try {
-      const base64String = await handleImageUpload(selectedFile, userId);
+      const base64String = await uploadAndSetImage(selectedFile, userId);
       console.log('Imagem Base64:', base64String);
       // Atualiza a imagem do usuário na tela
       setUserDetails((prevDetails) => ({
