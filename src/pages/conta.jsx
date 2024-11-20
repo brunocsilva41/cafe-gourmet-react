@@ -15,6 +15,12 @@ const Conta = () => {
   useEffect(() => {
     const userId = user?.userId || localStorage.getItem('userId');
     console.log('Obtido userId:', userId); // Adicione este log para verificar o userId
+
+    if (!userId) {
+      console.error('Erro: userId não encontrado no contexto do usuário ou no localStorage.');
+      return;
+    }
+
     const userName = localStorage.getItem('userName');
     const userEmail = localStorage.getItem('userEmail');
     const role = localStorage.getItem('role');
@@ -23,21 +29,19 @@ const Conta = () => {
       setUser({ userId, userName, userEmail, role }, console.log('Usuário:', { userId, userName, userEmail, role }));
     }
 
-    if (userId) {
-      const fetchUserDetails = async () => {
-        try {
-          const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`);
-          const userData = response.data;
-          userData.imagem_usuario = blobToUrl(userData.imagem_usuario);
-          setUserDetails(userData);
-        } catch (error) {
-          console.error('Erro ao buscar detalhes do usuário:', error);
-        }
-      };
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`);
+        const userData = response.data;
+        userData.imagem_usuario = blobToUrl(userData.imagem_usuario);
+        setUserDetails(userData);
+      } catch (error) {
+        console.error('Erro ao buscar detalhes do usuário:', error);
+      }
+    };
 
-      fetchUserDetails();
-    }
-  }, [setUser, user, user?.userId]);
+    fetchUserDetails();
+  }, [setUser, user]);
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
