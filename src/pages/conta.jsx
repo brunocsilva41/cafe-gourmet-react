@@ -86,7 +86,7 @@ const Conta = () => {
       }));
       localStorage.setItem('userImage', base64String); // Armazena a imagem no localStorage
     } catch (error) {
-      console.error('Erro ao fazer upload da imagem:', error);
+      console.error('Erro ao fazer upload da imagem:', error.response ? error.response.data : error.message); // Adicione este log para verificar o erro
     }
   };
 

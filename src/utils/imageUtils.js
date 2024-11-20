@@ -36,7 +36,7 @@ export const uploadAndSetImage = async (file, userId) => {
     console.log('Resposta da solicitação:', response); // Adicione este log para verificar a resposta da solicitação
     return response.data.imageUrl; // Retorna a URL da imagem
   } catch (error) {
-    console.error('Erro na solicitação de upload:', error); // Adicione este log para verificar o erro
+    console.error('Erro na solicitação de upload:', error.response ? error.response.data : error.message); // Adicione este log para verificar o erro
     throw error;
   }
 };
