@@ -17,6 +17,7 @@ const Conta = () => {
   useEffect(() => {    
     const userId = getuserId();
     console.log('Obtido userId:', userId); // Adicione este log para verificar o userId
+    
     if (!userId) {
       console.error('Erro: userId não encontrado no localStorage.');
       return;

@@ -39,7 +39,9 @@ export const isUserLoggedIn = () => {
   return !!token;
 };
 export const getuserId = () => {
-  return localStorage.getItem('userId');
+   const userId = localStorage.getItem('userId');
+   console.log('getuserId retornou:', userId);
+   return userId;
 };
 
 export const getToken = () => {

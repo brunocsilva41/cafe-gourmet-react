@@ -1,6 +1,6 @@
 // src/context/AuthContext.js
 import PropTypes from 'prop-types';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getToken, getUserName } from '../utils/auth';
 
 const AuthContext = createContext();
@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     setUser(userData);
+    console.log('Estado do Usuario Atualizado:', userData);
   };
 
   const logout = () => {
