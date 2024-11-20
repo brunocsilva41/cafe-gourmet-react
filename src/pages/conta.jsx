@@ -14,6 +14,7 @@ const Conta = () => {
 
   useEffect(() => {
     const userId = user?.userId || localStorage.getItem('userId');
+    console.log('Obtido userId:', userId); // Adicione este log para verificar o userId
     const userName = localStorage.getItem('userName');
     const userEmail = localStorage.getItem('userEmail');
     const role = localStorage.getItem('role');
@@ -45,6 +46,7 @@ const Conta = () => {
   const handleImageUpload = async () => {
     console.log('handleImageUpload chamado'); // Adicione este log para verificar se a função está sendo chamada
     const userId = user?.userId || localStorage.getItem('userId'); 
+    console.log('Obtido userId para upload:', userId); // Adicione este log para verificar o userId
 
     if (!userId) {
       console.error('Erro: userId está indefinido.');
