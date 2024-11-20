@@ -13,7 +13,7 @@ export const uploadImage = (file) => {
   });
 };
 
-export const uploadAndSetImage = async (file, userId, setUser, user) => {
+export const uploadAndSetImage = async (file, userId) => {
   const base64String = await uploadImage(file);
   const response = await axios.post(`https://api-cafe-gourmet.vercel.app/api/upload-imagem/${userId}`, { imagem_usuario: base64String }, {
     headers: {
@@ -21,12 +21,7 @@ export const uploadAndSetImage = async (file, userId, setUser, user) => {
     },
   });
   alert(response.data.message);
-  const imageUrl = blobToUrl(base64String);
-  if (typeof setUser === 'function') {
-    setUser({ ...user, userImage: imageUrl }); // Atualiza a imagem do usuário na tela
-  } else {
-    console.error('setUser não é uma função');
-  }
+  return blobToUrl(base64String); // Retorna a URL para visualização
 };
 
 export const convertImageToBlobAndStore = async (file, userId) => {
@@ -43,19 +38,19 @@ export const convertImageToBlobAndStore = async (file, userId) => {
   });
 
   alert(response.data.message);
-  return blobToUrl(base64String); // Retorna a URL para visualização
+  return blob; // Retorna o blob para armazenamento
 };
 
-export const handleImageUpload = async (file, userId, setUser, user) => {
+export const handleImageUpload = async (file, userId) => {
   // Cria duas cópias do arquivo da imagem
   const fileCopyForUrl = new File([file], file.name, { type: file.type });
   const fileCopyForBlob = new File([file], file.name, { type: file.type });
 
   // Gera a URL para exibição
-  const imageUrl = await uploadAndSetImage(fileCopyForUrl, userId, setUser, user);
+  const imageUrl = await uploadAndSetImage(fileCopyForUrl, userId);
 
   // Converte a imagem em blob e armazena no banco de dados
-  await convertImageToBlobAndStore(fileCopyForBlob, userId);
+  const blob = await convertImageToBlobAndStore(fileCopyForBlob, userId);
 
-  return imageUrl;
+  return { imageUrl, blob };
 };
