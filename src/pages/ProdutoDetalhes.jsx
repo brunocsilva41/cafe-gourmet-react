@@ -70,10 +70,13 @@ const ProdutoDetalhes = () => {
           )}
           <div className="product-info">
             <h2>{produto.name}</h2>
-            <p>R$ {Number(produto.preco).toFixed(2)}</p>
+            <p className="product-price">R$ {Number(produto.preco).toFixed(2)}</p>
             <p>{produto.descricao}</p>
             <p>Quantidade disponível: {produto.estoque}</p>
-            {/* Adicione mais detalhes conforme necessário */}
+            <div className="product-additional-info">
+              <h3>Informações sobre o produto</h3>
+              <p>Este é um exemplo de texto fictício sobre o produto. Aqui você pode adicionar mais detalhes e informações relevantes.</p>
+            </div>
             <button onClick={adicionarAoCarrinho}>Adicionar ao Carrinho</button>
           </div>
         </div>
