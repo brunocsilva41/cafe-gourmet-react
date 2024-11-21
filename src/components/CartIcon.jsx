@@ -38,7 +38,7 @@ const CartIcon = ({ carrinho = [], setCarrinho }) => {
 
   return (
     <div className="cart-icon-container">
-      <button onClick={toggleCart} className="cart-button">
+      <button onClick={toggleCart} className={`cart-button ${isOpen ? 'open' : 'closed'}`}>
         <FaShoppingCart />
         <span className="cart-count">{totalItems}</span>
         {userName && <span className="user-name">{userName}</span>}
