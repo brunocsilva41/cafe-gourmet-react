@@ -62,18 +62,20 @@ const ProdutoDetalhes = () => {
     <>
       <Header user={user} />
       <main>
-        <div className="product-item">
-        <h2>{produto.name}</h2>
-        {produto.imagemUrl ? (
-          <img src={produto.imagemUrl} alt={produto.name} />
-        ) : (
-          <p>Imagem não disponível</p>
-        )}
-        <p>R$ {Number(produto.preco).toFixed(2)}</p>
-        <p>{produto.descricao}</p>
-        <p>Quantidade disponível: {produto.estoque}</p>
-        {/* Adicione mais detalhes conforme necessário */}
-        <button onClick={adicionarAoCarrinho}>Adicionar ao Carrinho</button>
+        <div className="product-details">
+          {produto.imagemUrl ? (
+            <img src={produto.imagemUrl} alt={produto.name} className="product-image" />
+          ) : (
+            <p>Imagem não disponível</p>
+          )}
+          <div className="product-info">
+            <h2>{produto.name}</h2>
+            <p>R$ {Number(produto.preco).toFixed(2)}</p>
+            <p>{produto.descricao}</p>
+            <p>Quantidade disponível: {produto.estoque}</p>
+            {/* Adicione mais detalhes conforme necessário */}
+            <button onClick={adicionarAoCarrinho}>Adicionar ao Carrinho</button>
+          </div>
         </div>
       </main>
     </>
