@@ -43,3 +43,12 @@ pedidos-container {
   margin-right: 10px;
   border-radius: 4px;
 }
+
+.no-pedidos {
+  background-color: #fff;
+  color: #8B4513;
+  padding: 20px;
+  border: 1px solid #A0522D;
+  border-radius: 8px;
+  text-align: center;
+}

@@ -54,7 +54,9 @@ const Pedidos = () => {
             </div>
           ))
         ) : (
-          <p>Você não tem pedidos.</p>
+          <div className="no-pedidos">
+            <p>Você não tem pedidos.</p>
+          </div>
         )}
       </div>
     </>
