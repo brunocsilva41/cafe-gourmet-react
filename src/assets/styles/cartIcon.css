@@ -9,7 +9,7 @@
 }
 
 .cart-button {
-  background: none;
+  background: rgb(14, 0, 0);
   border: none;
   cursor: pointer;
   position: relative;
@@ -41,7 +41,7 @@
 
 .close-cart-button {
   color: #a00404; 
-  width: 2%;
+  width: 10%;
   background: none;
   border: none;
   cursor: pointer;
