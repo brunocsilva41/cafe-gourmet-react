@@ -18,8 +18,8 @@
 }
 
 .cart-count {
-  background-color:linear-gradient(to bottom, #f9f9f9, #d2b48c, #8b4513);
-  color: #ac0808; /* Melhor visibilidade */
+  background-color: rgb(14, 0, 0);
+  color: #a00404; /* Melhor visibilidade */
   border-radius: 50%;
   padding: 5px 10px;
   position: static; /* Remover a posição absoluta */
@@ -32,7 +32,7 @@
   right: 0;
   width: 300px;
   height: 100%;
-  background-color: white;
+  background-color:linear-gradient(to bottom, #f9f9f9, #d2b48c, #8b4513);
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
   padding: 20px;
   overflow-y: auto;
@@ -40,6 +40,7 @@
 }
 
 .close-cart-button {
+  color: #a00404; 
   background: none;
   border: none;
   cursor: pointer;
