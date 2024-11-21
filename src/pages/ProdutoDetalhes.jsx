@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { blobToUrl } from '../utils/blobToUrl';
 
-const base_URL = process.env.REACT_APP_BASE_URL; // Certifique-se de que esta variável de ambiente está correta
+const base_URL = process.env.REACT_APP_API_BASE_URL; // Certifique-se de que esta variável de ambiente está correta
 
 const ProdutoDetalhes = () => {
   const { user } = useAuth();
@@ -17,18 +17,22 @@ const ProdutoDetalhes = () => {
     const fetchProduto = async () => {
       try {
         console.log(`Buscando produto com ID: ${id}`); // Log para depuração
-        const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/produtos/${id}`, {
+        const response = await axios.get(`${base_URL}/api/produtos/${id}`, {
           headers: {
             'Accept': 'application/json'
           }
         });
-        console.log('Resposta do servidor:', response.data); // Adicionar log para verificar a resposta da API
-        const produtoData = response.data;
-        console.log('Dados do produto:', produtoData); // Log para depuração
-        if (produtoData.imagem) {
-          produtoData.imagemUrl = blobToUrl(produtoData.imagem);
+        if (response.headers['content-type'].includes('application/json')) {
+          console.log('Resposta do servidor:', response.data); // Adicionar log para verificar a resposta da API
+          const produtoData = response.data;
+          console.log('Dados do produto:', produtoData); // Log para depuração
+          if (produtoData.imagem) {
+            produtoData.imagemUrl = blobToUrl(produtoData.imagem);
+          }
+          setProduto(produtoData);
+        } else {
+          console.error('Resposta inesperada do servidor:', response.data);
         }
-        setProduto(produtoData);
       } catch (error) {
         console.error('Erro ao buscar produto:', error);
       }
