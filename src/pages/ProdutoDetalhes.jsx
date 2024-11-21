@@ -17,7 +17,7 @@ const ProdutoDetalhes = () => {
     const fetchProduto = async () => {
       try {
         console.log(`Buscando produto com ID: ${id}`); // Log para depuração
-        const response = await axios.get(`${base_URL}/api/produtos/${id}`, {
+        const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/produtos/${id}`, {
           headers: {
             'Accept': 'application/json'
           }
