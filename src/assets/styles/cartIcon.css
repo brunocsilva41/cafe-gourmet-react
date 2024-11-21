@@ -18,8 +18,8 @@
 }
 
 .cart-count {
-  background-color: red;
-  color: #fff; /* Melhor visibilidade */
+  background-color:linear-gradient(to bottom, #f9f9f9, #d2b48c, #8b4513);
+  color: #ac0808; /* Melhor visibilidade */
   border-radius: 50%;
   padding: 5px 10px;
   position: static; /* Remover a posição absoluta */
