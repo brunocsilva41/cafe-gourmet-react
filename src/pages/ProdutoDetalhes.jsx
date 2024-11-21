@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { blobToUrl } from '../utils/blobToUrl';
 
-const base_URL = process.env.REACT_APP_API_BASE_URL; // Certifique-se de que esta variável de ambiente está correta
+const base_URL = 'https://api-cafe-gourmet.vercel.app'; // URL base correta da API
 
 const ProdutoDetalhes = () => {
   const { user } = useAuth();
@@ -22,19 +22,21 @@ const ProdutoDetalhes = () => {
             'Accept': 'application/json'
           }
         });
-        if (response.headers['content-type'].includes('application/json')) {
-          console.log('Resposta do servidor:', response.data); // Adicionar log para verificar a resposta da API
-          const produtoData = response.data;
-          console.log('Dados do produto:', produtoData); // Log para depuração
-          if (produtoData.imagem) {
-            produtoData.imagemUrl = blobToUrl(produtoData.imagem);
-          }
-          setProduto(produtoData);
-        } else {
-          console.error('Resposta inesperada do servidor:', response.data);
+        console.log('Resposta do servidor:', response.data); // Adicionar log para verificar a resposta da API
+        const produtoData = Array.isArray(response.data) ? response.data[0] : response.data;
+        console.log('Dados do produto:', produtoData); // Log para depuração
+        if (produtoData.imagem) {
+          produtoData.imagemUrl = blobToUrl(produtoData.imagem);
         }
+        setProduto(produtoData);
       } catch (error) {
-        console.error('Erro ao buscar produto:', error);
+        if (error.response) {
+          console.error('Erro na resposta da API:', error.response.data);
+        } else if (error.request) {
+          console.error('Erro na requisição da API:', error.request);
+        } else {
+          console.error('Erro desconhecido:', error.message);
+        }
       }
     };
 
