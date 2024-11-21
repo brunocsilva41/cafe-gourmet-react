@@ -33,7 +33,7 @@ const Pedidos = () => {
               <div className="pedido-header" onClick={() => toggleDetalhes(index)}>
                 <p>Pedido #{pedido.numero}</p>
                 <p>Data: {pedido.data}</p>
-                <p>Total: R$ {pedido.total.toFixed(2)}</p>
+                <p>Total: R$ {pedido.total ? pedido.total.toFixed(2) : '0.00'}</p>
                 <button>Acompanhar Rastreio</button>
                 <button onClick={() => removerPedido(index)}>Remover Pedido</button>
               </div>
@@ -48,7 +48,7 @@ const Pedidos = () => {
                       </li>
                     ))}
                   </ul>
-                  <p>Total com Frete: R$ {pedido.totalComFrete.toFixed(2)}</p>
+                  <p>Total com Frete: R$ {pedido.totalComFrete ? pedido.totalComFrete.toFixed(2) : '0.00'}</p>
                 </div>
               )}
             </div>
