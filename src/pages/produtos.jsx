@@ -27,6 +27,7 @@ const Products = () => {
     precoMin: '',
     precoMax: ''
   });
+  const [loading, setLoading] = useState(true);
 
   const observer = useRef();
 
@@ -53,6 +54,8 @@ const Products = () => {
         }
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -150,26 +153,30 @@ const Products = () => {
             />
           </div>
         </div>
-        <div className="product-list">
-          {produtosFiltrados.map((produto, index) => (
-            <div key={index} className="product-item">
-              <Link to={`/produto/${produto.id}`}>
-                {produto.imagemUrl ? (
-                  <img
-                    data-src={produto.imagemUrl}
-                    alt={produto.name}
-                    className="lazy-load"
-                  />
-                ) : (
-                  <p>Imagem não disponível</p>
-                )}
-                <h3>{produto.name}</h3>
-              </Link>
-              <p>R$ {Number(produto.preco).toFixed(2)}</p>
-              <button onClick={() => adicionarAoCarrinho(produto)}>Adicionar ao Carrinho</button>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="loading-spinner">Carregando...</div>
+        ) : (
+          <div className="product-list">
+            {produtosFiltrados.map((produto, index) => (
+              <div key={index} className="product-item">
+                <Link to={`/produto/${produto.id}`}>
+                  {produto.imagemUrl ? (
+                    <img
+                      data-src={produto.imagemUrl}
+                      alt={produto.name}
+                      className="lazy-load"
+                    />
+                  ) : (
+                    <p>Imagem não disponível</p>
+                  )}
+                  <h3>{produto.name}</h3>
+                </Link>
+                <p>R$ {Number(produto.preco).toFixed(2)}</p>
+                <button onClick={() => adicionarAoCarrinho(produto)}>Adicionar ao Carrinho</button>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
     </>
   );
