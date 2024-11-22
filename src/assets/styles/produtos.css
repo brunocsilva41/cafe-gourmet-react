@@ -1,19 +1,20 @@
 main {
     padding: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Alinhar filtros e produtos lado a lado */
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    width: 100%; /* Garantir que o título ocupe toda a largura */
 }
 
 .filter-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 20px;
+    margin-right: 20px; /* Adicionar margem à direita para separar dos produtos */
     width: 20%;
 }
 
@@ -52,11 +53,10 @@ h2 {
 }
 
 .product-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Layout 4x4 */
     gap: 20px;
-    justify-content: center;
-    width: 100%;
+    width: 80%;
 }
 
 .product-item {
@@ -64,7 +64,7 @@ h2 {
     border-radius: 8px;
     padding: 16px;
     text-align: center;
-    width: 200px;
+    width: 100%; /* Ajustar largura para o grid */
     height: 300px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
