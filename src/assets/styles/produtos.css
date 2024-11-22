@@ -21,7 +21,7 @@ h2 {
     padding: 10px;
     border-radius: 8px;
     background-color: #f5f5f5;
-    width: auto; /* Ajustar a largura para o tamanho necessário */
+    width: fit-content; /* Ajustar a largura para o tamanho necessário */
 }
 
 .filter-category {
@@ -42,7 +42,7 @@ h2 {
     border-radius: 5px;
     background-color: #fff;
     color: #333;
-    width: auto; /* Ajustar a largura para o tamanho necessário */
+    width: fit-content; /* Ajustar a largura para o tamanho necessário */
 }
 
 .filter label {
