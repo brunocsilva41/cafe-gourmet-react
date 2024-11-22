@@ -63,29 +63,6 @@ h2 {
   color: red;
 }
 
-.cart-total {
-  margin-top: 20px;
-  font-weight: bold;
-  text-align: right;
-}
-
-.checkout {
-  width: auto;
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-  border-radius: 4px;
-  display: block;
-  margin-left: auto;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
 .coupon-section {
   margin-top: 20px;
   display: flex;
@@ -110,6 +87,29 @@ button:hover {
 }
 
 .coupon-section button:hover {
+  background-color: #45a049;
+}
+
+.cart-total {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.checkout {
+  width: auto;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 4px;
+  display: block;
+  margin-left: auto;
+}
+
+button:hover {
   background-color: #45a049;
 }
 
