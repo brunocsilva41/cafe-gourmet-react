@@ -40,7 +40,7 @@ const CartIcon = () => {
       </button>
       {isOpen && (
         <div className="cart-sidebar">
-          <button onClick={toggleCart} className="close-cart-button">
+          <button onClick={toggleCart} className="close-cart-button" >
             <FaShoppingCart />
           </button>
           <h2>Seu Carrinho</h2>

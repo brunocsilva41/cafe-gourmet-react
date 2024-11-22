@@ -96,6 +96,12 @@ h2 {
   text-align: center;
 }
 
+.checkout-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .checkout {
   width: auto;
   padding: 10px 20px;
@@ -103,10 +109,7 @@ h2 {
   color: white;
   border: none;
   cursor: pointer;
-  margin-top: 20px;
   border-radius: 4px;
-  display: block;
-  margin: 0 auto;
 }
 
 button:hover {

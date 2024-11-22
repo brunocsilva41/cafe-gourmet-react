@@ -81,7 +81,9 @@ const Cart = () => {
         <div id="totalCarrinho" className="cart-total">
           <h3>Total: R$ {Number(total - discount).toFixed(2)}</h3>
         </div>
-        <button className='checkout' onClick={finalizarCompra}>Finalizar a Compra</button>
+        <div className="checkout-section">
+          <button className='checkout' onClick={finalizarCompra}>Finalizar a Compra</button>
+        </div>
       </main>
     </>
   );
