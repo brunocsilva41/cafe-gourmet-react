@@ -10,6 +10,8 @@ const Cart = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [coupon, setCoupon] = useState('');
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('carrinho')) || [];
@@ -26,9 +28,17 @@ const Cart = () => {
     localStorage.setItem('carrinho', JSON.stringify(novoCarrinho));
   };
 
+  const aplicarDesconto = () => {
+    if (coupon === 'cafe10') {
+      setDiscount(total * 0.1);
+    } else {
+      alert('Cupom inválido');
+    }
+  };
+
   const finalizarCompra = () => {
     if (user) {
-      navigate('/checkout');
+      navigate('/checkout', { state: { total: total - discount, itens: cart } });
     } else {
       navigate('/login');
     }
@@ -60,7 +70,16 @@ const Cart = () => {
           ))}
         </div>
         <div id="totalCarrinho" className="cart-total">
-          <h3>Total: R$ {Number(total).toFixed(2)}</h3>
+          <h3>Total: R$ {Number(total - discount).toFixed(2)}</h3>
+        </div>
+        <div className="coupon-section">
+          <input 
+            type="text" 
+            placeholder="Cupom de desconto" 
+            value={coupon} 
+            onChange={(e) => setCoupon(e.target.value)} 
+          />
+          <button onClick={aplicarDesconto}>Aplicar Cupom</button>
         </div>
         <button className='checkout' onClick={finalizarCompra}>Finalizar a Compra</button>
       </main>

@@ -52,6 +52,31 @@ button:hover {
   background-color: #45a049;
 }
 
+.coupon-section {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.coupon-section input {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.coupon-section button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.coupon-section button:hover {
+  background-color: #45a049;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
