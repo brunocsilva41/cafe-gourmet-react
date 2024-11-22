@@ -7,7 +7,6 @@ import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { blobToUrl } from '../utils/blobToUrl';
 
-
 const base_URL = process.env.REACT_APP_BASE_URL;
 
 if (!base_URL) {
@@ -27,7 +26,6 @@ const Products = () => {
     precoMax: ''
   });
   const [carrinho, setCarrinho] = useState([]);
-
 
   useEffect(() => {
     const fetchProdutos = async () => {
@@ -61,6 +59,18 @@ const Products = () => {
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('carrinho')) || [];
     setCarrinho(savedCart);
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updatedCart = JSON.parse(localStorage.getItem('carrinho')) || [];
+      setCarrinho(updatedCart);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const handleFiltroChange = (e) => {

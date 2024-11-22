@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../assets/styles/produtosdetalhes.css';
 import Header from '../components/Header';
-import { useAuth } from '../context/AuthContext';
-import { blobToUrl } from '../utils/blobToUrl';
+import { useAuth } from '../.context/AuthContext';
+import { blobToUrl } from '../.utils/blobToUrl';
 
 const base_URL = 'https://api-cafe-gourmet.vercel.app'; // URL base correta da API
 

@@ -46,6 +46,7 @@ const CartIcon = ({ carrinho = [], setCarrinho }) => {
     novoCarrinho.splice(index, 1);
     setCarrinho(novoCarrinho);
     localStorage.setItem('carrinho', JSON.stringify(novoCarrinho));
+    window.dispatchEvent(new Event('storage')); // Atualiza o carrinho em outros componentes
   };
 
   return (

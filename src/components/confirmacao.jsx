@@ -26,6 +26,7 @@ const Confirmacao = () => {
     pedidos.push(novoPedido);
     localStorage.setItem('pedidos', JSON.stringify(pedidos));
     localStorage.removeItem('carrinho');
+    window.dispatchEvent(new Event('storage')); // Atualiza o carrinho em outros componentes
     alert('Pedido efetuado com sucesso!');
     navigate('/pedidos');
   };
@@ -43,14 +44,12 @@ const Confirmacao = () => {
                 <li key={index}>
                   {item.nome} - {item.quantidade} x R$ {parseFloat(item.preco).toFixed(2)}
                   <img src={item.imagemUrl} alt={item.nome} /> {/* Adicionar imagem */}
-                  {item.nome} - {item.quantidade} x R$ {parseFloat(item.preco).toFixed(2)}
                 </li>
               ))
             ) : (
               <p>Não há itens no pedido.</p>
             )}
           </ul>
-          <p>Total: R$ {pedido ? parseFloat(pedido.total).toFixed(2) : '0.00'}</p>
           <p>Total: R$ {pedido ? parseFloat(pedido.total).toFixed(2) : '0.00'}</p>
         </div>
         <button onClick={processarCompra}>Confirmar Compra</button>
