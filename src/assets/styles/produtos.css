@@ -1,12 +1,10 @@
 main {
-    display: flex;
     padding: 20px;
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
-    width: 100%;
 }
 
 .filter {
@@ -20,62 +18,20 @@ h2 {
     margin-right: 10px;
 }
 
-.filter-panel {
-    width: 250px;
-    margin-right: 20px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.filter-panel h3 {
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.filter-panel select, .filter-panel input, .filter-panel label {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #fff;
-    color: #333;
-}
-
-.filter-panel label {
-    display: flex;
-    align-items: center;
-}
-
-.filter-panel label input {
-    margin-right: 10px;
-}
-
 .product-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    flex-grow: 1;
+    gap: 20px;
+    justify-content: center;
 }
 
 .product-item {
-    width: 100%;
-    max-width: 300px;
-    height: 300px; /* Definir altura fixa */
-    background: linear-gradient(to bottom, #d2b48c, #8b4513); /* Gradiente entre marrom claro e marrom escuro */
-    border: 2px solid black; /* Bordas pretas */
+    border: 1px solid #ddd;
     border-radius: 8px;
-    margin: 10px;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    padding: 16px;
     text-align: center;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     animation: fadeIn 0.5s ease-in-out;
 }
@@ -86,31 +42,31 @@ h2 {
 
 .product-item img {
     max-width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-    border-radius: 4px;
+    height: auto;
+    border-radius: 8px;
 }
 
 .product-item h3 {
+    font-size: 1.2em;
     margin: 10px 0;
-    color: #fff;
 }
 
 .product-item p {
-    color: #fff;
+    color: #333;
 }
 
 .product-item button {
-    background-color: #4CAF50;
+    background-color: #28a745;
     color: white;
     border: none;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .product-item button:hover {
-    background-color: #45a049;
+    background-color: #218838;
 }
 
 .product {

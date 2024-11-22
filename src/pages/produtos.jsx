@@ -100,41 +100,31 @@ const Products = () => {
       <Header user={user} />
       <CartIcon carrinho={carrinho} setCarrinho={setCarrinho} /> {/* Passar carrinho e setCarrinho */}
       <main>
-        <div className="filter-panel">
-          <h3>Filtros</h3>
-          <div className="filter">
-            <h4>Categoria</h4>
+        <h2>Produtos</h2>
+        <div className="filter">
+          <select name="tipo" onChange={handleFiltroChange}>
+            <option value="">Por Categoria</option>
             {categorias.map((categoria, index) => (
-              <label key={index}>
-                <input
-                  type="checkbox"
-                  name="tipo"
-                  value={categoria}
-                  onChange={handleFiltroChange}
-                />
-                {categoria}
-              </label>
+              <option key={index} value={categoria}>{categoria}</option>
             ))}
-            <h4>Ordenar</h4>
-            <select name="ordenar" onChange={handleFiltroChange}>
-              <option value="">Ordenar</option>
-              <option value="preco-asc">Preço: Menor para Maior</option>
-              <option value="preco-desc">Preço: Maior para Menor</option>
-            </select>
-            <h4>Preço</h4>
-            <input
-              type="number"
-              name="precoMin"
-              placeholder="Preço Mínimo"
-              onChange={handleFiltroChange}
-            />
-            <input
-              type="number"
-              name="precoMax"
-              placeholder="Preço Máximo"
-              onChange={handleFiltroChange}
-            />
-          </div>
+          </select>
+          <select name="ordenar" onChange={handleFiltroChange}>
+            <option value="">Ordenar</option>
+            <option value="preco-asc">Preço: Menor para Maior</option>
+            <option value="preco-desc">Preço: Maior para Menor</option>
+          </select>
+          <input
+            type="number"
+            name="precoMin"
+            placeholder="Preço Mínimo"
+            onChange={handleFiltroChange}
+          />
+          <input
+            type="number"
+            name="precoMax"
+            placeholder="Preço Máximo"
+            onChange={handleFiltroChange}
+          />
         </div>
         <div className="product-list">
           {produtosFiltrados.map((produto, index) => (

@@ -28,7 +28,7 @@ const CartIcon = ({ carrinho = [], setCarrinho }) => {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, [setCarrinho]);
+  }, []);
 
   const toggleCart = () => {
     setIsOpen(!isOpen);
