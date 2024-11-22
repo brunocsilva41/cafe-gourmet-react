@@ -19,7 +19,7 @@ const Confirmacao = () => {
     const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
     const novoPedido = {
       ...pedido,
-      numero: pedidos.length + 1,
+      numero: Math.floor(Math.random() * 1000000), // Gerar número aleatório
       data: new Date().toLocaleDateString(),
       mostrarDetalhes: false,
     };
@@ -41,6 +41,7 @@ const Confirmacao = () => {
             {pedido && pedido.itens && pedido.itens.length > 0 ? (
               pedido.itens.map((item, index) => (
                 <li key={index}>
+                  <img src={item.imagemUrl} alt={item.nome} /> {/* Adicionar imagem */}
                   {item.nome} - {item.quantidade} x R$ {parseFloat(item.preco).toFixed(2)}
                 </li>
               ))

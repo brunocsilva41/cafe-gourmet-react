@@ -18,6 +18,18 @@ const CartIcon = ({ carrinho = [], setCarrinho }) => {
     }
   }, []);
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updatedCart = JSON.parse(localStorage.getItem('carrinho')) || [];
+      setCarrinho(updatedCart);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   const toggleCart = () => {
     setIsOpen(!isOpen);
   };

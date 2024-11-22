@@ -52,6 +52,7 @@ const ProdutoDetalhes = () => {
       carrinho.push({ ...produto, quantidade: 1 });
     }
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    window.dispatchEvent(new Event('storage')); // Atualiza o carrinho em outros componentes
   };
 
   if (!produto) {
