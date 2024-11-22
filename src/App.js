@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import './App.css';
 import Checkout from './components/checkout';
 import Confirmacao from './components/confirmacao';
 import Criarconta from './components/Criarconta';
