@@ -49,40 +49,42 @@ const Cart = () => {
       <Header user={user} />
       <main className="cart-container">
         <h2>Seu Carrinho</h2>
-        <div id="carrinhoItens" className="cart-items">
-          {cart.map((item, index) => (
-            <div key={index} className="cart-item">
-              <img 
-                src={item.imagemUrl} 
-                alt={item.name} 
-                style={{ width: '100px', height: '100px' }} 
-                onError={(e) => { 
-                  e.target.onerror = null; 
-                  e.target.src = 'default-image-url'; 
-                }} 
-              />
-              <h3>{item.name}</h3>
-              <p>Preço: R$ {Number(item.preco).toFixed(2)} x {item.quantidade}</p>
-              <button onClick={() => removerItem(index)} className="remove-item-button">
-                <FaTrash />
-              </button>
-            </div>
-          ))}
-        </div>
-        <div className="coupon-section">
-          <input 
-            type="text" 
-            placeholder="Cupom de desconto" 
-            value={coupon} 
-            onChange={(e) => setCoupon(e.target.value)} 
-          />
-          <button onClick={aplicarDesconto}>Aplicar Cupom</button>
-        </div>
-        <div id="totalCarrinho" className="cart-total">
-          <h3>Total: R$ {Number(total - discount).toFixed(2)}</h3>
-        </div>
-        <div className="checkout-section">
-          <button className='checkout' onClick={finalizarCompra}>Finalizar a Compra</button>
+        <div className="cart-content">
+          <div id="carrinhoItens" className="cart-items">
+            {cart.map((item, index) => (
+              <div key={index} className="cart-item">
+                <img 
+                  src={item.imagemUrl} 
+                  alt={item.name} 
+                  style={{ width: '100px', height: '100px' }} 
+                  onError={(e) => { 
+                    e.target.onerror = null; 
+                    e.target.src = 'default-image-url'; 
+                  }} 
+                />
+                <h3>{item.name}</h3>
+                <p>Preço: R$ {Number(item.preco).toFixed(2)} x {item.quantidade}</p>
+                <button onClick={() => removerItem(index)} className="remove-item-button">
+                  <FaTrash />
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className="coupon-section">
+            <input 
+              type="text" 
+              placeholder="Cupom de desconto" 
+              value={coupon} 
+              onChange={(e) => setCoupon(e.target.value)} 
+            />
+            <button onClick={aplicarDesconto}>Aplicar Cupom</button>
+          </div>
+          <div id="totalCarrinho" className="cart-total">
+            <h3>Total: R$ {Number(total - discount).toFixed(2)}</h3>
+          </div>
+          <div className="checkout-section">
+            <button className='checkout' onClick={finalizarCompra}>Finalizar a Compra</button>
+          </div>
         </div>
       </main>
     </>
