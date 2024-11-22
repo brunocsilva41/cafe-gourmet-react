@@ -118,8 +118,8 @@ const Products = () => {
     <>
       <Header user={user} />
       <CartIcon />
+      <h2>Produtos</h2>
       <main>
-        <h2>Produtos</h2>
         <div className="filter-container">
           <div className="filter filter-category">
             <h4>Filtrar por Categoria</h4>

@@ -54,7 +54,7 @@ h2 {
 
 .product-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Layout 4x4 */
+    grid-template-columns: repeat(6, 1fr); 
     gap: 20px;
     width: 80%;
 }
