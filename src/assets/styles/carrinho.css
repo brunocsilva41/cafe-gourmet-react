@@ -67,7 +67,7 @@ h2 {
   margin-top: 20px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .coupon-section input {
@@ -93,7 +93,7 @@ h2 {
 .cart-total {
   margin-top: 20px;
   font-weight: bold;
-  text-align: right;
+  text-align: center;
 }
 
 .checkout {
@@ -106,7 +106,7 @@ h2 {
   margin-top: 20px;
   border-radius: 4px;
   display: block;
-  margin-left: auto;
+  margin: 0 auto;
 }
 
 button:hover {

@@ -57,8 +57,7 @@
   background-color: #a00404;
   color: #a00404; 
   width: 10%;
-  background: none;
-  border: none;
+  border: 2px solid black;
   cursor: pointer;
   display: flex;
   align-items: center;
