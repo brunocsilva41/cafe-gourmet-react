@@ -1,3 +1,8 @@
+main {
+  padding: 20px;
+  display: flex;
+  flex-direction: row; /* Alinhar filtros e produtos lado a lado */
+}
 .cart-items {
   display: flex;
   flex-direction: column;
