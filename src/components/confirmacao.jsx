@@ -41,14 +41,14 @@ const Confirmacao = () => {
             {pedido && pedido.itens && pedido.itens.length > 0 ? (
               pedido.itens.map((item, index) => (
                 <li key={index}>
-                  {item.nome} - {item.quantidade} x R$ {item.preco.toFixed(2)}
+                  {item.nome} - {item.quantidade} x R$ {parseFloat(item.preco).toFixed(2)}
                 </li>
               ))
             ) : (
               <p>Não há itens no pedido.</p>
             )}
           </ul>
-          <p>Total: R$ {pedido ? pedido.total.toFixed(2) : '0.00'}</p>
+          <p>Total: R$ {pedido ? parseFloat(pedido.total).toFixed(2) : '0.00'}</p>
         </div>
         <button onClick={processarCompra}>Confirmar Compra</button>
       </div>

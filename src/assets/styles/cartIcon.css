@@ -13,7 +13,7 @@
   width: 50px;
   border: none;
   cursor: pointer;
-  position: relative;
+  position: top;
   display: flex;
   align-items: center;
 }
