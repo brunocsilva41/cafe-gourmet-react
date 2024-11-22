@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/styles/produtos.css'; // Importa o CSS para estilizar os produtos
 import CartIcon from '../components/CartIcon';
@@ -27,6 +27,8 @@ const Products = () => {
     precoMin: '',
     precoMax: ''
   });
+
+  const observer = useRef();
 
   useEffect(() => {
     const fetchProdutos = async () => {
@@ -81,6 +83,32 @@ const Products = () => {
       return 0;
     });
 
+  useEffect(() => {
+    const lazyLoadImages = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          observer.current.unobserve(img);
+        }
+      });
+    };
+
+    observer.current = new IntersectionObserver(lazyLoadImages, {
+      rootMargin: '0px 0px 50px 0px',
+      threshold: 0.01
+    });
+
+    const images = document.querySelectorAll('.lazy-load');
+    images.forEach(img => observer.current.observe(img));
+
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+    };
+  }, [produtosFiltrados]);
+
   return (
     <>
       <Header user={user} />
@@ -127,7 +155,11 @@ const Products = () => {
             <div key={index} className="product-item">
               <Link to={`/produto/${produto.id}`}>
                 {produto.imagemUrl ? (
-                  <img src={produto.imagemUrl} alt={produto.name} />
+                  <img
+                    data-src={produto.imagemUrl}
+                    alt={produto.name}
+                    className="lazy-load"
+                  />
                 ) : (
                   <p>Imagem não disponível</p>
                 )}
