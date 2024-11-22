@@ -21,12 +21,12 @@ h2 {
     padding: 10px;
     border-radius: 8px;
     background-color: #f5f5f5;
+    width: 100px;
 }
 
 .filter-category {
     flex: 1;
     margin-right: 20px;
-    width: 100px;
 }
 
 .filter-options {
@@ -34,7 +34,6 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 100px;
 }
 
 .filter select, .filter input {
