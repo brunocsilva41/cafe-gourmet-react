@@ -9,13 +9,32 @@ h2 {
 
 .filter {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
 }
 
 .filter select, .filter input {
     padding: 10px;
     margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.filter label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.filter label input {
+    margin-right: 5px;
 }
 
 .product-list {
@@ -31,11 +50,14 @@ h2 {
     padding: 16px;
     text-align: center;
     width: 200px;
-    height: 300px; /* Definir altura fixa */
+    height: 300px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     animation: fadeIn 0.5s ease-in-out;
-    background: linear-gradient(to bottom, #d2b48c, #8b4513); /* Gradiente entre marrom claro e marrom escuro */
+    background: linear-gradient(to bottom, #d2b48c, #8b4513,  #d2b48c); 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .product-item:hover {
@@ -44,7 +66,8 @@ h2 {
 
 .product-item img {
     max-width: 100%;
-    height: auto;
+    height: 150px; /* Definir altura fixa para as imagens */
+    object-fit: cover; /* Manter a proporção da imagem */
     border-radius: 8px;
 }
 

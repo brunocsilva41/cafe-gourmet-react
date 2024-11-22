@@ -58,8 +58,15 @@ const Products = () => {
   }, []);
 
   const handleFiltroChange = (e) => {
-    const { name, value } = e.target;
-    setFiltro({ ...filtro, [name]: value });
+    const { name, value, type, checked } = e.target;
+    if (type === 'checkbox') {
+      setFiltro((prevFiltro) => ({
+        ...prevFiltro,
+        [name]: checked ? value : ''
+      }));
+    } else {
+      setFiltro({ ...filtro, [name]: value });
+    }
   };
 
   const produtosFiltrados = produtos
@@ -81,12 +88,20 @@ const Products = () => {
       <main>
         <h2>Produtos</h2>
         <div className="filter">
-          <select name="tipo" onChange={handleFiltroChange}>
-            <option value="">Por Categoria</option>
+          <div>
+            <h4>Filtrar por Categoria</h4>
             {categorias.map((categoria, index) => (
-              <option key={index} value={categoria}>{categoria}</option>
+              <label key={index}>
+                <input
+                  type="checkbox"
+                  name="tipo"
+                  value={categoria}
+                  onChange={handleFiltroChange}
+                />
+                {categoria}
+              </label>
             ))}
-          </select>
+          </div>
           <select name="ordenar" onChange={handleFiltroChange}>
             <option value="">Ordenar</option>
             <option value="preco-asc">Preço: Menor para Maior</option>
