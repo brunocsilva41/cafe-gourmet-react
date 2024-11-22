@@ -9,20 +9,21 @@ main.cart-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: linear-gradient(to bottom, #d2b48c, #8b4513, #d2b48c);
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.h2{
+.cart-container.h2{
   text-align: center;
   margin-bottom: 20px;
-  width: 50%; /* Garantir que o título ocupe toda a largura */
+  width: 20%; 
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  width: 10px;
 }
 
 .cart-content {
