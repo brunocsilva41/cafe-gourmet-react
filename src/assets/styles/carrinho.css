@@ -14,16 +14,11 @@ main.cart-container {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.cart-container.h2{
+.titulo-carrinho.h2{
+  align-items: center;
   text-align: center;
   margin-bottom: 20px;
   width: 20%; 
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  width: 10px;
 }
 
 .cart-content {

@@ -48,7 +48,9 @@ const Cart = () => {
     <>
       <Header user={user} />
       <main className="cart-container">
+        <div className='titulo-carrinho'>
         <h2>Seu Carrinho</h2>
+        </div>
         <div className="cart-content">
           <div id="carrinhoItens" className="cart-items">
             {cart.map((item, index) => (

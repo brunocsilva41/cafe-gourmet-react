@@ -24,7 +24,7 @@ h2 {
     gap: 10px;
     padding: 10px;
     border-radius: 8px;
-    background: linear-gradient(to bottom, #d2b48c, #8b4513,  #d2b48c); 
+    background: linear-gradient(to bottom, #d2b48c, #42240e,  #d2b48c); 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
@@ -37,7 +37,7 @@ h2 {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background: linear-gradient(to bottom, #d2b48c, #8b4513,  #d2b48c); 
+    background: linear-gradient(to bottom, #d2b48c, #42240e,  #d2b48c); 
     color: #333;
 }
 
