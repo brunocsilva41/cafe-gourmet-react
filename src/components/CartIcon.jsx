@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { FaShoppingCart, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/cartIcon.css';
+import { CartContext } from '../context/CartContext';
 
-const CartIcon = ({ carrinho = [], setCarrinho }) => {
+const CartIcon = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [userName, setUserName] = useState('');
+  const { carrinho, removerItem } = useContext(CartContext);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -18,18 +20,6 @@ const CartIcon = ({ carrinho = [], setCarrinho }) => {
     }
   }, []);
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const updatedCart = JSON.parse(localStorage.getItem('carrinho')) || [];
-      setCarrinho(updatedCart);
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, [setCarrinho]);
-
   const toggleCart = () => {
     setIsOpen(!isOpen);
   };
@@ -39,14 +29,6 @@ const CartIcon = ({ carrinho = [], setCarrinho }) => {
 
   const finalizarCompra = () => {
     navigate('/cart');
-  };
-
-  const removerItem = (index) => {
-    const novoCarrinho = [...carrinho];
-    novoCarrinho.splice(index, 1);
-    setCarrinho(novoCarrinho);
-    localStorage.setItem('carrinho', JSON.stringify(novoCarrinho));
-    window.dispatchEvent(new Event('storage')); // Atualiza o carrinho em outros componentes
   };
 
   return (

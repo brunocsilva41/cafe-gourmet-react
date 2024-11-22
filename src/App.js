@@ -7,6 +7,7 @@ import Login from './components/login';
 import Navbar from './components/Navbar';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
 import AdminDashboard from './pages/AdminDashboard';
 import Cart from './pages/cart';
 import Conta from './pages/conta';
@@ -26,6 +27,7 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
+        <CartProvider>
         <Navbar carrinho={carrinho} />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -40,6 +42,7 @@ const App = () => {
           <Route path="/criarConta" element={<Criarconta />} />
           <Route path="/admin-dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
         </Routes>
+        </CartProvider>
       </Router>
     </AuthProvider>
   );

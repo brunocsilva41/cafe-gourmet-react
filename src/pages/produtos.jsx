@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/styles/produtos.css'; // Importa o CSS para estilizar os produtos
 import CartIcon from '../components/CartIcon';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
+import { CartContext } from '../context/CartContext';
 import { blobToUrl } from '../utils/blobToUrl';
 
 const base_URL = process.env.REACT_APP_BASE_URL;
@@ -17,6 +18,7 @@ if (!base_URL) {
 
 const Products = () => {
   const { user } = useAuth();
+  const { adicionarAoCarrinho } = useContext(CartContext);
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [filtro, setFiltro] = useState({
@@ -25,7 +27,6 @@ const Products = () => {
     precoMin: '',
     precoMax: ''
   });
-  const [carrinho, setCarrinho] = useState([]);
 
   useEffect(() => {
     const fetchProdutos = async () => {
@@ -56,41 +57,9 @@ const Products = () => {
     fetchProdutos();
   }, []);
 
-  useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem('carrinho')) || [];
-    setCarrinho(savedCart);
-  }, []);
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const updatedCart = JSON.parse(localStorage.getItem('carrinho')) || [];
-      setCarrinho(updatedCart);
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
-
   const handleFiltroChange = (e) => {
     const { name, value } = e.target;
     setFiltro({ ...filtro, [name]: value });
-  };
-
-  const adicionarAoCarrinho = (produto) => {
-    const produtoExistente = carrinho.find(item => item.id === produto.id);
-    let novoCarrinho;
-    if (produtoExistente) {
-      novoCarrinho = carrinho.map(item =>
-        item.id === produto.id ? { ...item, quantidade: item.quantidade + 1 } : item
-      );
-    } else {
-      novoCarrinho = [...carrinho, { ...produto, quantidade: 1 }];
-    }
-    setCarrinho(novoCarrinho);
-    localStorage.setItem('carrinho', JSON.stringify(novoCarrinho));
-    window.dispatchEvent(new Event('storage')); // Atualiza o carrinho em outros componentes
   };
 
   const produtosFiltrados = produtos
@@ -108,7 +77,7 @@ const Products = () => {
   return (
     <>
       <Header user={user} />
-      <CartIcon carrinho={carrinho} setCarrinho={setCarrinho} /> {/* Passar carrinho e setCarrinho */}
+      <CartIcon /> {/* Remover carrinho e setCarrinho, pois agora são gerenciados pelo contexto */}
       <main>
         <h2>Produtos</h2>
         <div className="filter">
