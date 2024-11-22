@@ -2,15 +2,33 @@ main {
   padding: 20px;
   display: flex;
   flex-direction: row; /* Alinhar filtros e produtos lado a lado */
+  width: 100%;
 }
+
+main.cart-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.h2,h3{
+  text-align: center;
+  margin-bottom: 20px;
+  width: 50%; /* Garantir que o título ocupe toda a largura */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .cart-items {
   display: flex;
   flex-direction: column;
   animation: fadeIn 0.5s ease-in-out;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .cart-item {

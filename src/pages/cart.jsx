@@ -47,7 +47,7 @@ const Cart = () => {
   return (
     <>
       <Header user={user} />
-      <main>
+      <main className="cart-container">
         <h2>Seu Carrinho</h2>
         <div id="carrinhoItens" className="cart-items">
           {cart.map((item, index) => (
@@ -69,9 +69,6 @@ const Cart = () => {
             </div>
           ))}
         </div>
-        <div id="totalCarrinho" className="cart-total">
-          <h3>Total: R$ {Number(total - discount).toFixed(2)}</h3>
-        </div>
         <div className="coupon-section">
           <input 
             type="text" 
@@ -80,6 +77,9 @@ const Cart = () => {
             onChange={(e) => setCoupon(e.target.value)} 
           />
           <button onClick={aplicarDesconto}>Aplicar Cupom</button>
+        </div>
+        <div id="totalCarrinho" className="cart-total">
+          <h3>Total: R$ {Number(total - discount).toFixed(2)}</h3>
         </div>
         <button className='checkout' onClick={finalizarCompra}>Finalizar a Compra</button>
       </main>
