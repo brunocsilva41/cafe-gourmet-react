@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/styles/produtos.css'; // Importa o CSS para estilizar os produtos
 import CartIcon from '../components/CartIcon';
@@ -22,7 +22,7 @@ const Products = () => {
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [filtro, setFiltro] = useState({
-    tipo: '',
+    tipo: [],
     ordenar: '',
     precoMin: '',
     precoMax: ''
@@ -67,7 +67,9 @@ const Products = () => {
     if (type === 'checkbox') {
       setFiltro((prevFiltro) => ({
         ...prevFiltro,
-        [name]: checked ? value : ''
+        tipo: checked
+          ? [...prevFiltro.tipo, value]
+          : prevFiltro.tipo.filter((categoria) => categoria !== value)
       }));
     } else {
       setFiltro({ ...filtro, [name]: value });
@@ -76,7 +78,7 @@ const Products = () => {
 
   const produtosFiltrados = produtos
     .filter(produto => 
-      (filtro.tipo ? produto.categoria === filtro.tipo : true) &&
+      (filtro.tipo.length > 0 ? filtro.tipo.includes(produto.categoria) : true) &&
       (filtro.precoMin ? produto.preco >= filtro.precoMin : true) &&
       (filtro.precoMax ? produto.preco <= filtro.precoMax : true)
     )

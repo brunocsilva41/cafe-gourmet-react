@@ -26,6 +26,7 @@ h2 {
 .filter-category {
     flex: 1;
     margin-right: 20px;
+    width: 100px;
 }
 
 .filter-options {
@@ -33,6 +34,7 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100px;
 }
 
 .filter select, .filter input {
