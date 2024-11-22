@@ -84,11 +84,11 @@ const Products = () => {
   return (
     <>
       <Header user={user} />
-      <CartIcon /> {/* Remover carrinho e setCarrinho, pois agora são gerenciados pelo contexto */}
+      <CartIcon />
       <main>
         <h2>Produtos</h2>
-        <div className="filter">
-          <div>
+        <div className="filter-container">
+          <div className="filter filter-category">
             <h4>Filtrar por Categoria</h4>
             {categorias.map((categoria, index) => (
               <label key={index}>
@@ -102,23 +102,25 @@ const Products = () => {
               </label>
             ))}
           </div>
-          <select name="ordenar" onChange={handleFiltroChange}>
-            <option value="">Ordenar</option>
-            <option value="preco-asc">Preço: Menor para Maior</option>
-            <option value="preco-desc">Preço: Maior para Menor</option>
-          </select>
-          <input
-            type="number"
-            name="precoMin"
-            placeholder="Preço Mínimo"
-            onChange={handleFiltroChange}
-          />
-          <input
-            type="number"
-            name="precoMax"
-            placeholder="Preço Máximo"
-            onChange={handleFiltroChange}
-          />
+          <div className="filter filter-options">
+            <select name="ordenar" onChange={handleFiltroChange}>
+              <option value="">Ordenar</option>
+              <option value="preco-asc">Preço: Menor para Maior</option>
+              <option value="preco-desc">Preço: Maior para Menor</option>
+            </select>
+            <input
+              type="number"
+              name="precoMin"
+              placeholder="Preço Mínimo"
+              onChange={handleFiltroChange}
+            />
+            <input
+              type="number"
+              name="precoMax"
+              placeholder="Preço Máximo"
+              onChange={handleFiltroChange}
+            />
+          </div>
         </div>
         <div className="product-list">
           {produtosFiltrados.map((produto, index) => (
