@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/styles/pedidos.css';
 import Header from '../components/Header';
+import { useAuth } from '../context/AuthContext';
 import { obterPedidos } from '../services/pedidoService';
 
 const Pedidos = () => {
+  const { user } = useAuth();
   const [pedidos, setPedidos] = useState([]);
   const [selectedPedido, setSelectedPedido] = useState(null);
 
   useEffect(() => {
     const fetchPedidos = async () => {
       try {
-        const pedidosConfirmados = await obterPedidos();
+        const pedidosConfirmados = await obterPedidos(user.id);
         setPedidos(pedidosConfirmados);
       } catch (error) {
         console.error('Erro ao obter pedidos:', error);
@@ -18,7 +20,7 @@ const Pedidos = () => {
     };
 
     fetchPedidos();
-  }, []);
+  }, [user.id]);
 
   const toggleDetalhes = (pedido) => {
     setSelectedPedido(pedido);
