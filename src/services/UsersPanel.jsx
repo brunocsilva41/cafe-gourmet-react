@@ -53,30 +53,30 @@ const UsersPanel = () => {
     };
 
     return (
-        <div className="users-table">
-            <h2>Usuários</h2>
-            <table className="users-table">
-                <thead>
+        <div className="overflow-x-auto bg-white rounded-lg shadow min-w-full divide-y divide-gray-200">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Usuários</h2>
+            <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
                     <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Endereço</th>
-                        <th>Telefone</th>
-                        <th>Ações</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Endereço</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telefone</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="bg-white divide-y divide-gray-200">
                     {users.map(user => (
-                        <tr key={user.Id}>
-                            <td>{user.nome}</td>
-                            <td>{user.email}</td>
-                            <td>{user.role}</td>
-                            <td>{user.endereco}</td>
-                            <td>{user.telefone}</td>
-                            <td>
-                                <button onClick={() => openPopup(user)}>Alterar Informações</button>
-                                <button onClick={() => deleteUser(user.Id)}>Excluir</button>
+                        <tr key={user.Id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.nome}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.email}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.role}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.endereco}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.telefone}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <button onClick={() => openPopup(user)} className="text-indigo-600 hover:text-indigo-900 mr-4">Alterar Informações</button>
+                                <button onClick={() => deleteUser(user.Id)} className="text-red-600 hover:text-red-900">Excluir</button>
                             </td>
                         </tr>
                     ))}
@@ -85,26 +85,30 @@ const UsersPanel = () => {
 
             {selectedUser && (
                 <Popup open={true} closeOnDocumentClick onClose={closePopup}>
-                    <div className="modal">
-                        <h2>Alterar Informações</h2>
-                        <p>Usuário: {selectedUser.nome}</p>
-                        <label>
-                            Role:
-                            <select name="role" value={newUserData.role} onChange={handleInputChange}>
-                                <option value="user">User</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </label>
-                        <label>
-                            Endereço:
-                            <input type="text" name="endereco" value={newUserData.endereco} onChange={handleInputChange} />
-                        </label>
-                        <label>
-                            Telefone:
-                            <input type="text" name="telefone" value={newUserData.telefone} onChange={handleInputChange} />
-                        </label>
-                        <button onClick={updateUser}>Salvar</button>
-                        <button onClick={closePopup}>Cancelar</button>
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+                        <div className="bg-white rounded-lg max-w-md w-full p-6">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">Alterar Informações</h2>
+                            <p className="text-sm text-gray-700 mb-4">Usuário: {selectedUser.nome}</p>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Role:
+                                <select name="role" value={newUserData.role} onChange={handleInputChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </label>
+                            <label className="block text-sm font-medium text-gray-700 mt-4">
+                                Endereço:
+                                <input type="text" name="endereco" value={newUserData.endereco} onChange={handleInputChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
+                            </label>
+                            <label className="block text-sm font-medium text-gray-700 mt-4">
+                                Telefone:
+                                <input type="text" name="telefone" value={newUserData.telefone} onChange={handleInputChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
+                            </label>
+                            <div className="mt-6 flex justify-end space-x-3">
+                                <button onClick={updateUser} className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Salvar</button>
+                                <button onClick={closePopup} className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200">Cancelar</button>
+                            </div>
+                        </div>
                     </div>
                 </Popup>
             )}
