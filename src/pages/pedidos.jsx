@@ -12,10 +12,10 @@ const Pedidos = () => {
 
   useEffect(() => {
     const fetchPedidos = async () => {
-      getuserId();
-      if (user && user.id) {
+      const userId = getuserId();
+      if (userId) {
         try {
-          const pedidosConfirmados = await obterPedidos(user.id);
+          const pedidosConfirmados = await obterPedidos(userId);
           setPedidos(pedidosConfirmados);
         } catch (error) {
           console.error('Erro ao obter pedidos:', error);
@@ -26,7 +26,7 @@ const Pedidos = () => {
     };
 
     fetchPedidos();
-  }, [user]);
+  }, []);
 
   const toggleDetalhes = (pedido) => {
     setSelectedPedido(pedido);
