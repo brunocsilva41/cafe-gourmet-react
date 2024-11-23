@@ -142,7 +142,8 @@ h1 {
 
 .dashboard {
     display: flex;
-    height: calc(100vh - 60px); /* Ajuste para considerar a altura do Header */
+    height: 100vh; /* Ajuste para ocupar a altura total da viewport */
+    overflow: hidden; /* Evita a segunda barra de rolagem */
 }
 
 .dashboard-menu {
@@ -175,6 +176,7 @@ h1 {
     flex-grow: 1;
     overflow-y: auto;
     padding: 20px;
+    height: 100%; /* Ajuste para ocupar a altura total do container */
 }
 
 .users-table, .logs-table {
