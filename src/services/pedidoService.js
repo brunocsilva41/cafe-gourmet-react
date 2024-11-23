@@ -14,7 +14,8 @@ export const criarPedido = async (pedido) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Erro ao criar pedido: ' + error.message);
+    console.error('Erro ao criar pedido:', error.response ? error.response.data : error.message);
+    throw new Error('Erro ao criar pedido: ' + (error.response ? error.response.data.message : error.message));
   }
 };
 

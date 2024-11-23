@@ -58,7 +58,7 @@ const Checkout = () => {
       await criarPedido(pedido);
       navigate('/confirmacao', { state: { pedido } });
     } catch (error) {
-      console.error('Erro ao criar pedido:', error);
+      console.error('Erro ao criar pedido:', error.response ? error.response.data : error.message);
       alert('Erro ao criar pedido. Tente novamente.');
     }
   };
