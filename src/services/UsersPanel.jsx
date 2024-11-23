@@ -55,7 +55,7 @@ const UsersPanel = () => {
     return (
         <div className="users-table">
             <h2>Usuários</h2>
-            <table className="users-table">
+            <table>
                 <thead>
                     <tr>
                         <th>Nome</th>
