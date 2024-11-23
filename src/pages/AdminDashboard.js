@@ -34,7 +34,6 @@ const AdminDashboard = () => {
     <>
       <Header />
       <div className='dashboard'>
-        <h1>Admin Dashboard</h1>
         <div className='dashboard-menu'>
           <button onClick={() => setActivePanel('users')}>Usuários</button>
           <button onClick={() => setActivePanel('logs')}>Logs</button>
