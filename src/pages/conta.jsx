@@ -26,6 +26,7 @@ const Conta = () => {
     const userEmail = localStorage.getItem('userEmail');
     const userImage = localStorage.getItem('userImage');
     const role = localStorage.getItem('role');
+    const token = localStorage.getItem('token'); // Adicione esta linha para obter o token
 
     if (userId && userName && userEmail && role) {
       setUser({ userId, userName, userEmail, role, userImage });
@@ -35,7 +36,11 @@ const Conta = () => {
 
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`);
+        const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}` // Adicione o token ao cabeçalho da solicitação
+          }
+        });
         const userData = response.data;
         setUserDetails(userData);
       } catch (error) {
