@@ -4,19 +4,19 @@
     background-color: #030350;
     margin: 0;
     padding: 0;
-    width: 100vw; /* Corrigido para ocupar toda a largura da viewport */
-    height: 100vh; /* Ocupa toda a altura da viewport */
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
+    justify-content: center;
+    align-items: center;
 }
 
 /* Dashboard */
 .dashboard {
     display: flex;
-    width: 80%; /* Ajuste a largura conforme necessário */
-    height: 80%; /* Ajuste a altura conforme necessário */
-    overflow: hidden; /* Evita rolagens desnecessárias */
+    width: 80%;
+    height: 80%;
+    overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
@@ -50,7 +50,7 @@
 
 /* Conteúdo Principal */
 .dashboard-content {
-    flex: 1; /* Toma o restante do espaço disponível */
+    flex: 1;
     background-color: #fff;
     overflow-y: auto;
     padding: 20px;
@@ -101,8 +101,8 @@ button:hover {
 @media (max-width: 768px) {
     .dashboard {
         flex-direction: column;
-        width: 100%; /* Ajuste para ocupar toda a largura no mobile */
-        height: auto; /* Ajuste para ocupar a altura necessária no mobile */
+        width: 100%;
+        height: auto;
     }
 
     .dashboard-menu {
