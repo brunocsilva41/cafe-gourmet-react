@@ -155,6 +155,7 @@ h1 {
     width: 200px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     height: 100%; /* Ajuste para ocupar a altura total do container */
+    position: fixed; /* Fixar o menu na lateral */
 }
 
 .dashboard-menu button {
@@ -177,6 +178,7 @@ h1 {
     flex-grow: 1;
     overflow-y: auto;
     padding: 20px;
+    margin-left: 200px; /* Espaço para o menu fixo */
     height: 100%; /* Ajuste para ocupar a altura total do container */
 }
 
@@ -195,6 +197,7 @@ h1 {
         flex-direction: row;
         width: 100%;
         height: auto;
+        position: static; /* Remover fixação no mobile */
     }
 
     .dashboard-menu button {
@@ -204,5 +207,6 @@ h1 {
 
     .dashboard-content {
         padding: 10px;
+        margin-left: 0; /* Remover margem no mobile */
     }
 }
