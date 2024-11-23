@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/styles/checkout.css';
 import { isUserLoggedIn } from '../utils/authUtils';
 import Header from './Header';
+import { salvarPedido } from '../services/pedidoService';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -47,13 +48,19 @@ const Checkout = () => {
     localStorage.setItem('carrinho', JSON.stringify(newOrderDetails));
   };
 
-  const handleCheckoutConfirmation = () => {
+  const handleCheckoutConfirmation = async () => {
     const pedido = {
       itens: orderDetails,
       total: orderTotal,
       totalComFrete: orderTotalWithShipping,
     };
-    navigate('/confirmacao', { state: { pedido } });
+    try {
+      await salvarPedido(pedido);
+      navigate('/confirmacao', { state: { pedido } });
+    } catch (error) {
+      console.error('Erro ao salvar pedido:', error);
+      alert('Erro ao salvar pedido. Tente novamente.');
+    }
   };
 
   const handleCepChange = (e) => {
