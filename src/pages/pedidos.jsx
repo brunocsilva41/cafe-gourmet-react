@@ -3,6 +3,7 @@ import '../assets/styles/pedidos.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { obterPedidos } from '../services/pedidoService';
+import { getuserId } from '../utils/auth';
 
 const Pedidos = () => {
   const { user } = useAuth();
@@ -11,6 +12,7 @@ const Pedidos = () => {
 
   useEffect(() => {
     const fetchPedidos = async () => {
+      getuserId();
       if (user && user.id) {
         try {
           const pedidosConfirmados = await obterPedidos(user.id);
