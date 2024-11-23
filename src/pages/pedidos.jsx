@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/styles/pedidos.css';
 import Header from '../components/Header';
-import { useAuth } from '../context/AuthContext';
 import { obterPedidos } from '../services/pedidoService';
 import { getuserId } from '../utils/auth';
 
 const Pedidos = () => {
-  const { user } = useAuth();
   const [pedidos, setPedidos] = useState([]);
   const [selectedPedido, setSelectedPedido] = useState(null);
 
