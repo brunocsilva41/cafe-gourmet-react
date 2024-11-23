@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/checkout.css';
+import { criarPedido } from '../services/pedidoService';
 import { isUserLoggedIn } from '../utils/authUtils';
 import Header from './Header';
-import { salvarPedido } from '../services/pedidoService';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -55,11 +55,11 @@ const Checkout = () => {
       totalComFrete: orderTotalWithShipping,
     };
     try {
-      await salvarPedido(pedido);
+      await criarPedido(pedido);
       navigate('/confirmacao', { state: { pedido } });
     } catch (error) {
-      console.error('Erro ao salvar pedido:', error);
-      alert('Erro ao salvar pedido. Tente novamente.');
+      console.error('Erro ao criar pedido:', error);
+      alert('Erro ao criar pedido. Tente novamente.');
     }
   };
 
