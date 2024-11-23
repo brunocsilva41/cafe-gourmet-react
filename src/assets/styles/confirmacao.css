@@ -9,43 +9,52 @@
 
 .detalhes-pedido {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-start;
   margin-bottom: 20px;
 }
 
 .detalhes-pedido ul {
   list-style-type: none;
   padding: 0;
-  flex: 1;
-  margin-right: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .detalhes-pedido li {
   background-color: #fff;
   padding: 10px;
-  margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   color: #333;
+  width: calc(50% - 20px);
+  box-sizing: border-box;
+}
+
+.detalhes-pedido li img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .detalhes-pedido .total {
-  flex-shrink: 0;
-  width: 200px;
+  width: 100%;
   background-color: #fff;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   color: #333;
   text-align: center;
+  margin-top: 20px;
 }
 
 button {
   display: block;
   width: 100%;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #4CAF50;
