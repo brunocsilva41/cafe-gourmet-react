@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { getuserId } from '../utils/auth';
 
-export const criarPedido = async (pedido, userId) => {
-  localStorage.getItem('userId');
+export const criarPedido = async (pedido) => {
+  const userId = getuserId();
   if (!userId) {
     throw new Error('userId é obrigatório para criar pedido.');
   }
@@ -14,7 +15,6 @@ export const criarPedido = async (pedido, userId) => {
 };
 
 export const obterPedidos = async (userId) => {
-  localStorage.getItem('userId');
   if (!userId) {
     throw new Error('userId é obrigatório para obter pedidos.');
   }
