@@ -4,8 +4,8 @@
     background-color: #f4f4f9;
     margin: 0;
     padding: 0;
-    width: 50vh;
-    height: 50vh; /* Ocupa toda a altura da viewport */
+    width: 100vh;
+    height: 100vh; /* Ocupa toda a altura da viewport */
     display: flex;
     flex-direction: column;
 }
@@ -55,7 +55,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    height: 25vh;
+    height: 100%;
 }
 
 /* Tabelas */
