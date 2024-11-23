@@ -7,7 +7,8 @@ export const criarPedido = async (pedido) => {
     throw new Error('userId é obrigatório para criar pedido.');
   }
   try {
-    const response = await axios.post(`https://api-cafe-gourmet.vercel.app/criar-pedido/${userId}`, {
+    const response = await axios.post(`https://api-cafe-gourmet.vercel.app/criar-pedido`, {
+      userId: userId,
       produtos: pedido.itens,
       total: pedido.totalComFrete
     });
