@@ -13,9 +13,11 @@
 /* Dashboard */
 .dashboard {
     display: flex;
-    align-items: center;
     flex: 1; /* O painel ocupa todo o restante da tela */
     overflow: hidden; /* Evita rolagens desnecessárias */
+    right: 50%;
+    left: 50%;
+
 }
 
 /* Menu Lateral */
@@ -53,6 +55,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    height: 25vh;
 }
 
 /* Tabelas */
