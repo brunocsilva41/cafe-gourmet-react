@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../assets/styles/confirmacao.css';
-import Header from './Header';
 import { criarPedido } from '../services/pedidoService';
+import Header from './Header';
 
 const Confirmacao = () => {
   const navigate = useNavigate();
@@ -58,9 +58,11 @@ const Confirmacao = () => {
             {pedido && pedido.itens && pedido.itens.length > 0 ? (
               pedido.itens.map((item, index) => (
                 <li key={index}>
-                  <h3>{item.nome}</h3> {/* Adicionar nome do produto */}
-                  {item.nome} - {item.quantidade} x R$ {parseFloat(item.preco).toFixed(2)}
                   <img src={item.imagemUrl} alt={item.nome} /> {/* Adicionar imagem */}
+                  <div>
+                    <h3>{item.nome}</h3> {/* Adicionar nome do produto */}
+                    <p>{item.quantidade} x R$ {parseFloat(item.preco).toFixed(2)}</p>
+                  </div>
                 </li>
               ))
             ) : (

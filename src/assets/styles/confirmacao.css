@@ -31,8 +31,6 @@
   margin-bottom: 10px;
   border-bottom: 1px solid #ddd;
   color: #333;
-  width: calc(50% - 20px);
-  box-sizing: border-box;
 }
 
 .detalhes-pedido li img {
@@ -41,10 +39,13 @@
   margin-right: 20px;
 }
 
+.detalhes-pedido li div {
+  flex: 1;
+}
+
 .detalhes-pedido li h3 {
   margin: 0;
   color: #333;
-  flex: 1;
 }
 
 .detalhes-pedido li p {
