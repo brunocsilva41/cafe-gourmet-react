@@ -72,7 +72,7 @@ h2 {
     background: linear-gradient(to bottom, #d2b48c, #8b4513,  #d2b48c); 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start; /* Alinhar itens ao topo */
     align-items: center; /* Centralizar o conteúdo horizontalmente */
     position: relative; /* Adicionar posição relativa */
 }
@@ -90,11 +90,12 @@ h2 {
 
 .product-item h3 {
     font-size: 1.2em;
-    margin: 10px 0;
+    margin: 10px 0 5px; /* Ajustar margens */
 }
 
 .product-item p {
     color: #333;
+    margin: 5px 0 15px; /* Ajustar margens */
 }
 
 .product-item button {
@@ -105,8 +106,8 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s;
-    position: absolute; /* Adicionar posição absoluta */
-    bottom: 12px; /* Ajustar a posição do botão */
+    position: static; /* Remover posição absoluta */
+    margin-top: auto; /* Empurrar o botão para o final */
 }
 
 .product-item button:hover {
