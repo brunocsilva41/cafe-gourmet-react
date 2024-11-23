@@ -15,7 +15,7 @@ const LogsPanel = () => {
     }, []);
 
     return (
-        <div>
+        <div className="panel">
             <h2>Logs de Requisições</h2>
             <ul>
                 {logs.map((log, index) => (
