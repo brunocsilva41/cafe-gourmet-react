@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getuserId } from '../utils/auth';
-import 
+ 
 
 export const criarPedido = async (pedido) => {
   const userId = getuserId();
@@ -13,7 +13,7 @@ export const criarPedido = async (pedido) => {
       produtos: pedido.itens.map(item => ({
         id: item.id,
         nome: item.name,
-        quantidade: item.quantidade,
+        quantidade: item.quantidade
       })),
       total: pedido.totalComFrete
     });
