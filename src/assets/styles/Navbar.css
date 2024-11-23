@@ -5,6 +5,8 @@ header.Navbar {
     box-sizing: border-box;
 }
 .App-logo {
+    justify-content: center;
+    align-items: center;
     height: 270px;
 }
 .App-logo img{

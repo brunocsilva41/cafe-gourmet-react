@@ -13,7 +13,7 @@ const Navbar = ({ carrinho }) => {
     <header className="Navbar">
       <div className="App-logo">
         <img src={logo} alt="Logo da Empresa"/>
-        <h1>Coffe For U</h1>
+        <h1>Coffe For You</h1>
       </div>
       <div className="linksnavbar">
         <nav>
