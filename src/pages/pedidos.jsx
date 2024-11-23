@@ -59,7 +59,7 @@ const Pedidos = () => {
               <div className="pedido-header">
                 <p>Pedido #{pedido.numero}</p>
                 <p>Data: {pedido.data}</p>
-                <p>Total: R$ {pedido.total ? pedido.total.toFixed(2) : '0.00'}</p>
+                <p>Total: R$ {typeof pedido.total === 'number' ? pedido.total.toFixed(2) : '0.00'}</p>
                 <button>Acompanhar Rastreio</button>
               </div>
             </div>

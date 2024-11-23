@@ -13,9 +13,11 @@ export const criarPedido = async (pedido) => {
       produtos: pedido.itens.map(item => ({
         id: item.id,
         nome: item.name,
-        quantidade: item.quantidade
+        quantidade: item.quantidade,
+        preco: item.preco
       })),
-      total: pedido.totalComFrete
+      total: pedido.total, // Corrigido para enviar o total correto
+      totalComFrete: pedido.totalComFrete // Adicionado totalComFrete
     });
     return response.data;
   } catch (error) {
