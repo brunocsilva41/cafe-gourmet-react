@@ -2,7 +2,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(to bottom, #f9f9f9, #d2b48c, #8b4513);
+  background: linear-gradient(to bottom,#d2b48c, #8b4513,#8b4513 , #f9f9f9, #d2b48c,#d2b48c, #8b4513);
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;

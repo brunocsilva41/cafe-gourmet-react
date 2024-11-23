@@ -1,7 +1,8 @@
 .cart-icon-container {
-  color: rgb(44, 33, 3);
+  color: white; /* Alterar a cor do ícone para branco */
+  background-color: black; /* Alterar o fundo para preto */
   position: fixed;
-  top: 20px;
+  top: 0; /* Alterar para 0 para posicionar no topo */
   right: 20px;
   cursor: pointer;
   z-index: 1000; /* Garantir que o ícone esteja acima de outros elementos */
@@ -32,8 +33,8 @@
 }
 
 .cart-count {
-  background-color: rgb(14, 0, 0);
-  color: #a00404; /* Melhor visibilidade */
+  background-color: black; /* Alterar o fundo do contador para preto */
+  color: white; /* Alterar a cor do contador para branco */
   border-radius: 50%;
   padding: 5px 10px;
   position: static; /* Remover a posição absoluta */
