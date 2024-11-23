@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getuserId } from '../utils/auth';
+import 
 
 export const criarPedido = async (pedido) => {
   const userId = getuserId();
@@ -9,7 +10,11 @@ export const criarPedido = async (pedido) => {
   try {
     const response = await axios.post(`https://api-cafe-gourmet.vercel.app/criar-pedido`, {
       userId: userId,
-      produtos: pedido.itens,
+      produtos: pedido.itens.map(item => ({
+        id: item.id,
+        nome: item.name,
+        quantidade: item.quantidade,
+      })),
       total: pedido.totalComFrete
     });
     return response.data;

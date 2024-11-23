@@ -26,6 +26,20 @@ const Pedidos = () => {
     fetchPedidos();
   }, []);
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const userId = getuserId();
+      if (userId) {
+        obterPedidos(userId).then(setPedidos).catch(console.error);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   const toggleDetalhes = (pedido) => {
     setSelectedPedido(pedido);
   };

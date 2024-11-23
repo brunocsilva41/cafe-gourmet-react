@@ -56,7 +56,8 @@ const Checkout = () => {
     };
     try {
       await criarPedido(pedido);
-      navigate('/confirmacao', { state: { pedido } });
+      localStorage.removeItem('carrinho'); // Limpa o carrinho
+      navigate('/pedidos'); // Redireciona para a tela de pedidos
     } catch (error) {
       console.error('Erro ao criar pedido:', error.response ? error.response.data : error.message);
       alert('Erro ao criar pedido. Tente novamente.');
