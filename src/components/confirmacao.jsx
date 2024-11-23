@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../assets/styles/confirmacao.css';
 import Header from './Header';
+import { criarPedido } from '../services/pedidoService';
 
 const Confirmacao = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Confirmacao = () => {
     }
   }, [pedido, navigate]);
 
-  const processarCompra = () => {
+  const processarCompra = async () => {
     console.log('Processando pedido:', pedido);
     const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
     const novoPedido = {
@@ -27,8 +28,23 @@ const Confirmacao = () => {
     localStorage.setItem('pedidos', JSON.stringify(pedidos));
     localStorage.removeItem('carrinho');
     window.dispatchEvent(new Event('storage')); // Atualiza o carrinho em outros componentes
-    alert('Pedido efetuado com sucesso!');
-    navigate('/pedidos');
+
+    try {
+      await criarPedido({
+        userId: 1, // Substitua pelo ID do usuário real
+        produtos: pedido.itens.map(item => ({
+          nome: item.nome,
+          preco: item.preco,
+          quantidade: item.quantidade
+        })),
+        total: pedido.total
+      });
+      alert('Pedido efetuado com sucesso!');
+      navigate('/pedidos');
+    } catch (error) {
+      console.error('Erro ao criar pedido:', error);
+      alert('Erro ao criar pedido. Tente novamente.');
+    }
   };
 
   return (
