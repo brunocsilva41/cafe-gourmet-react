@@ -58,7 +58,7 @@ const Confirmacao = () => {
             {pedido && pedido.itens && pedido.itens.length > 0 ? (
               pedido.itens.map((item, index) => (
                 <li key={index}>
-                  <img src={item.imagemUrl} alt={item.name} /> {/* Adicionar imagem */}
+                  <img src={item.imagemUrl} alt={item.nome} /> {/* Adicionar imagem */}
                   <div>
                     <h3>{item.name}</h3> {/* Corrigir para item.name */}
                     <p>{item.quantidade} x R$ {parseFloat(item.preco).toFixed(2)}</p>
