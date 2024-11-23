@@ -1,5 +1,5 @@
 // src/pages/AdminDashboard.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
@@ -12,6 +12,7 @@ const base_URL = `https://${process.env.REACT_APP_BASE_URL || 'api-cafe-gourmet.
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [activePanel, setActivePanel] = useState('users');
 
   useEffect(() => {
     if (!user || !isAdmin(user)) {
@@ -32,11 +33,15 @@ const AdminDashboard = () => {
   return (
     <>
       <Header />
-      <div className='users-panel'>
+      <div className='dashboard'>
         <h1>Admin Dashboard</h1>
-        <UsersPanel />
-        <div className='logs-panel'>
-          <LogsPanel />
+        <div className='dashboard-menu'>
+          <button onClick={() => setActivePanel('users')}>Usuários</button>
+          <button onClick={() => setActivePanel('logs')}>Logs</button>
+        </div>
+        <div className='dashboard-content'>
+          {activePanel === 'users' && <UsersPanel />}
+          {activePanel === 'logs' && <LogsPanel />}
         </div>
       </div>
     </>

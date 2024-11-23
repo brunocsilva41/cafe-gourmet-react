@@ -11,7 +11,7 @@ const base_URL = `https://${process.env.REACT_APP_BASE_URL || 'api-cafe-gourmet.
 const UsersPanel = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [newRole, setNewRole] = useState('');
+    const [newUserData, setNewUserData] = useState({ role: '', endereco: '', telefone: '' });
 
     useEffect(() => {
         axios.get(`${base_URL}/usuarios`)
@@ -21,24 +21,25 @@ const UsersPanel = () => {
 
     const openPopup = (user) => {
         setSelectedUser(user);
-        setNewRole(user.role);
+        setNewUserData({ role: user.role, endereco: user.endereco, telefone: user.telefone });
     };
 
     const closePopup = () => {
         setSelectedUser(null);
-        setNewRole('');
+        setNewUserData({ role: '', endereco: '', telefone: '' });
     };
 
-    const handleRoleChange = (event) => {
-        setNewRole(event.target.value);
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setNewUserData(prevState => ({ ...prevState, [name]: value }));
     };
 
     const updateUser = () => {
         if (selectedUser) {
-            axios.put(`${base_URL}/usuarios/${selectedUser.Id}`, { role: newRole })
+            axios.put(`${base_URL}/usuarios/${selectedUser.Id}`, newUserData)
                 .then(() => {
-                    setUsers(users.map(user => user.Id === selectedUser.Id ? { ...user, role: newRole } : user));
-                    alert('Permissão atualizada com sucesso!');
+                    setUsers(users.map(user => user.Id === selectedUser.Id ? { ...user, ...newUserData } : user));
+                    alert('Informações atualizadas com sucesso!');
                     closePopup();
                 })
                 .catch(error => console.error('Erro ao atualizar usuário:', error));
@@ -60,6 +61,8 @@ const UsersPanel = () => {
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Role</th>
+                        <th>Endereço</th>
+                        <th>Telefone</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -69,8 +72,10 @@ const UsersPanel = () => {
                             <td>{user.nome}</td>
                             <td>{user.email}</td>
                             <td>{user.role}</td>
+                            <td>{user.endereco}</td>
+                            <td>{user.telefone}</td>
                             <td>
-                                <button onClick={() => openPopup(user)}>Alterar Permissão</button>
+                                <button onClick={() => openPopup(user)}>Alterar Informações</button>
                                 <button onClick={() => deleteUser(user.Id)}>Excluir</button>
                             </td>
                         </tr>
@@ -81,12 +86,23 @@ const UsersPanel = () => {
             {selectedUser && (
                 <Popup open={true} closeOnDocumentClick onClose={closePopup}>
                     <div className="modal">
-                        <h2>Alterar Permissão</h2>
+                        <h2>Alterar Informações</h2>
                         <p>Usuário: {selectedUser.nome}</p>
-                        <select value={newRole} onChange={handleRoleChange}>
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
-                        </select>
+                        <label>
+                            Role:
+                            <select name="role" value={newUserData.role} onChange={handleInputChange}>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </label>
+                        <label>
+                            Endereço:
+                            <input type="text" name="endereco" value={newUserData.endereco} onChange={handleInputChange} />
+                        </label>
+                        <label>
+                            Telefone:
+                            <input type="text" name="telefone" value={newUserData.telefone} onChange={handleInputChange} />
+                        </label>
                         <button onClick={updateUser}>Salvar</button>
                         <button onClick={closePopup}>Cancelar</button>
                     </div>
