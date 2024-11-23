@@ -11,16 +11,20 @@ const Pedidos = () => {
 
   useEffect(() => {
     const fetchPedidos = async () => {
-      try {
-        const pedidosConfirmados = await obterPedidos(user.id);
-        setPedidos(pedidosConfirmados);
-      } catch (error) {
-        console.error('Erro ao obter pedidos:', error);
+      if (user && user.id) {
+        try {
+          const pedidosConfirmados = await obterPedidos(user.id);
+          setPedidos(pedidosConfirmados);
+        } catch (error) {
+          console.error('Erro ao obter pedidos:', error);
+        }
+      } else {
+        console.error('userId não está definido.');
       }
     };
 
     fetchPedidos();
-  }, [user.id]);
+  }, [user]);
 
   const toggleDetalhes = (pedido) => {
     setSelectedPedido(pedido);
@@ -28,12 +32,6 @@ const Pedidos = () => {
 
   const closePopup = () => {
     setSelectedPedido(null);
-  };
-
-  const removerPedido = (index) => {
-    const novosPedidos = pedidos.filter((_, i) => i !== index);
-    setPedidos(novosPedidos);
-    // Atualizar o banco de dados conforme necessário
   };
 
   return (
@@ -49,7 +47,6 @@ const Pedidos = () => {
                 <p>Data: {pedido.data}</p>
                 <p>Total: R$ {pedido.total ? pedido.total.toFixed(2) : '0.00'}</p>
                 <button>Acompanhar Rastreio</button>
-                <button onClick={() => removerPedido(index)}>Remover Pedido</button>
               </div>
             </div>
           ))
