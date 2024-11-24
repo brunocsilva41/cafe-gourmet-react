@@ -75,7 +75,7 @@ const Pedidos = () => {
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
             <h2>Detalhes do Pedido #{selectedPedido.numero}</h2>
             <ul>
-              {selectedPedido.itens.map((item, idx) => (
+              {selectedPedido.itens && selectedPedido.itens.map((item, idx) => (
                 <li key={idx}>
                   <img src={item.foto} alt={item.nome} className="item-thumbnail" />
                   <p>{item.nome}</p>
