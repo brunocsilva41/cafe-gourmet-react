@@ -29,7 +29,11 @@ const Conta = () => {
     const token = localStorage.getItem('token'); // Adicione esta linha para obter o token
 
     if (userId && userName && userEmail && role) {
-      setUser({ userId, userName, userEmail, role, userImage });
+      if (typeof setUser === 'function') {
+        setUser({ userId, userName, userEmail, role, userImage });
+      } else {
+        console.error('Erro: setUser não é uma função.');
+      }
     } else {
       console.error('Dados do usuário incompletos no localStorage.');
     }
