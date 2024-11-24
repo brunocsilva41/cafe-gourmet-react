@@ -1,21 +1,26 @@
 // src/components/PrivateRoute.js
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { isAdmin } from '../utils/authUtils';
+import { Route, Navigate } from 'react-router-dom';
+import { isUserLoggedIn } from '../utils/auth';
 
-const PrivateRoute = ({ children, adminOnly }) => {
-  const { user } = useAuth();
-
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
-
-  if (adminOnly && !isAdmin(user)) {
-    return <Navigate to="/login" />;
-  }
-
-  return children;
+const PrivateRoute = ({ children, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isUserLoggedIn() ? (
+          children
+        ) : (
+          <Navigate
+            to={{
+              pathname: '/login',
+              state: { from: location }
+            }}
+          />
+        )
+      }
+    />
+  );
 };
 
 export default PrivateRoute;
