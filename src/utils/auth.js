@@ -5,26 +5,6 @@ import { useAuth } from '../context/AuthContext';
 
 const base_URL = `https://${process.env.REACT_APP_BASE_URL}`;
 
-export const useVerificarLogin = () => {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-    }
-  }, [navigate]);
-};
-
-export const isUserLoggedIn = () => {
-  const token = localStorage.getItem('token');
-  return !!token;
-};
-
-export const getToken = () => {
-  return localStorage.getItem('token');
-};
-
 export const loginUser = async (email, password, login, navigate, location) => {
   try {
     console.log('Enviando requisição de login para o servidor');
@@ -48,6 +28,25 @@ export const loginUser = async (email, password, login, navigate, location) => {
     console.error('Erro na requisição:', error);
     throw error;
   }
+};
+export const useVerificarLogin = () => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
+};
+
+export const isUserLoggedIn = () => {
+  const token = localStorage.getItem('token');
+  return !!token;
+};
+
+export const getToken = () => {
+  return localStorage.getItem('token');
 };
 
 export const logoutUser = (logout, navigate) => {
