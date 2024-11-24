@@ -11,7 +11,7 @@ const base_URL = `https://${process.env.REACT_APP_BASE_URL || 'api-cafe-gourmet.
 const UsersPanel = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [newUserData, setNewUserData] = useState({ role: '', endereco: '', telefone: '' });
+    const [newUserData, setNewUserData] = useState({ nome: '', role: '', endereco: '', telefone: '' });
 
     useEffect(() => {
         axios.get(`${base_URL}/usuarios`)
@@ -21,12 +21,12 @@ const UsersPanel = () => {
 
     const openPopup = (user) => {
         setSelectedUser(user);
-        setNewUserData({ role: user.role, endereco: user.endereco, telefone: user.telefone });
+        setNewUserData({ nome: user.nome, role: user.role, endereco: user.endereco, telefone: user.telefone });
     };
 
     const closePopup = () => {
         setSelectedUser(null);
-        setNewUserData({ role: '', endereco: '', telefone: '' });
+        setNewUserData({ nome: '', role: '', endereco: '', telefone: '' });
     };
 
     const handleInputChange = (event) => {
@@ -87,7 +87,10 @@ const UsersPanel = () => {
                 <Popup open={true} closeOnDocumentClick onClose={closePopup}>
                     <div className="modal">
                         <h2>Alterar Informações</h2>
-                        <p>Usuário: {selectedUser.nome}</p>
+                        <label>
+                            Usuário:
+                            <input type="text" name="nome" value={newUserData.nome} onChange={handleInputChange} />
+                        </label>
                         <label>
                             Role:
                             <select name="role" value={newUserData.role} onChange={handleInputChange}>
