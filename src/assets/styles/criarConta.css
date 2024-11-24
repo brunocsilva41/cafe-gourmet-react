@@ -5,6 +5,7 @@
     margin: auto;
     justify-content: center;
     align-items: center;
+    padding-top: 100px; /* Ajuste conforme necessário */
 }
 
 .formulario {
