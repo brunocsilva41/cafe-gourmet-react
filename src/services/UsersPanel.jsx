@@ -47,9 +47,11 @@ const UsersPanel = () => {
     };
 
     const deleteUser = (id) => {
-        axios.delete(`${base_URL}/usuarios/${id}`)
-            .then(() => setUsers(users.filter(user => user.Id !== id)))
-            .catch(error => console.error('Erro ao deletar usuário:', error));
+        if (window.confirm('Tem certeza que deseja excluir este usuário?')) {
+            axios.delete(`${base_URL}/usuarios/${id}`)
+                .then(() => setUsers(users.filter(user => user.Id !== id)))
+                .catch(error => console.error('Erro ao deletar usuário:', error));
+        }
     };
 
     return (
