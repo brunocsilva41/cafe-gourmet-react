@@ -28,6 +28,7 @@ const Products = () => {
     precoMax: ''
   });
   const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState(null);
 
   const observer = useRef();
 
@@ -76,6 +77,18 @@ const Products = () => {
     }
   };
 
+  const showNotification = (message) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
+  };
+
+  const handleAdicionarAoCarrinho = (produto) => {
+    adicionarAoCarrinho(produto);
+    showNotification(`${produto.name} foi adicionado ao carrinho!`);
+  };
+
   const produtosFiltrados = produtos
     .filter(produto => 
       (filtro.tipo.length > 0 ? filtro.tipo.includes(produto.categoria) : true) &&
@@ -118,6 +131,7 @@ const Products = () => {
     <>
       <Header user={user} />
       <CartIcon />
+      {notification && <div className="notification">{notification}</div>}
       <h2>Produtos</h2>
       <main>
         <div className="filter-container">
@@ -174,7 +188,7 @@ const Products = () => {
                   <h3>{produto.name}</h3>
                 </Link>
                 <p>R$ {Number(produto.preco).toFixed(2)}</p>
-                <button onClick={() => adicionarAoCarrinho(produto)}>Adicionar ao Carrinho</button>
+                <button onClick={() => handleAdicionarAoCarrinho(produto)}>Adicionar ao Carrinho</button>
               </div>
             ))}
           </div>
