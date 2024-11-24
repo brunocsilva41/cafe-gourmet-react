@@ -1,7 +1,7 @@
 // src/context/AuthContext.js
 import PropTypes from 'prop-types';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getToken, getUserName } from '../utils/auth';
+import { getToken, getuserEmail, getuserId, getUserName } from '../utils/auth';
 
 const AuthContext = createContext();
 
@@ -9,12 +9,13 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
+    const userId = getuserId();
     const token = getToken();
     const userName = getUserName();
+    const userEmail = getuserEmail();
     const role = localStorage.getItem('role');
-    if (token && userId && userName && role) {
-      setUser({ token, userId, userName, role });
+    if (token && userId && userName && userEmail && role) {
+      setUser({ token, userId, userName,userEmail, role });
     }
   }, []);
 

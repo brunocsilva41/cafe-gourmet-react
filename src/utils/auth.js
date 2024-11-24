@@ -68,6 +68,11 @@ export const getuserId = () => {
   console.log('getuserId retornou:', userId);
   return userId;
 };
+export const getuserEmail = () => {
+  const userEmail = localStorage.getItem('userEmail');
+  console.log('getuserEmail retornou:', userEmail);
+  return userEmail;
+};
 
 export const getUserName = () => {
   return localStorage.getItem('userName');
