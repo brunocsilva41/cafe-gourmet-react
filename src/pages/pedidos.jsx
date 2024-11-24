@@ -50,6 +50,13 @@ const Pedidos = () => {
     setSelectedPedido(null);
   };
 
+  const parseProdutos = (produtos) => {
+    return produtos.split(',').map(produto => {
+      const [id, nome, quantidade] = produto.split(':');
+      return { id, nome, quantidade: Number(quantidade) };
+    });
+  };
+
   return (
     <>
       <Header />
@@ -59,9 +66,9 @@ const Pedidos = () => {
           pedidos.map((pedido, index) => (
             <div key={index} className="pedido" onClick={() => toggleDetalhes(pedido)}>
               <div className="pedido-header">
-                <p>Pedido #{pedido.numero}</p>
-                <p>Data: {pedido.data}</p>
-                <p>Total: R$ {typeof pedido.total === 'number' ? pedido.total.toFixed(2) : '0.00'}</p>
+                <p>Pedido #{pedido.id}</p>
+                <p>Data: {new Date(pedido.data_do_pedido).toLocaleDateString()}</p>
+                <p>Total: R$ {typeof pedido.total === 'number' ? pedido.total.toFixed(2) : pedido.total}</p>
                 <button>Acompanhar Rastreio</button>
               </div>
             </div>
@@ -75,13 +82,12 @@ const Pedidos = () => {
       {selectedPedido && (
         <div className="popup-overlay" onClick={closePopup}>
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-            <h2>Detalhes do Pedido #{selectedPedido.numero}</h2>
+            <h2>Detalhes do Pedido #{selectedPedido.id}</h2>
             <ul>
-              {selectedPedido.itens && selectedPedido.itens.map((item, idx) => (
+              {parseProdutos(selectedPedido.produtos).map((item, idx) => (
                 <li key={idx}>
-                  <img src={item.foto} alt={item.nome} className="item-thumbnail" />
                   <p>{item.nome}</p>
-                  <p>{item.quantidade} x R$ {item.preco.toFixed(2)}</p>
+                  <p>{item.quantidade} x R$ {item.preco ? item.preco.toFixed(2) : '0.00'}</p>
                 </li>
               ))}
             </ul>
