@@ -25,9 +25,10 @@ export const criarPedido = async (pedido) => {
         id: item.id,
         nome: item.name,
         quantidade: item.quantidade,
-        preco: item.preco,
-        total: pedido.totalComFrete
-      }))
+        preco: item.preco
+      })),
+      total: pedido.total,
+      totalComFrete: pedido.totalComFrete
     });
     return response.data;
   } catch (error) {
