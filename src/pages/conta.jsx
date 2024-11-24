@@ -34,6 +34,11 @@ const Conta = () => {
       console.error('Dados do usuário incompletos no localStorage.');
     }
 
+    if (!token) {
+      console.error('Erro: token não encontrado no localStorage.');
+      return;
+    }
+
     const fetchUserDetails = async () => {
       try {
         const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`, {
