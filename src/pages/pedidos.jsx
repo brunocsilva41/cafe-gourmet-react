@@ -13,7 +13,9 @@ const Pedidos = () => {
       const userId = getuserId();
       if (userId) {
         try {
+          console.log(`Buscando pedidos para o userId: ${userId}`);
           const pedidosConfirmados = await obterPedidos(userId);
+          console.log('Pedidos recebidos:', pedidosConfirmados);
           setPedidos(pedidosConfirmados);
         } catch (error) {
           console.error('Erro ao obter pedidos:', error);
@@ -83,7 +85,7 @@ const Pedidos = () => {
                 </li>
               ))}
             </ul>
-            <p>Total com Frete: R$ {selectedPedido.totalComFrete ? selectedPedido.totalComFrete.toFixed(2) : '0.00'}</p>
+            <p>Total com Frete: R$ {typeof selectedPedido.totalComFrete === 'number' ? selectedPedido.totalComFrete.toFixed(2) : '0.00'}</p>
             <button onClick={closePopup}>Fechar</button>
           </div>
         </div>
