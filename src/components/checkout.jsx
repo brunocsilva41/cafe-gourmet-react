@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/checkout.css';
 import { criarPedido } from '../services/pedidoService';
-import { isUserLoggedIn } from '../utils/authUtils';
+import { isUserLoggedIn } from '../utils/auth';
 import Header from './Header';
 
 const Checkout = () => {

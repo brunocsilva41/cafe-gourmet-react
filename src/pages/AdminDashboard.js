@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import LogsPanel from '../services/LogsPanel';
 import UsersPanel from '../services/UsersPanel';
-import { isAdmin } from '../utils/authUtils';
+import { isAdmin } from '../utils/auth';
 
 const base_URL = `https://${process.env.REACT_APP_BASE_URL || 'api-cafe-gourmet.vercel.app'}`;
 
