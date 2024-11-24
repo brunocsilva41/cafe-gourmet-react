@@ -4,6 +4,11 @@ header.Navbar {
     align-items: center;
     box-sizing: border-box;
 }
+.App-logo h2 {
+    font-size: 1.5em;
+    color: white;
+    margin: 0;
+}
 .App-logo {
     justify-content: center;
     align-items: center;
