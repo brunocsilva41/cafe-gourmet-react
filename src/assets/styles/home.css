@@ -135,7 +135,13 @@ body {
     right: 0px; /* Afasta o botão da borda direita */
 }
 
-
+.main-title {
+    font-size: 3em; /* Tamanho maior */
+    color: #444;
+    text-align: center; /* Centraliza o texto */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Adiciona brilho */
+    margin-bottom: 20px;
+}
 
 @keyframes fadeIn {
     from { opacity: 0; }

@@ -28,7 +28,7 @@ const Home = () => {
     <>
       <Header />
       <main className="main-panel">
-        <h1>Bem-vindo à Cafeteria Gourmet</h1>
+        <h1 className="main-title">Bem-vindo à Cafeteria Gourmet</h1>
         <div className="content">
           <div className="company-info">
             <h2>Sobre a Empresa</h2>

@@ -9,6 +9,13 @@ header.Navbar {
     color: white;
     margin: 0;
 }
+.App-logo h1 {
+    font-size: 2em; /* Tamanho maior */
+    color: white;
+    margin: 0;
+    text-align: center; /* Centraliza o texto */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Adiciona brilho */
+}
 .App-logo {
     justify-content: center;
     align-items: center;
