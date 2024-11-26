@@ -160,7 +160,6 @@ body {
 
 .main-panel h1, p1{
     width: 50%;
-    background-color: aqua;
     animation: fadeIn 0.5s ease-in-out;
 }
 
