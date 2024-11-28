@@ -75,7 +75,7 @@ const UsersPanel = () => {
                             <td>{user.email}</td>
                             <td>{user.role}</td>
                             <td>{user.endereco}</td>
-                            <td>{user.telefone}</td>
+                            <td>{user.telefone_usuario}</td>
                             <td>
                                 <button onClick={() => openPopup(user)}>Alterar Informações</button>
                                 <button onClick={() => deleteUser(user.Id)}>Excluir</button>
