@@ -57,6 +57,15 @@ const handleGoogleLogin = () => {
 
   window.location.href = url;
 };
+const handleGoogleSignUp = () => {
+  const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
+  const redirectUri = 'https://coffeforyou.netlify.app/Criarconta'; // Redirecionar para a tela de criar conta
+  const scope = 'email profile';
+  const responseType = 'token';
+  const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
+
+  window.location.href = url;
+};
 
 const handleGoogleCallback = async (accessToken) => {
   try {
@@ -92,5 +101,5 @@ const SocialLogin = () => {
 };
 
 export default SocialLogin;
-export { handleGoogleCallback, handleGoogleLogin, handleSocialLogin, handleSocialSignUp };
+export { handleGoogleCallback, handleGoogleLogin, handleGoogleSignUp, handleSocialLogin, handleSocialSignUp };
 
