@@ -22,6 +22,32 @@ const handleSocialLogin = async (email, name) => {
   }
 };
 
+const handleSocialSignUp = async (email, name) => {
+  try {
+    const checkUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/consulta-usuario', { email });
+    if (checkUserResponse.status === 200) {
+      alert('Usuário já existe. Por favor, faça login.');
+      window.location.href = '/login';
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      try {
+        const createUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', { email, name });
+        if (createUserResponse.status === 201) {
+          alert(`Conta criada com sucesso! Realize o login com as credenciais:\n\nEmail: ${email}\nSenha Temporária: ${createUserResponse.data.temporaryPassword}`);
+          window.location.href = '/login';
+        }
+      } catch (createError) {
+        console.error('Erro ao criar conta social:', createError);
+        alert('Erro ao criar conta social. Tente novamente mais tarde.');
+      }
+    } else {
+      console.error('Erro ao verificar usuário:', error);
+      alert('Erro ao verificar usuário. Tente novamente mais tarde.');
+    }
+  }
+};
+
 const handleGoogleLogin = () => {
   const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
   const redirectUri = 'https://coffeforyou.netlify.app/login'; // Redirecionar para a tela de login
@@ -41,7 +67,7 @@ const handleGoogleCallback = async (accessToken) => {
     });
     const { email, name } = response.data;
     console.log('Dados recebidos do Google:', { email, name });
-    handleSocialLogin(email, name);
+    handleSocialSignUp(email, name);
   } catch (error) {
     console.error('Erro ao obter informações do usuário:', error);
     alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
@@ -66,5 +92,5 @@ const SocialLogin = () => {
 };
 
 export default SocialLogin;
-export { handleGoogleLogin, handleGoogleCallback, handleSocialLogin };
+export { handleGoogleCallback, handleGoogleLogin, handleSocialLogin, handleSocialSignUp };
 
