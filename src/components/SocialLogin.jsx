@@ -28,31 +28,12 @@ const handleSocialLogin = async (email, name) => {
 
 const handleGoogleLogin = () => {
   const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
-  const redirectUri = 'https://coffeforyou.netlify.app/conta'; // Redirecionar para a tela de conta
+  const redirectUri = 'https://coffeforyou.netlify.app/conta';
   const scope = 'email profile';
   const responseType = 'token';
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
 
   window.location.href = url;
-};
-
-const handleOAuthCallback = async () => {
-  const params = new URLSearchParams(window.location.hash.substring(1));
-  const accessToken = params.get('access_token');
-
-  if (accessToken) {
-    try {
-      const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
-      const { email, name } = response.data;
-      console.log('Dados recebidos do Google:', { email, name });
-
-      // Chama a API de login-social do seu backend
-      await handleSocialLogin(email, name);
-    } catch (error) {
-      console.error('Erro ao obter informações do usuário:', error);
-      alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
-    }
-  }
 };
 
 const handleSocialResponse = async (email, name) => {
@@ -115,7 +96,21 @@ const handleSocialSignupFlow = async (email, name) => {
 
 const SocialLogin = () => {
   React.useEffect(() => {
-    handleOAuthCallback();
+    const params = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = params.get('access_token');
+
+    if (accessToken) {
+      axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`)
+        .then(response => {
+          const { email, name } = response.data;
+          console.log('Dados recebidos do Google:', { email, name });
+          handleSocialSignupFlow(email, name);
+        })
+        .catch(error => {
+          console.error('Erro ao obter informações do usuário:', error);
+          alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
+        });
+    }
   }, []);
 
   return (

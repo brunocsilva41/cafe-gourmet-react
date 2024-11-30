@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../assets/styles/criarConta.css';
 import Header from '../components/Header';
 import { handleGoogleLogin, handleSocialSignupFlow } from './SocialLogin';
@@ -9,25 +9,22 @@ const base_URL = 'https://api-cafe-gourmet.vercel.app';
 const CriarConta = () => {
   const [error, setError] = React.useState('');
 
-  const handleOAuthCallback = async () => {
+  React.useEffect(() => {
     const params = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = params.get('access_token');
 
     if (accessToken) {
-      try {
-        const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
-        const { email, name } = response.data;
-        console.log('Dados recebidos do Google:', { email, name });
-        await handleSocialSignupFlow(email, name);
-      } catch (error) {
-        console.error('Erro ao obter informações do usuário:', error);
-        alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
-      }
+      axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`)
+        .then(response => {
+          const { email, name } = response.data;
+          console.log('Dados recebidos do Google:', { email, name });
+          handleSocialSignupFlow(email, name);
+        })
+        .catch(error => {
+          console.error('Erro ao obter informações do usuário:', error);
+          alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
+        });
     }
-  };
-
-  useEffect(() => {
-    handleOAuthCallback();
   }, []);
 
   React.useEffect(() => {
@@ -56,7 +53,7 @@ const CriarConta = () => {
     const address = event.target.address.value;
     const phone = event.target.phone.value;
 
-    console.log('Dados do formulário:', { name, email, password, address, phone });
+    console.log('Dados do formul��rio:', { name, email, password, address, phone });
 
     try {
       const response = await axios.post(`${base_URL}/criar-conta`, {
