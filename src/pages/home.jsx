@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../assets/styles/home.css';
 import Header from '../components/Header.jsx';
+import { sendEmail } from '../services/emailService';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,6 +23,12 @@ const Home = () => {
 
   const prevSlide = () => {
     setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
+  };
+
+  const [email, setEmail] = useState('');
+
+  const handleSubscribe = () => {
+    sendEmail(email);
   };
 
   return (
@@ -75,8 +82,13 @@ const Home = () => {
             <div className="footer-newsletter">
               <h3>Newsletter</h3>
               <p>Sign up for special offers and updates</p>
-              <input type="email" placeholder="Your email" />
-              <button>Subscribe</button>
+              <input
+                type="email"
+                placeholder="Your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button onClick={handleSubscribe}>Subscribe</button>
             </div>
           </div>
           <div className="footer-bottom">
