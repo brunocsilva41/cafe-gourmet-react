@@ -128,7 +128,7 @@ const Conta = () => {
     const userId = user?.userId || localStorage.getItem('userId');
     const token = localStorage.getItem('token');
     try {
-      await axios.put(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`, updatedDetails, {
+      const response = await axios.put(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`, updatedDetails, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -138,6 +138,9 @@ const Conta = () => {
       setShowEditPopup(false); // Fechar popup após salvar alterações
     } catch (error) {
       console.error('Erro ao atualizar informações:', error);
+      if (error.response) {
+        console.error('Detalhes do erro:', error.response.data);
+      }
     }
   };
 
