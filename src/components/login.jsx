@@ -8,7 +8,7 @@ import '../assets/styles/login.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { isUserLoggedIn, loginUser } from '../utils/auth';
-import { handleGoogleLogin, handleSocialLoginFlow } from './SocialLogin';
+import { handleGoogleLogin, handleSocialLogin } from './SocialLogin';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Login = () => {
       try {
         const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
         const { email, name } = response.data;
-        await handleSocialLoginFlow(email, name);
+        await handleSocialLogin(email, name);
       } catch (error) {
         console.error('Erro ao obter informações do usuário:', error);
         alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
