@@ -17,6 +17,7 @@ const handleSocialResponse = async (email, name) => {
     localStorage.setItem('token', token);
     localStorage.setItem('tempPassword', tempPassword);
     localStorage.setItem('email', email);
+    localStorage.setItem('name', name);
     alert(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}`);
     window.location.href = '/criarconta';
   } catch (error) {
@@ -42,7 +43,7 @@ const handleSocialLogin = async (email) => {
 
 const handleGoogleLogin = () => {
   const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
-  const redirectUri = 'https://coffeforyou.netlify.app/conta';
+  const redirectUri = 'https://coffeforyou.netlify.app/criarconta';
   const scope = 'email profile';
   const responseType = 'token';
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
@@ -52,7 +53,7 @@ const handleGoogleLogin = () => {
 
 const handleFacebookLogin = () => {
   const appId = '926133692789023';
-  const redirectUri = 'https://coffeforyou.netlify.app/conta';
+  const redirectUri = 'https://coffeforyou.netlify.app/criarconta';
   const scope = 'email';
   const responseType = 'token';
   const url = `https://www.facebook.com/v10.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
@@ -68,7 +69,9 @@ const handleOAuthCallback = async () => {
     try {
       const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
       const { email, name } = response.data;
-      await handleSocialResponse(email, name);
+      localStorage.setItem('email', email);
+      localStorage.setItem('name', name);
+      window.location.href = '/criarconta';
     } catch (error) {
       console.error('Erro ao obter informações do usuário:', error);
       alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');

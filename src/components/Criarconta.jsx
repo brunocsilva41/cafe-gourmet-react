@@ -12,10 +12,18 @@ const CriarConta = () => {
   React.useEffect(() => {
     const tempPassword = localStorage.getItem('tempPassword');
     const email = localStorage.getItem('email');
+    const name = localStorage.getItem('name');
     if (tempPassword && email) {
       alert(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}. Email: ${email}`);
       localStorage.removeItem('tempPassword');
+    }
+    if (email) {
+      document.getElementById('email').value = email;
       localStorage.removeItem('email');
+    }
+    if (name) {
+      document.getElementById('name').value = name;
+      localStorage.removeItem('name');
     }
   }, []);
 
@@ -61,9 +69,9 @@ const CriarConta = () => {
         </div>
         <form onSubmit={handleSubmit}>
           <label>Nome:</label>
-          <input type="text" name="name" required />
+          <input type="text" name="name" id="name" required />
           <label>Email:</label>
-          <input type="email" name="email" required />
+          <input type="email" name="email" id="email" required />
           <label>Senha:</label>
           <input type="password" name="password" required />
           <label>Endereço:</label>
