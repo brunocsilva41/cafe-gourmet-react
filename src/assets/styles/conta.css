@@ -39,6 +39,7 @@ button {
   margin-top: 10px;
   display: inline-flex;
   align-items: center;
+  margin-right: 10px; /* Adiciona espaço entre os botões */
 }
 
 button:hover {

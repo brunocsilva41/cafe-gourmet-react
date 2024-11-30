@@ -17,7 +17,7 @@
 .userNameIcon {
   background: linear-gradient(135deg, #d4a373, #8c6239); /* Gradiente de cores estilo café */
   color: white;
-  border-radius: 50%; /* Formato circular */
+  border-radius: 10px; /* Formato quadrado com cantos arredondados */
   padding: 15px;
   display: flex;
   align-items: center;
@@ -26,7 +26,7 @@
   font-weight: bold;
   margin-bottom: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para profundidade */
-  height: 60px; /* Garantir proporção circular */
+  height: auto; /* Remover proporção circular */
   position: relative;
 }
 
@@ -38,7 +38,7 @@
   font-size: 14px;
   background: white;
   color: #8c6239;
-  border-radius: 50%;
+  border-radius: 10px; /* Formato quadrado com cantos arredondados */
   display: flex;
   align-items: center;
   justify-content: center;

@@ -143,7 +143,10 @@ const Conta = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      setUserDetails(updatedDetails);
+      setUserDetails((prevDetails) => ({
+        ...updatedDetails,
+        imagem_usuario: prevDetails.imagem_usuario // Manter a URL da imagem
+      }));
       alert('Informações atualizadas com sucesso!');
       setShowEditPopup(false); // Fechar popup após salvar alterações
     } catch (error) {
