@@ -206,7 +206,7 @@ const Conta = () => {
           </label>
           <label>
             Email:
-            <input type="email" name="userEmail" value={updatedDetails.userEmail || user?.userName} onChange={handleInputChange} />
+            <input type="email" name="userEmail" value={updatedDetails.userEmail || user?.userEmail} onChange={handleInputChange} />
           </label>
           <label>
             Endereço:
