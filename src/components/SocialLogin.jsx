@@ -1,39 +1,24 @@
 import React from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-initializeApp(firebaseConfig);
 
 const SocialLogin = () => {
-  const auth = getAuth();
+  const handleGoogleLogin = () => {
+    const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
+    const redirectUri = 'https://coffeforyou.netlify.app/conta';
+    const scope = 'email profile';
+    const responseType = 'token';
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
 
-  const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      console.log('Google login successful:', result);
-    } catch (error) {
-      console.log('Google login failed:', error);
-    }
+    window.location.href = url;
   };
 
-  const handleFacebookLogin = async () => {
-    const provider = new FacebookAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      console.log('Facebook login successful:', result);
-    } catch (error) {
-      console.log('Facebook login failed:', error);
-    }
+  const handleFacebookLogin = () => {
+    const appId = '926133692789023';
+    const redirectUri = 'https://coffeforyou.netlify.app/conta';
+    const scope = 'email';
+    const responseType = 'token';
+    const url = `https://www.facebook.com/v10.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
+
+    window.location.href = url;
   };
 
   return (
