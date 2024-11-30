@@ -8,11 +8,16 @@ const generateTemporaryPassword = () => {
 const handleSocialLogin = async (email) => {
   try {
     const response = await axios.post('https://api-cafe-gourmet.vercel.app/login-social', { email });
-    const { token, userId, userName, role } = response.data;
+    const { token, userId, userName, userEmail, userAddress, userPhone, userImage, role } = response.data;
     localStorage.setItem('userId', userId);
     localStorage.setItem('token', token);
     localStorage.setItem('userName', userName);
+    localStorage.setItem('userEmail', userEmail);
+    localStorage.setItem('userAddress', userAddress);
+    localStorage.setItem('userPhone', userPhone);
+    localStorage.setItem('userImage', userImage);
     localStorage.setItem('role', role);
+    console.log('Login realizado com sucesso!', response.data);
     window.location.href = '/conta';
   } catch (error) {
     console.error('Erro no login social:', error);
@@ -48,13 +53,18 @@ const handleSocialResponse = async (email, name) => {
       name,
       password: tempPassword,
     });
-    const { token } = response.data;
+    const { token, userId, userName, userEmail, userAddress, userPhone, userImage, role } = response.data;
+    localStorage.setItem('userId', userId);
     localStorage.setItem('token', token);
-    localStorage.setItem('tempPassword', tempPassword);
-    localStorage.setItem('email', email);
-    localStorage.setItem('name', name);
-    console.log(`Conta criada com sucesso! Realize o acess coom sua senha temporária: ${tempPassword}`);
-    window.location.href = '/criarconta';
+    localStorage.setItem('userName', userName);
+    localStorage.setItem('userEmail', userEmail);
+    localStorage.setItem('userAddress', userAddress);
+    localStorage.setItem('userPhone', userPhone);
+    localStorage.setItem('userImage', userImage);
+    localStorage.setItem('role', role);
+    console.log('Conta criada com sucesso!', response.data);
+    console.log(`Realize o acesso com sua senha temporária: ${tempPassword}`);
+    window.location.href = '/conta';
   } catch (error) {
     console.error('Erro ao criar conta:', error);
     alert('Erro ao criar conta. Tente novamente mais tarde.');
