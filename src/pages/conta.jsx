@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { FaEdit } from 'react-icons/fa'; // Importar ícone de lápis
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/conta.css';
 import Header from '../components/Header';
@@ -15,6 +16,7 @@ const Conta = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showRefreshMessage, setShowRefreshMessage] = useState(false);
   const [showPasswordReset, setShowPasswordReset] = useState(false);
+  const [showEditPopup, setShowEditPopup] = useState(false); // Estado para controlar o popup de edição
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [updatedDetails, setUpdatedDetails] = useState({
@@ -133,6 +135,7 @@ const Conta = () => {
       });
       setUserDetails(updatedDetails);
       alert('Informações atualizadas com sucesso!');
+      setShowEditPopup(false); // Fechar popup após salvar alterações
     } catch (error) {
       console.error('Erro ao atualizar informações:', error);
     }
@@ -177,17 +180,39 @@ const Conta = () => {
           {showRefreshMessage && <p>Atualize a página para carregar a foto.</p>}
         </div>
         <div className="profile-info">
-          <p><strong>Nome:</strong> <input type="text" name="userName" value={updatedDetails.userName} onChange={handleInputChange} /></p>
-          <p><strong>Email:</strong> <input type="email" name="userEmail" value={updatedDetails.userEmail} onChange={handleInputChange} /></p>
-          <p><strong>Endereço:</strong> <input type="text" name="endereco" value={updatedDetails.endereco} onChange={handleInputChange} /></p>
-          <p><strong>Telefone:</strong> <input type="text" name="telefone_usuario" value={updatedDetails.telefone_usuario} onChange={handleInputChange} /></p>
-          <button onClick={handleSaveChanges}>Salvar Alterações</button>
+          <p><strong>Nome:</strong> {userDetails.userName} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
+          <p><strong>Email:</strong> {userDetails.userEmail} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
+          <p><strong>Endereço:</strong> {userDetails.endereco} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
+          <p><strong>Telefone:</strong> {userDetails.telefone_usuario} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
           {user?.role === 'admin' && (
             <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
           )}
           <button onClick={() => setShowPasswordReset(true)}>Redefinir Senha</button>
         </div>
       </div>
+      {showEditPopup && (
+        <div className="edit-popup">
+          <h2>Editar Informações</h2>
+          <label>
+            Nome:
+            <input type="text" name="userName" value={updatedDetails.userName} onChange={handleInputChange} />
+          </label>
+          <label>
+            Email:
+            <input type="email" name="userEmail" value={updatedDetails.userEmail} onChange={handleInputChange} />
+          </label>
+          <label>
+            Endereço:
+            <input type="text" name="endereco" value={updatedDetails.endereco} onChange={handleInputChange} />
+          </label>
+          <label>
+            Telefone:
+            <input type="text" name="telefone_usuario" value={updatedDetails.telefone_usuario} onChange={handleInputChange} />
+          </label>
+          <button onClick={handleSaveChanges}>Salvar Alterações</button>
+          <button onClick={() => setShowEditPopup(false)}>Cancelar</button>
+        </div>
+      )}
       {showPasswordReset && (
         <div className="password-reset-popup">
           <h2>Redefinir Senha</h2>
