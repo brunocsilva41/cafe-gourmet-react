@@ -53,7 +53,7 @@ const handleSocialResponse = async (email, name) => {
     localStorage.setItem('tempPassword', tempPassword);
     localStorage.setItem('email', email);
     localStorage.setItem('name', name);
-    alert(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}`);
+    console.log(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}`);
     window.location.href = '/criarconta';
   } catch (error) {
     console.error('Erro ao criar conta:', error);
