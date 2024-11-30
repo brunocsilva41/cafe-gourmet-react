@@ -1,38 +1,45 @@
 import React from 'react';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import { GoogleLogin } from 'react-google-login';
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+initializeApp(firebaseConfig);
 
 const SocialLogin = () => {
-  const handleGoogleSuccess = (response) => {
-    console.log('Google login successful:', response);
+  const auth = getAuth();
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log('Google login successful:', result);
+    } catch (error) {
+      console.log('Google login failed:', error);
+    }
   };
 
-  const handleGoogleFailure = (response) => {
-    console.log('Google login failed:', response);
-  };
-
-  const handleFacebookResponse = (response) => {
-    console.log('Facebook login successful:', response);
+  const handleFacebookLogin = async () => {
+    const provider = new FacebookAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log('Facebook login successful:', result);
+    } catch (error) {
+      console.log('Facebook login failed:', error);
+    }
   };
 
   return (
     <div className="social-login-container">
-      <GoogleLogin
-        clientId="YOUR_GOOGLE_CLIENT_ID"
-        buttonText="Login com Google"
-        onSuccess={handleGoogleSuccess}
-        onFailure={handleGoogleFailure}
-        cookiePolicy={'single_host_origin'}
-      />
-      <FacebookLogin
-        appId="YOUR_FACEBOOK_APP_ID"
-        autoLoad={false}
-        fields="name,email,picture"
-        callback={handleFacebookResponse}
-        render={renderProps => (
-          <button onClick={renderProps.onClick}>Login com Facebook</button>
-        )}
-      />
+      <button onClick={handleGoogleLogin}>Login com Google</button>
+      <button onClick={handleFacebookLogin}>Login com Facebook</button>
     </div>
   );
 };
