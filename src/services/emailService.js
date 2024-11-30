@@ -1,7 +1,7 @@
 export const sendEmail = async (email) => {
   if (email) {
     try {
-      await fetch('https://coffeforyou.netlify.app/api/send-email', { 
+      await fetch('api-cafe-gourmet.vercel.app/api/send-email', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
