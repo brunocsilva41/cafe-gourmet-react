@@ -75,3 +75,23 @@
     background-color: #3b5998;
     color: white;
 }
+
+@media (max-width: 768px) {
+    .painel-criarconta {
+        padding-top: 50px;
+    }
+
+    .formulario {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .formulario {
+        padding: 10px;
+    }
+
+    .formulario input, .formulario button {
+        padding: 8px;
+    }
+}

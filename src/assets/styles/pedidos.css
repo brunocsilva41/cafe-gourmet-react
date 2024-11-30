@@ -131,3 +131,26 @@
 .popup-content button:hover {
   background-color: #45a049;
 }
+
+@media (max-width: 768px) {
+    .pedidos-container {
+        padding: 10px;
+    }
+
+    .pedido-item {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .pedido-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pedido-detalhes img {
+        width: 100%;
+        height: auto;
+    }
+}
