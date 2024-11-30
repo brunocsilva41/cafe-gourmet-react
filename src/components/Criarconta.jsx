@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import '../assets/styles/criarConta.css';
 import Header from '../components/Header';
-import SocialLogin, { handleFacebookLogin, handleGoogleLogin, handleSocialSignupFlow } from './SocialLogin';
+import SocialLogin, { handleSocialSignupFlow } from './SocialLogin';
 
 const base_URL = 'https://api-cafe-gourmet.vercel.app';
 
