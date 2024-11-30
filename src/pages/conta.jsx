@@ -183,14 +183,15 @@ const Conta = () => {
           {showRefreshMessage && <p>Atualize a página para carregar a foto.</p>}
         </div>
         <div className="profile-info">
-          <p><strong>Nome:</strong> {userDetails.userName} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
-          <p><strong>Email:</strong> {userDetails.userEmail} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
-          <p><strong>Endereço:</strong> {userDetails.endereco} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
-          <p><strong>Telefone:</strong> {userDetails.telefone_usuario} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
+          <p><strong>Nome:</strong> {userDetails.userName || user?.userName} </p>
+          <p><strong>Email:</strong> {userDetails.userEmail || user?.userEmail} </p>
+          <p><strong>Endereço:</strong> {userDetails.endereco} </p>
+          <p><strong>Telefone:</strong> {userDetails.telefone_usuario} </p>
           {user?.role === 'admin' && (
             <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
           )}
           <button onClick={() => setShowPasswordReset(true)}>Redefinir Senha</button>
+          <button onClick={() => setShowEditPopup(true)}><FaEdit /> Editar Informações</button>
         </div>
       </div>
       {showEditPopup && (
