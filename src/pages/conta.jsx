@@ -128,6 +128,7 @@ const Conta = () => {
     const userId = user?.userId || localStorage.getItem('userId');
     const token = localStorage.getItem('token');
     try {
+      console.log('Dados enviados para atualização:', updatedDetails);
       await axios.put(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`, updatedDetails, {
         headers: {
           Authorization: `Bearer ${token}`
