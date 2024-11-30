@@ -28,7 +28,7 @@ const handleSocialLogin = async (email, name) => {
 
 const handleGoogleLogin = () => {
   const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
-  const redirectUri = 'https://coffeforyou.netlify.app/conta';
+  const redirectUri = 'https://coffeforyou.netlify.app/login'; // Redirecionar para a tela de login
   const scope = 'email profile';
   const responseType = 'token';
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
@@ -63,37 +63,6 @@ const handleSocialResponse = async (email, name) => {
   }
 };
 
-const handleSocialLoginFlow = async (email, name) => {
-  try {
-    const response = await axios.post('https://api-cafe-gourmet.vercel.app/verificar-usuario', { email });
-    if (response.data.exists) {
-      await handleSocialLogin(email, name);
-    } else {
-      alert('Usuário não tem conta cadastrada. Por favor, crie uma conta.');
-      window.location.href = '/criarconta';
-    }
-  } catch (error) {
-    console.error('Erro ao verificar usuário:', error);
-    alert('Erro ao verificar usuário. Tente novamente mais tarde.');
-  }
-};
-
-const handleSocialSignupFlow = async (email, name) => {
-  console.log('Verificando usuário para criação de conta:', { email, name });
-  try {
-    const response = await axios.post('https://api-cafe-gourmet.vercel.app/verificar-usuario', { email });
-    if (response.data.exists) {
-      alert('Usuário já cadastrado.');
-      window.location.href = '/login';
-    } else {
-      await handleSocialResponse(email, name);
-    }
-  } catch (error) {
-    console.error('Erro ao verificar usuário:', error);
-    alert('Erro ao verificar usuário. Tente novamente mais tarde.');
-  }
-};
-
 const SocialLogin = () => {
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.hash.substring(1));
@@ -104,7 +73,7 @@ const SocialLogin = () => {
         .then(response => {
           const { email, name } = response.data;
           console.log('Dados recebidos do Google:', { email, name });
-          handleSocialSignupFlow(email, name);
+          handleSocialLogin(email, name);
         })
         .catch(error => {
           console.error('Erro ao obter informações do usuário:', error);
@@ -121,5 +90,5 @@ const SocialLogin = () => {
 };
 
 export default SocialLogin;
-export { handleGoogleLogin, handleSocialLogin, handleSocialLoginFlow, handleSocialSignupFlow };
+export { handleGoogleLogin, handleSocialLogin };
 
