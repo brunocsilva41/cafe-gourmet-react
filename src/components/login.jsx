@@ -6,7 +6,8 @@ import '../assets/styles/global.css';
 import '../assets/styles/login.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
-import { loginUser, isUserLoggedIn } from '../utils/auth';
+import { isUserLoggedIn, loginUser } from '../utils/auth';
+import { handleFacebookLogin, handleGoogleLogin } from '../utils/socialLogin';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -72,8 +73,8 @@ const Login = () => {
           <br />
           <div className="additional-links">
             <p>Ou</p>
-            <button className="social-login google">Login com Google</button>
-            <button className="social-login facebook">Login com Facebook</button>
+            <button className="social-login google" onClick={handleGoogleLogin}>Login com Google</button>
+            <button className="social-login facebook" onClick={handleFacebookLogin}>Login com Facebook</button>
           </div>
           <div>
             <h2>Não tem uma conta?</h2>
