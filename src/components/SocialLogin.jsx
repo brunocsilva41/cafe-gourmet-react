@@ -18,7 +18,7 @@ const handleSocialLogin = async (email, name) => {
     window.location.href = '/conta';
   } catch (error) {
     console.error('Erro no login social:', error);
-    alert('Erro no login social. Tente novamente mais tarde.');
+    alert('Erro no login social. Não foi Possivel Localizar essa Conta.');
   }
 };
 
