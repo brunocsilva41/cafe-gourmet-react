@@ -7,7 +7,7 @@ import '../assets/styles/login.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { isUserLoggedIn, loginUser } from '../utils/auth';
-import { handleFacebookLogin, handleGoogleLogin } from '../components/SocialLogin';
+import { handleFacebookLogin, handleGoogleLogin } from './SocialLogin';
 
 const Login = () => {
   const navigate = useNavigate();
