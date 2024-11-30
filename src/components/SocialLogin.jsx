@@ -63,6 +63,23 @@ const handleSocialResponse = async (email, name) => {
   }
 };
 
+
+const handleSocialSignupFlow = async (email, name) => {
+  console.log('Verificando usuário para criação de conta:', { email, name });
+  try {
+    const response = await axios.post('https://api-cafe-gourmet.vercel.app/login-social', { email });
+    if (response.data.exists) {
+      alert('Usuário já cadastrado.');
+      window.location.href = '/login';
+    } else {
+      await handleSocialResponse(email, name);
+    }
+  } catch (error) {
+    console.error('Erro ao verificar usuário:', error);
+    alert('Erro ao verificar usuário. Tente novamente mais tarde.');
+  }
+};
+
 const SocialLogin = () => {
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.hash.substring(1));
@@ -90,5 +107,5 @@ const SocialLogin = () => {
 };
 
 export default SocialLogin;
-export { handleGoogleLogin, handleSocialLogin };
+export { handleGoogleLogin, handleSocialLogin, handleSocialSignupFlow };
 

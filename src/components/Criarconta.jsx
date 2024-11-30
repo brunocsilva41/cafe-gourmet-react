@@ -53,7 +53,7 @@ const CriarConta = () => {
     const address = event.target.address.value;
     const phone = event.target.phone.value;
 
-    console.log('Dados do formul��rio:', { name, email, password, address, phone });
+    console.log('Dados do formulario:', { name, email, password, address, phone });
 
     try {
       const response = await axios.post(`${base_URL}/criar-conta`, {
