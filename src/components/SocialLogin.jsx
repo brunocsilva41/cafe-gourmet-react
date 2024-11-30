@@ -5,27 +5,6 @@ const generateTemporaryPassword = () => {
   return Math.random().toString(36).slice(-6);
 };
 
-const handleSocialResponse = async (email, name) => {
-  const tempPassword = generateTemporaryPassword();
-  try {
-    const response = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', {
-      email,
-      name,
-      password: tempPassword,
-    });
-    const { token } = response.data;
-    localStorage.setItem('token', token);
-    localStorage.setItem('tempPassword', tempPassword);
-    localStorage.setItem('email', email);
-    localStorage.setItem('name', name);
-    alert(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}`);
-    window.location.href = '/criarconta';
-  } catch (error) {
-    console.error('Erro ao criar conta:', error);
-    alert('Erro ao criar conta. Tente novamente mais tarde.');
-  }
-};
-
 const handleSocialLogin = async (email) => {
   try {
     const response = await axios.post('https://api-cafe-gourmet.vercel.app/login-social', { email });
@@ -61,6 +40,27 @@ const handleFacebookLogin = () => {
   window.location.href = url;
 };
 
+const handleSocialResponse = async (email, name) => {
+  const tempPassword = generateTemporaryPassword();
+  try {
+    const response = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', {
+      email,
+      name,
+      password: tempPassword,
+    });
+    const { token } = response.data;
+    localStorage.setItem('token', token);
+    localStorage.setItem('tempPassword', tempPassword);
+    localStorage.setItem('email', email);
+    localStorage.setItem('name', name);
+    alert(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}`);
+    window.location.href = '/criarconta';
+  } catch (error) {
+    console.error('Erro ao criar conta:', error);
+    alert('Erro ao criar conta. Tente novamente mais tarde.');
+  }
+};
+
 const handleOAuthCallback = async () => {
   const params = new URLSearchParams(window.location.hash.substring(1));
   const accessToken = params.get('access_token');
@@ -69,9 +69,7 @@ const handleOAuthCallback = async () => {
     try {
       const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
       const { email, name } = response.data;
-      localStorage.setItem('email', email);
-      localStorage.setItem('name', name);
-      window.location.href = '/criarconta';
+      await handleSocialResponse(email, name);
     } catch (error) {
       console.error('Erro ao obter informações do usuário:', error);
       alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
