@@ -91,7 +91,7 @@ const SocialLogin = () => {
 
   return (
     <div className="social-login-container">
-      <button onClick={handleGoogleLogin}>Login com Google</button>
+      <button onClick={() => handleGoogleLogin()}>Login com Google</button>
     </div>
   );
 };
