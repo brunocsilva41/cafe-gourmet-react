@@ -127,9 +127,18 @@ const Conta = () => {
   const handleSaveChanges = async () => {
     const userId = user?.userId || localStorage.getItem('userId');
     const token = localStorage.getItem('token');
+    const updatedData = {
+      Id: userId,
+      nome: updatedDetails.userName,
+      email: updatedDetails.userEmail,
+      role: user?.role,
+      endereco: updatedDetails.endereco,
+      telefone_usuario: updatedDetails.telefone_usuario
+    };
+
     try {
-      console.log('Dados enviados para atualização:', updatedDetails);
-      await axios.put(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`, updatedDetails, {
+      console.log('Dados enviados para atualização:', updatedData);
+      await axios.put('https://api-cafe-gourmet.vercel.app/editar-cadastro', updatedData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
