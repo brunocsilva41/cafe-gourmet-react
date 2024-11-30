@@ -2,10 +2,13 @@ import axios from 'axios';
 import React from 'react';
 import '../assets/styles/criarConta.css';
 import Header from '../components/Header';
+import SocialLogin from './SocialLogin';
 
 const base_URL = 'https://api-cafe-gourmet.vercel.app';
 
 const CriarConta = () => {
+  const [error, setError] = React.useState('');
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const name = event.target.name.value;
@@ -27,10 +30,14 @@ const CriarConta = () => {
         alert('Conta criada com sucesso!');
         window.location.href = '/login';
       } else {
-        alert('Erro ao criar conta.');
+        setError('Erro ao criar conta.');
       }
     } catch (error) {
-      alert('Erro ao criar conta. Tente novamente mais tarde.');
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError('Erro ao criar conta. Tente novamente mais tarde.');
+      }
     }
   };
 
@@ -53,12 +60,12 @@ const CriarConta = () => {
           <input type="text" name="address" required />
           <label>Telefone:</label>
           <input type="text" name="phone" required />
+          {error && <p className="error-message">{error}</p>}
           <button type="submit">Criar Conta</button>
         </form>
         <div className="links-adicionais">
           <p>Ou</p>
-          <button className="social-login google">Login com Google</button>
-          <button className="social-login facebook">Login com Facebook</button>
+          <SocialLogin />
         </div>
       </div>
     </div>
