@@ -183,10 +183,10 @@ const Conta = () => {
           {showRefreshMessage && <p>Atualize a página para carregar a foto.</p>}
         </div>
         <div className="profile-info">
-          <p><strong>Nome:</strong> {userDetails.userName || updatedDetails.userName} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
-          <p><strong>Email:</strong> {userDetails.userEmail || updatedDetails.userEmail} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
-          <p><strong>Endereço:</strong> {userDetails.endereco || updatedDetails.endereco} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
-          <p><strong>Telefone:</strong> {userDetails.telefone_usuario || updatedDetails.telefone_usuario} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
+          <p><strong>Nome:</strong> {userDetails.userName} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
+          <p><strong>Email:</strong> {userDetails.userEmail} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
+          <p><strong>Endereço:</strong> {userDetails.endereco} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
+          <p><strong>Telefone:</strong> {userDetails.telefone_usuario} <FaEdit onClick={() => setShowEditPopup(true)} /></p>
           {user?.role === 'admin' && (
             <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
           )}
