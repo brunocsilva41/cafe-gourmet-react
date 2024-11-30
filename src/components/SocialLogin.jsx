@@ -22,7 +22,17 @@ const handleSocialLogin = async (email, name) => {
   }
 };
 
+const generateTemporaryPassword = () => {
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let password = '';
+  for (let i = 0; i < 6; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return password;
+};
+
 const handleSocialSignUp = async (email, name) => {
+  const temporaryPassword = generateTemporaryPassword();
   try {
     const checkUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/consulta-usuario', { email });
     if (checkUserResponse.status === 200) {
@@ -32,9 +42,9 @@ const handleSocialSignUp = async (email, name) => {
   } catch (error) {
     if (error.response && error.response.status === 401) {
       try {
-        const createUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', { email, name });
+        const createUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', { email, name, temporaryPassword });
         if (createUserResponse.status === 201) {
-          alert(`Conta criada com sucesso! Realize o login com as credenciais:\n\nEmail: ${email}\nSenha Temporária: ${createUserResponse.data.temporaryPassword}`);
+          alert(`Conta criada com sucesso! Realize o login com as credenciais:\n\nEmail: ${email}\nSenha Temporária: ${temporaryPassword}`);
           window.location.href = '/login';
         }
       } catch (createError) {
@@ -101,5 +111,5 @@ const SocialLogin = () => {
 };
 
 export default SocialLogin;
-export { handleGoogleCallback, handleGoogleLogin, handleGoogleSignUp, handleSocialLogin, handleSocialSignUp };
+export { generateTemporaryPassword, handleGoogleCallback, handleGoogleLogin, handleGoogleSignUp, handleSocialLogin, handleSocialSignUp };
 
