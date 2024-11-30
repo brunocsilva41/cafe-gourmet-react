@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import '../assets/styles/criarConta.css';
 import Header from '../components/Header';
-import { handleGoogleLogin, handleSocialSignupFlow } from './SocialLogin';
+import { handleGoogleLogin } from './SocialLogin';
 
 const base_URL = 'https://api-cafe-gourmet.vercel.app';
 
@@ -14,34 +14,7 @@ const CriarConta = () => {
     const accessToken = params.get('access_token');
 
     if (accessToken) {
-      axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`)
-        .then(response => {
-          const { email, name } = response.data;
-          console.log('Dados recebidos do Google:', { email, name });
-          handleSocialSignupFlow(email, name);
-        })
-        .catch(error => {
-          console.error('Erro ao obter informações do usuário:', error);
-          alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
-        });
-    }
-  }, []);
-
-  React.useEffect(() => {
-    const tempPassword = localStorage.getItem('tempPassword');
-    const email = localStorage.getItem('email');
-    const name = localStorage.getItem('name');
-    if (tempPassword && email) {
-      alert(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}. Email: ${email}`);
-      localStorage.removeItem('tempPassword');
-    }
-    if (email) {
-      document.getElementById('email').value = email;
-      localStorage.removeItem('email');
-    }
-    if (name) {
-      document.getElementById('name').value = name;
-      localStorage.removeItem('name');
+      handleGoogleLogin(accessToken);
     }
   }, []);
 
@@ -53,7 +26,7 @@ const CriarConta = () => {
     const address = event.target.address.value;
     const phone = event.target.phone.value;
 
-    console.log('Dados do formulario:', { name, email, password, address, phone });
+    console.log('Dados do formulário:', { name, email, password, address, phone });
 
     try {
       const response = await axios.post(`${base_URL}/criar-conta`, {
