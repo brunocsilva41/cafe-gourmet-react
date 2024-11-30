@@ -140,6 +140,9 @@ const Conta = () => {
       console.error('Erro ao atualizar informações:', error);
       if (error.response) {
         console.error('Detalhes do erro:', error.response.data);
+        alert(`Erro ao atualizar informações: ${error.response.data.message || 'Erro desconhecido'}`);
+      } else {
+        alert('Erro ao atualizar informações. Por favor, tente novamente mais tarde.');
       }
     }
   };
@@ -199,11 +202,11 @@ const Conta = () => {
           <h2>Editar Informações</h2>
           <label>
             Nome:
-            <input type="text" name="userName" value={updatedDetails.userName} onChange={handleInputChange} />
+            <input type="text" name="userName" value={updatedDetails.userName  || user?.userName} onChange={handleInputChange} />
           </label>
           <label>
             Email:
-            <input type="email" name="userEmail" value={updatedDetails.userEmail} onChange={handleInputChange} />
+            <input type="email" name="userEmail" value={updatedDetails.userEmail || user?.userName} onChange={handleInputChange} />
           </label>
           <label>
             Endereço:
