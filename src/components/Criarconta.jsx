@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import '../assets/styles/criarConta.css';
 import Header from '../components/Header';
-import { handleGoogleLogin, handleSocialSignupFlow } from './SocialLogin';
+import { handleGoogleCallback, handleGoogleLogin } from './SocialLogin';
 
 const base_URL = 'https://api-cafe-gourmet.vercel.app';
 
@@ -14,7 +14,7 @@ const CriarConta = () => {
     const accessToken = params.get('access_token');
 
     if (accessToken) {
-      handleGoogleLogin(accessToken);
+      handleGoogleCallback(accessToken);
     }
   }, []);
 
@@ -79,7 +79,7 @@ const CriarConta = () => {
         </form>
         <div className="links-adicionais">
           <p>Ou</p>
-          <button onClick={() => handleGoogleLogin()}>Criar Conta com Google</button>
+          <button onClick={handleGoogleLogin}>Criar Conta com Google</button>
         </div>
       </div>
     </div>

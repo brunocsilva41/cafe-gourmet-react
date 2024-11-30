@@ -22,7 +22,17 @@ const handleSocialLogin = async (email, name) => {
   }
 };
 
-const handleGoogleLogin = async (accessToken) => {
+const handleGoogleLogin = () => {
+  const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
+  const redirectUri = 'https://coffeforyou.netlify.app/login'; // Redirecionar para a tela de login
+  const scope = 'email profile';
+  const responseType = 'token';
+  const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
+
+  window.location.href = url;
+};
+
+const handleGoogleCallback = async (accessToken) => {
   try {
     const response = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json', {
       headers: {
@@ -85,17 +95,17 @@ const SocialLogin = () => {
     const accessToken = params.get('access_token');
 
     if (accessToken) {
-      handleGoogleLogin(accessToken);
+      handleGoogleCallback(accessToken);
     }
   }, []);
 
   return (
     <div className="social-login-container">
-      <button onClick={() => handleGoogleLogin()}>Login com Google</button>
+      <button onClick={handleGoogleLogin}>Login com Google</button>
     </div>
   );
 };
 
 export default SocialLogin;
-export { handleGoogleLogin, handleSocialLogin, handleSocialSignupFlow };
+export { handleGoogleLogin, handleGoogleCallback, handleSocialLogin, handleSocialSignupFlow };
 
