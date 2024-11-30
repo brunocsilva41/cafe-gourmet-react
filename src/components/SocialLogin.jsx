@@ -1,5 +1,5 @@
 import React from 'react';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import { GoogleLogin } from 'react-google-login';
 
 const SocialLogin = () => {
@@ -29,7 +29,9 @@ const SocialLogin = () => {
         autoLoad={false}
         fields="name,email,picture"
         callback={handleFacebookResponse}
-        textButton="Login com Facebook"
+        render={renderProps => (
+          <button onClick={renderProps.onClick}>Login com Facebook</button>
+        )}
       />
     </div>
   );
