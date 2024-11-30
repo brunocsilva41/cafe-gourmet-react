@@ -1,8 +1,7 @@
-
 export const sendEmail = async (email) => {
   if (email) {
     try {
-      await fetch('/api/send-email', {
+      await fetch('https://coffeforyou.netlify.app/api/send-email', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

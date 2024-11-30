@@ -22,7 +22,7 @@ const handleSocialLogin = async (email) => {
 
 const handleGoogleLogin = () => {
   const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
-  const redirectUri = 'https://coffeforyou.netlify.app/Criarconta'; // Certifique-se de que este URI está configurado no console de APIs do Google
+  const redirectUri = 'https://coffeforyou.netlify.app/Criarconta';
   const scope = 'email profile';
   const responseType = 'token';
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
@@ -69,7 +69,16 @@ const handleOAuthCallback = async () => {
     try {
       const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
       const { email, name } = response.data;
-      await handleSocialResponse(email, name);
+
+      // Verifica se o usuário já está cadastrado
+      const userCheckResponse = await axios.post('https://api-cafe-gourmet.vercel.app/login-social', { email });
+      const { isRegistered } = userCheckResponse.data;
+
+      if (isRegistered) {
+        await handleSocialLogin(email);
+      } else {
+        await handleSocialResponse(email, name);
+      }
     } catch (error) {
       console.error('Erro ao obter informações do usuário:', error);
       alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
