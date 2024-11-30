@@ -21,7 +21,7 @@ const UsersPanel = () => {
 
     const openPopup = (user) => {
         setSelectedUser(user);
-        setNewUserData({ nome: user.nome, role: user.role, endereco: user.endereco, telefone: user.telefone });
+        setNewUserData({ nome: user.nome, role: user.role, endereco: user.endereco, telefone: user.telefone_usuario });
     };
 
     const closePopup = () => {
@@ -38,7 +38,7 @@ const UsersPanel = () => {
         if (selectedUser) {
             axios.put(`${base_URL}/usuarios/${selectedUser.Id}`, newUserData)
                 .then(() => {
-                    setUsers(users.map(user => user.Id === selectedUser.Id ? { ...user, ...newUserData } : user));
+                    setUsers(users.map(user => user.Id === selectedUser.Id ? { ...user, ...newUserData, telefone_usuario: newUserData.telefone } : user));
                     alert('Informações atualizadas com sucesso!');
                     closePopup();
                 })
