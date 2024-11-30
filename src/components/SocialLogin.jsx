@@ -60,5 +60,6 @@ const SocialLogin = () => {
   );
 };
 
-export { SocialLogin, handleFacebookLogin, handleGoogleLogin };
+export default SocialLogin;
+export { handleFacebookLogin, handleGoogleLogin };
 
