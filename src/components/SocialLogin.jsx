@@ -27,7 +27,7 @@ const handleSocialLogin = async (email) => {
 
 const handleGoogleLogin = () => {
   const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
-  const redirectUri = window.location.origin + '/oauth-callback'; 
+  const redirectUri = 'https://coffeforyou.netlify.app/oauth-callback'; // Atualize para o URI correto
   const scope = 'email profile';
   const responseType = 'token';
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
@@ -37,7 +37,7 @@ const handleGoogleLogin = () => {
 
 const handleFacebookLogin = () => {
   const appId = '926133692789023';
-  const redirectUri = window.location.origin + '/oauth-callback'; 
+  const redirectUri = 'https://coffeforyou.netlify.app/oauth-callback'; 
   const scope = 'email';
   const responseType = 'token';
   const url = `https://www.facebook.com/v10.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
