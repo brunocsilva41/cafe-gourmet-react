@@ -13,10 +13,11 @@ const Conta = () => {
   const { user, setUser } = useAuth();
   const [userDetails, setUserDetails] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
+  const [showRefreshMessage, setShowRefreshMessage] = useState(false);
 
   useEffect(() => {    
     const userId = getuserId();
-    console.log('Obtido userId:', userId); // Adicione este log para verificar o userId
+    console.log('Obtido userId:', userId); 
     
     if (!userId) {
       console.error('Erro: userId não encontrado no localStorage.');
@@ -26,7 +27,7 @@ const Conta = () => {
     const userEmail = localStorage.getItem('userEmail');
     const userImage = localStorage.getItem('userImage');
     const role = localStorage.getItem('role');
-    const token = localStorage.getItem('token'); // Adicione esta linha para obter o token
+    const token = localStorage.getItem('token'); 
 
     if (userId && userName && userEmail && role) {
       if (typeof setUser === 'function') {
@@ -47,7 +48,7 @@ const Conta = () => {
       try {
         const response = await axios.get(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`, {
           headers: {
-            Authorization: `Bearer ${token}` // Adicione o token ao cabeçalho da solicitação
+            Authorization: `Bearer ${token}` 
           }
         });
         const userData = response.data;
@@ -65,9 +66,9 @@ const Conta = () => {
   };
 
   const handleImageUploadClick = async () => {
-    console.log('handleImageUpload chamado'); // Adicione este log para verificar se a função está sendo chamada
+    console.log('handleImageUpload chamado'); 
     const userId = user?.userId || localStorage.getItem('userId'); 
-    console.log('Obtido userId para upload:', userId); // Adicione este log para verificar o userId
+    console.log('Obtido userId para upload:', userId); 
 
     if (!userId) {
       console.error('Erro: userId está indefinido.');
@@ -79,7 +80,6 @@ const Conta = () => {
       return;
     }
 
-    // Verifica se o arquivo selecionado é uma imagem
     if (!selectedFile.type.startsWith('image/')) {
       console.error('Erro: O arquivo selecionado não é uma imagem.');
       return;
@@ -88,14 +88,14 @@ const Conta = () => {
     try {
       const imageUrl = await uploadAndSetImage(selectedFile, userId);
       console.log('URL da Imagem:', imageUrl);
-      // Atualiza a imagem do usuário na tela
       setUserDetails((prevDetails) => ({
         ...prevDetails,
         imagem_usuario: imageUrl,
       }));
-      localStorage.setItem('userImage', imageUrl); // Armazena a URL da imagem no localStorage
+      localStorage.setItem('userImage', imageUrl); 
+      setShowRefreshMessage(true); 
     } catch (error) {
-      console.error('Erro ao fazer upload da imagem:', error.response ? error.response.data : error.message); // Adicione este log para verificar o erro
+      console.error('Erro ao fazer upload da imagem:', error.response ? error.response.data : error.message); 
     }
   };
 
@@ -111,6 +111,7 @@ const Conta = () => {
           )}
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleImageUploadClick} disabled={!selectedFile || !user?.userId}>Confirmar Upload</button>
+          {showRefreshMessage && <p>Atualize a página para carregar a foto.</p>}
         </div>
         <div className="profile-info">
           <p><strong>Nome:</strong> {user?.userName}</p>
