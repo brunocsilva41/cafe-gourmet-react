@@ -22,7 +22,7 @@ const Login = () => {
     if (isUserLoggedIn()) {
       navigate('/conta');
     }
-  }, [navigate]);
+  }, [navigate]); // Certifique-se de que o array de dependências está correto
 
   const handleOAuthCallback = async () => {
     const params = new URLSearchParams(window.location.hash.substring(1));

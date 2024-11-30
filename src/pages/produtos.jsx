@@ -8,14 +8,6 @@ import { useAuth } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
 import { blobToUrl } from '../utils/blobToUrl';
 
-const base_URL = process.env.REACT_APP_BASE_URL;
-
-if (!base_URL) {
-  console.error('REACT_APP_BASE_URL não está definida. Verifique suas variáveis de ambiente.');
-} else {
-  console.log('Base URL da API:', base_URL);
-}
-
 const Products = () => {
   const { user } = useAuth();
   const { adicionarAoCarrinho } = useContext(CartContext);
