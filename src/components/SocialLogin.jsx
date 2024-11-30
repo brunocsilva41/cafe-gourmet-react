@@ -8,13 +8,13 @@ const generateTemporaryPassword = () => {
 const handleSocialResponse = async (email, name) => {
   const tempPassword = generateTemporaryPassword();
   try {
-    await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta', {
+    const response = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', {
       email,
       name,
       password: tempPassword,
-      address: '',
-      phone: '',
     });
+    const { token } = response.data;
+    localStorage.setItem('token', token);
     alert(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}`);
     window.location.href = '/conta';
   } catch (error) {
@@ -30,10 +30,6 @@ const handleGoogleLogin = () => {
   const responseType = 'token';
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
 
-  const email = '';
-  const name = '';
-  handleSocialResponse(email, name);
-
   window.location.href = url;
 };
 
@@ -44,14 +40,30 @@ const handleFacebookLogin = () => {
   const responseType = 'token';
   const url = `https://www.facebook.com/v10.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
 
-  const email = '';
-  const name = '';
-  handleSocialResponse(email, name);
-
   window.location.href = url;
 };
 
+const handleOAuthCallback = async () => {
+  const params = new URLSearchParams(window.location.hash.substring(1));
+  const accessToken = params.get('access_token');
+
+  if (accessToken) {
+    try {
+      const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
+      const { email, name } = response.data;
+      await handleSocialResponse(email, name);
+    } catch (error) {
+      console.error('Erro ao obter informações do usuário:', error);
+      alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
+    }
+  }
+};
+
 const SocialLogin = () => {
+  React.useEffect(() => {
+    handleOAuthCallback();
+  }, []);
+
   return (
     <div className="social-login-container">
       <button onClick={handleGoogleLogin}>Login com Google</button>
