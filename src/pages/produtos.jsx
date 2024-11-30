@@ -73,7 +73,8 @@ const Products = () => {
           : prevFiltro.tipo.filter((categoria) => categoria !== value)
       }));
     } else {
-      setFiltro({ ...filtro, [name]: value });
+      const numericValue = name === 'precoMin' || name === 'precoMax' ? Math.max(0, Number(value)) : value;
+      setFiltro({ ...filtro, [name]: numericValue });
     }
   };
 
