@@ -57,6 +57,7 @@ const handleOAuthCallback = async () => {
 
 const handleSocialResponse = async (email, name) => {
   const tempPassword = generateTemporaryPassword();
+  console.log('Dados recebidos para criar conta:', { email, name, tempPassword });
   try {
     const response = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', {
       email,
@@ -97,6 +98,7 @@ const handleSocialLoginFlow = async (email, name) => {
 };
 
 const handleSocialSignupFlow = async (email, name) => {
+  console.log('Verificando usuário para criação de conta:', { email, name });
   try {
     const response = await axios.post('https://api-cafe-gourmet.vercel.app/verificar-usuario', { email });
     if (response.data.exists) {

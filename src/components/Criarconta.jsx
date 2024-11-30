@@ -56,6 +56,8 @@ const CriarConta = () => {
     const address = event.target.address.value;
     const phone = event.target.phone.value;
 
+    console.log('Dados do formulário:', { name, email, password, address, phone });
+
     try {
       const response = await axios.post(`${base_URL}/criar-conta`, {
         name,
@@ -65,6 +67,8 @@ const CriarConta = () => {
         phone,
       });
 
+      console.log('Resposta da API:', response);
+
       if (response.status === 201) {
         alert('Conta criada com sucesso!');
         window.location.href = '/login';
@@ -72,6 +76,7 @@ const CriarConta = () => {
         setError('Erro ao criar conta.');
       }
     } catch (error) {
+      console.error('Erro ao criar conta:', error);
       if (error.response && error.response.data && error.response.data.message) {
         setError(error.response.data.message);
       } else {
