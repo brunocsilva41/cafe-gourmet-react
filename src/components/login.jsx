@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { default as React, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'reactjs-popup/dist/index.css';
@@ -8,6 +7,7 @@ import '../assets/styles/login.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { isUserLoggedIn, loginUser } from '../utils/auth';
+import { handleFacebookLogin, handleGoogleLogin } from './SocialLogin';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,21 +35,6 @@ const Login = () => {
     } catch (err) {
       console.error('Erro no login:', err);
       setError('Falha no login. Verifique suas credenciais e tente novamente.');
-    }
-  };
-
-  const handleSocialLogin = async (email) => {
-    try {
-      const response = await axios.post('https://api-cafe-gourmet.vercel.app/login-social', { email });
-      const { token, userId, userName, role } = response.data;
-      localStorage.setItem('userId', userId);
-      localStorage.setItem('token', token);
-      localStorage.setItem('userName', userName);
-      localStorage.setItem('role', role);
-      navigate('/conta');
-    } catch (err) {
-      console.error('Erro no login social:', err);
-      setError('Falha no login social. Tente novamente mais tarde.');
     }
   };
 
@@ -88,8 +73,8 @@ const Login = () => {
           <br />
           <div className="additional-links">
             <p>Ou</p>
-            <button className="social-login google" onClick={handleSocialLogin}>Login com Google</button>
-            <button className="social-login facebook" onClick={handleSocialLogin}>Login com Facebook</button>
+            <button className="social-login google" onClick={handleGoogleLogin}>Login com Google</button>
+            <button className="social-login facebook" onClick={handleFacebookLogin}>Login com Facebook</button>
           </div>
           <div>
             <h2>Não tem uma conta?</h2>

@@ -15,11 +15,28 @@ const handleSocialResponse = async (email, name) => {
     });
     const { token } = response.data;
     localStorage.setItem('token', token);
+    localStorage.setItem('tempPassword', tempPassword);
+    localStorage.setItem('email', email);
     alert(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}`);
-    window.location.href = '/conta';
+    window.location.href = '/criarconta';
   } catch (error) {
     console.error('Erro ao criar conta:', error);
     alert('Erro ao criar conta. Tente novamente mais tarde.');
+  }
+};
+
+const handleSocialLogin = async (email) => {
+  try {
+    const response = await axios.post('https://api-cafe-gourmet.vercel.app/login-social', { email });
+    const { token, userId, userName, role } = response.data;
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('token', token);
+    localStorage.setItem('userName', userName);
+    localStorage.setItem('role', role);
+    window.location.href = '/conta';
+  } catch (error) {
+    console.error('Erro no login social:', error);
+    alert('Erro no login social. Tente novamente mais tarde.');
   }
 };
 
@@ -73,5 +90,5 @@ const SocialLogin = () => {
 };
 
 export default SocialLogin;
-export { handleFacebookLogin, handleGoogleLogin };
+export { handleFacebookLogin, handleGoogleLogin, handleSocialLogin };
 

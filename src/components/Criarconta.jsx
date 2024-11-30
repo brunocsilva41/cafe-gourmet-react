@@ -9,6 +9,16 @@ const base_URL = 'https://api-cafe-gourmet.vercel.app';
 const CriarConta = () => {
   const [error, setError] = React.useState('');
 
+  React.useEffect(() => {
+    const tempPassword = localStorage.getItem('tempPassword');
+    const email = localStorage.getItem('email');
+    if (tempPassword && email) {
+      alert(`Conta criada com sucesso! Sua senha temporária é: ${tempPassword}. Email: ${email}`);
+      localStorage.removeItem('tempPassword');
+      localStorage.removeItem('email');
+    }
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const name = event.target.name.value;
