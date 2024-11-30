@@ -6,6 +6,7 @@ const generateTemporaryPassword = () => {
 };
 
 const handleSocialLogin = async (email, name) => {
+  console.log('Dados recebidos para login:', { email, name });
   try {
     const response = await axios.post('https://api-cafe-gourmet.vercel.app/login-social', { email, name });
     const { token, userId, userName, userEmail, address, telefone_usuario, imagem_usuario, role } = response.data;
@@ -35,14 +36,23 @@ const handleGoogleLogin = () => {
   window.location.href = url;
 };
 
-const handleFacebookLogin = () => {
-  const appId = '926133692789023';
-  const redirectUri = 'https://coffeforyou.netlify.app/conta'; // Redirecionar para a tela de conta
-  const scope = 'email';
-  const responseType = 'token';
-  const url = `https://www.facebook.com/v10.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
+const handleOAuthCallback = async () => {
+  const params = new URLSearchParams(window.location.hash.substring(1));
+  const accessToken = params.get('access_token');
 
-  window.location.href = url;
+  if (accessToken) {
+    try {
+      const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
+      const { email, name } = response.data;
+      console.log('Dados recebidos do Google:', { email, name });
+
+      // Chama a API de login-social do seu backend
+      await handleSocialLogin(email, name);
+    } catch (error) {
+      console.error('Erro ao obter informações do usuário:', error);
+      alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
+    }
+  }
 };
 
 const handleSocialResponse = async (email, name) => {
@@ -68,24 +78,6 @@ const handleSocialResponse = async (email, name) => {
   } catch (error) {
     console.error('Erro ao criar conta:', error);
     alert('Erro ao criar conta. Tente novamente mais tarde.');
-  }
-};
-
-const handleOAuthCallback = async () => {
-  const params = new URLSearchParams(window.location.hash.substring(1));
-  const accessToken = params.get('access_token');
-
-  if (accessToken) {
-    try {
-      const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
-      const { email, name } = response.data;
-
-      // Chama a API de login-social do seu backend
-      await handleSocialLogin(email, name);
-    } catch (error) {
-      console.error('Erro ao obter informações do usuário:', error);
-      alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
-    }
   }
 };
 
@@ -127,11 +119,10 @@ const SocialLogin = () => {
   return (
     <div className="social-login-container">
       <button onClick={handleGoogleLogin}>Login com Google</button>
-      <button onClick={handleFacebookLogin}>Login com Facebook</button>
     </div>
   );
 };
 
 export default SocialLogin;
-export { handleFacebookLogin, handleGoogleLogin, handleSocialLogin, handleSocialLoginFlow, handleSocialSignupFlow };
+export { handleGoogleLogin, handleSocialLogin, handleSocialLoginFlow, handleSocialSignupFlow };
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import '../assets/styles/criarConta.css';
 import Header from '../components/Header';
-import SocialLogin, { handleSocialSignupFlow } from './SocialLogin';
+import { handleGoogleLogin, handleSocialSignupFlow } from './SocialLogin';
 
 const base_URL = 'https://api-cafe-gourmet.vercel.app';
 
@@ -17,6 +17,7 @@ const CriarConta = () => {
       try {
         const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
         const { email, name } = response.data;
+        console.log('Dados recebidos do Google:', { email, name });
         await handleSocialSignupFlow(email, name);
       } catch (error) {
         console.error('Erro ao obter informações do usuário:', error);
@@ -103,7 +104,7 @@ const CriarConta = () => {
         </form>
         <div className="links-adicionais">
           <p>Ou</p>
-          <SocialLogin />
+          <button onClick={handleGoogleLogin}>Criar Conta com Google</button>
         </div>
       </div>
     </div>
