@@ -14,6 +14,15 @@ const Conta = () => {
   const [userDetails, setUserDetails] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const [showRefreshMessage, setShowRefreshMessage] = useState(false);
+  const [showPasswordReset, setShowPasswordReset] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [updatedDetails, setUpdatedDetails] = useState({
+    userName: '',
+    userEmail: '',
+    endereco: '',
+    telefone_usuario: ''
+  });
 
   useEffect(() => {    
     const userId = getuserId();
@@ -53,6 +62,12 @@ const Conta = () => {
         });
         const userData = response.data;
         setUserDetails(userData);
+        setUpdatedDetails({
+          userName: userData.userName,
+          userEmail: userData.userEmail,
+          endereco: userData.endereco,
+          telefone_usuario: userData.telefone_usuario
+        });
       } catch (error) {
         console.error('Erro ao buscar detalhes do usuário:', error);
       }
@@ -99,6 +114,54 @@ const Conta = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+  const handleSaveChanges = async () => {
+    const userId = user?.userId || localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    try {
+      await axios.put(`https://api-cafe-gourmet.vercel.app/api/user-details/${userId}`, updatedDetails, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setUserDetails(updatedDetails);
+      alert('Informações atualizadas com sucesso!');
+    } catch (error) {
+      console.error('Erro ao atualizar informações:', error);
+    }
+  };
+
+  const handlePasswordReset = async () => {
+    const userId = user?.userId || localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.post(`https://api-cafe-gourmet.vercel.app/api/reset-password`, {
+        userId,
+        currentPassword,
+        newPassword
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.data.success) {
+        alert('Senha alterada com sucesso!');
+        setShowPasswordReset(false);
+      } else {
+        alert('Erro ao alterar a senha. Verifique a senha atual e tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro ao alterar a senha:', error);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -114,16 +177,32 @@ const Conta = () => {
           {showRefreshMessage && <p>Atualize a página para carregar a foto.</p>}
         </div>
         <div className="profile-info">
-          <p><strong>Nome:</strong> {user?.userName}</p>
-          <p><strong>Email:</strong> {user?.userEmail}</p>
-          <p><strong>Data de Criação:</strong> {userDetails.data_criacao}</p>
-          <p><strong>Endereço:</strong> {userDetails.endereco}</p>
-          <p><strong>Telefone:</strong> {userDetails.telefone_usuario}</p>
+          <p><strong>Nome:</strong> <input type="text" name="userName" value={updatedDetails.userName} onChange={handleInputChange} /></p>
+          <p><strong>Email:</strong> <input type="email" name="userEmail" value={updatedDetails.userEmail} onChange={handleInputChange} /></p>
+          <p><strong>Endereço:</strong> <input type="text" name="endereco" value={updatedDetails.endereco} onChange={handleInputChange} /></p>
+          <p><strong>Telefone:</strong> <input type="text" name="telefone_usuario" value={updatedDetails.telefone_usuario} onChange={handleInputChange} /></p>
+          <button onClick={handleSaveChanges}>Salvar Alterações</button>
           {user?.role === 'admin' && (
             <button onClick={() => navigate('/admin-dashboard')}>Ir para Admin Dashboard</button>
           )}
+          <button onClick={() => setShowPasswordReset(true)}>Redefinir Senha</button>
         </div>
       </div>
+      {showPasswordReset && (
+        <div className="password-reset-popup">
+          <h2>Redefinir Senha</h2>
+          <label>
+            Senha Atual:
+            <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+          </label>
+          <label>
+            Nova Senha:
+            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+          </label>
+          <button onClick={handlePasswordReset}>Confirmar</button>
+          <button onClick={() => setShowPasswordReset(false)}>Cancelar</button>
+        </div>
+      )}
     </>
   );
 };
