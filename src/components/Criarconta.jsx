@@ -1,13 +1,33 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../assets/styles/criarConta.css';
 import Header from '../components/Header';
-import SocialLogin from './SocialLogin';
+import SocialLogin, { handleFacebookLogin, handleGoogleLogin, handleSocialSignupFlow } from './SocialLogin';
 
 const base_URL = 'https://api-cafe-gourmet.vercel.app';
 
 const CriarConta = () => {
   const [error, setError] = React.useState('');
+
+  const handleOAuthCallback = async () => {
+    const params = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = params.get('access_token');
+
+    if (accessToken) {
+      try {
+        const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
+        const { email, name } = response.data;
+        await handleSocialSignupFlow(email, name);
+      } catch (error) {
+        console.error('Erro ao obter informações do usuário:', error);
+        alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleOAuthCallback();
+  }, []);
 
   React.useEffect(() => {
     const tempPassword = localStorage.getItem('tempPassword');

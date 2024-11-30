@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { default as React, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'reactjs-popup/dist/index.css';
@@ -7,7 +8,7 @@ import '../assets/styles/login.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import { isUserLoggedIn, loginUser } from '../utils/auth';
-import { handleFacebookLogin, handleGoogleLogin } from './SocialLogin';
+import { handleFacebookLogin, handleGoogleLogin, handleSocialLoginFlow } from './SocialLogin';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,6 +23,26 @@ const Login = () => {
       navigate('/conta');
     }
   }, [navigate]);
+
+  const handleOAuthCallback = async () => {
+    const params = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = params.get('access_token');
+
+    if (accessToken) {
+      try {
+        const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
+        const { email, name } = response.data;
+        await handleSocialLoginFlow(email, name);
+      } catch (error) {
+        console.error('Erro ao obter informações do usuário:', error);
+        alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleOAuthCallback();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

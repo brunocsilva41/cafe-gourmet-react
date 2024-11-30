@@ -5,9 +5,9 @@ const generateTemporaryPassword = () => {
   return Math.random().toString(36).slice(-6);
 };
 
-const handleSocialLogin = async (email) => {
+const handleSocialLogin = async (email, name) => {
   try {
-    const response = await axios.post('https://api-cafe-gourmet.vercel.app/login-social', { email });
+    const response = await axios.post('https://api-cafe-gourmet.vercel.app/login-social', { email, name });
     const { token, userId, userName, userEmail, address, telefone_usuario, imagem_usuario, role } = response.data;
     localStorage.setItem('userId', userId);
     localStorage.setItem('token', token);
@@ -27,7 +27,7 @@ const handleSocialLogin = async (email) => {
 
 const handleGoogleLogin = () => {
   const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
-  const redirectUri = 'https://coffeforyou.netlify.app/oauth-callback'; // Atualize para o URI correto
+  const redirectUri = 'https://coffeforyou.netlify.app/conta'; // Redirecionar para a tela de conta
   const scope = 'email profile';
   const responseType = 'token';
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
@@ -37,7 +37,7 @@ const handleGoogleLogin = () => {
 
 const handleFacebookLogin = () => {
   const appId = '926133692789023';
-  const redirectUri = 'https://coffeforyou.netlify.app/oauth-callback'; 
+  const redirectUri = 'https://coffeforyou.netlify.app/conta'; // Redirecionar para a tela de conta
   const scope = 'email';
   const responseType = 'token';
   const url = `https://www.facebook.com/v10.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
@@ -80,15 +80,42 @@ const handleOAuthCallback = async () => {
       const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
       const { email, name } = response.data;
 
-      if (window.location.pathname === '/login') {
-        await handleSocialLogin(email);
-      } else if (window.location.pathname === '/criarconta') {
-        await handleSocialResponse(email, name);
-      }
+      // Chama a API de login-social do seu backend
+      await handleSocialLogin(email, name);
     } catch (error) {
       console.error('Erro ao obter informações do usuário:', error);
       alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
     }
+  }
+};
+
+const handleSocialLoginFlow = async (email, name) => {
+  try {
+    const response = await axios.post('https://api-cafe-gourmet.vercel.app/verificar-usuario', { email });
+    if (response.data.exists) {
+      await handleSocialLogin(email, name);
+    } else {
+      alert('Usuário não tem conta cadastrada. Por favor, crie uma conta.');
+      window.location.href = '/criarconta';
+    }
+  } catch (error) {
+    console.error('Erro ao verificar usuário:', error);
+    alert('Erro ao verificar usuário. Tente novamente mais tarde.');
+  }
+};
+
+const handleSocialSignupFlow = async (email, name) => {
+  try {
+    const response = await axios.post('https://api-cafe-gourmet.vercel.app/verificar-usuario', { email });
+    if (response.data.exists) {
+      alert('Usuário já cadastrado.');
+      window.location.href = '/login';
+    } else {
+      await handleSocialResponse(email, name);
+    }
+  } catch (error) {
+    console.error('Erro ao verificar usuário:', error);
+    alert('Erro ao verificar usuário. Tente novamente mais tarde.');
   }
 };
 
@@ -106,5 +133,5 @@ const SocialLogin = () => {
 };
 
 export default SocialLogin;
-export { handleFacebookLogin, handleGoogleLogin, handleSocialLogin };
+export { handleFacebookLogin, handleGoogleLogin, handleSocialLogin, handleSocialLoginFlow, handleSocialSignupFlow };
 
