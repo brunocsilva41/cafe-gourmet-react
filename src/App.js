@@ -14,6 +14,7 @@ import Home from './pages/home';
 import Pedidos from './pages/pedidos';
 import ProdutoDetalhes from './pages/ProdutoDetalhes';
 import Produtos from './pages/produtos';
+import RecuperaSenha from './pages/recuperasenha';
 
 const App = () => {
   const [carrinho, setCarrinho] = useState([]);
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/criarConta" element={<Criarconta />} />
+          <Route path="/recuperasenha" element={<RecuperaSenha />} />
           <Route path="/admin-dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
         </Routes>
         </CartProvider>
