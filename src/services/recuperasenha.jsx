@@ -20,11 +20,17 @@ const RecuperaSenha = () => {
                     text: `Uma nova senha foi enviada para o email ${email}`,
                 });
             }
-            if(response.status === 500){
+            if(response.status === 404){
                 Swal.fire({
                     icon: 'error',
                     title: 'Erro',
                     text: 'Não foi possível localizar esse email em algum cadastro.',
+                });
+            }if(response.status === 500){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Erro ao enviar email.',
                 });
             }
         } catch (error) {
