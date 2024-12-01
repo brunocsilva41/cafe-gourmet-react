@@ -196,7 +196,9 @@ const Conta = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            Swal.fire('Sucesso', 'Conta excluída com sucesso!', 'success' );
+            Swal.fire('Sucesso', 'Conta excluída com sucesso!', 'success');
+            localStorage.clear(); // Limpar o localStorage
+            setUser(null); // Deslogar o usuário
             navigate('/'); // Redirecionar para a página inicial após a exclusão
         } catch (error) {
             console.error('Erro ao excluir conta:', error);
