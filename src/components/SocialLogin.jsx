@@ -44,16 +44,7 @@ const handleSocialSignUp = async (email, name) => {
       try {
         const createUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', { email, name, password: temporaryPassword });
         if (createUserResponse.status === 201) {
-          const message = `
-            <div>
-              <p>Conta criada com sucesso! Realize o login com as credenciais:</p>
-              <p>Email: <span id="email">${email}</span> <button onclick="copyToClipboard('email')">Copiar</button></p>
-              <p>Senha Temporária: <span id="temporaryPassword">${temporaryPassword}</span> <button onclick="copyToClipboard('temporaryPassword')">Copiar</button></p>
-            </div>
-          `;
-          const wrapper = document.createElement('div');
-          wrapper.innerHTML = message;
-          document.body.appendChild(wrapper);
+          alert(`Conta criada com sucesso! Realize o login com as credenciais:\n\nEmail: ${email}\nSenha Temporária: ${temporaryPassword}`);
           window.location.href = '/login';
         }
       } catch (createError) {
@@ -65,13 +56,6 @@ const handleSocialSignUp = async (email, name) => {
       alert('Erro ao verificar usuário. Tente novamente mais tarde.');
     }
   }
-};
-
-const copyToClipboard = (id) => {
-  const text = document.getElementById(id).innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Texto copiado para a área de transferência');
-  });
 };
 
 const handleGoogleLogin = () => {
@@ -128,5 +112,5 @@ const SocialLogin = () => {
 };
 
 export default SocialLogin;
-export { copyToClipboard, generateTemporaryPassword, handleGoogleCallback, handleGoogleLogin, handleGoogleSignUp, handleSocialLogin, handleSocialSignUp };
+export { generateTemporaryPassword, handleGoogleCallback, handleGoogleLogin, handleGoogleSignUp, handleSocialLogin, handleSocialSignUp };
 
