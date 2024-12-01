@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import Swal from 'sweetalert2'; // Importar SweetAlert
 import '../assets/styles/dashboard.css';
 
 
@@ -48,7 +49,7 @@ const UsersPanel = () => {
             axios.put(`${base_URL}/usuarios/${selectedUser.Id}`, updatedUserData)
                 .then(() => {
                     setUsers(users.map(user => user.Id === selectedUser.Id ? { ...user, ...updatedUserData } : user));
-                    alert('Informações atualizadas com sucesso!');
+                    Swal.fire('Sucesso', 'Informações atualizadas com sucesso!', 'success');
                     closePopup();
                 })
                 .catch(error => console.error('Erro ao atualizar usuário:', error));
@@ -58,7 +59,10 @@ const UsersPanel = () => {
     const deleteUser = (id) => {
         if (window.confirm('Tem certeza que deseja excluir este usuário?')) {
             axios.delete(`${base_URL}/usuarios/${id}`)
-                .then(() => setUsers(users.filter(user => user.Id !== id)))
+                .then(() => {
+                    setUsers(users.filter(user => user.Id !== id));
+                    Swal.fire('Sucesso', 'Usuário excluído com sucesso!', 'success');
+                })
                 .catch(error => console.error('Erro ao deletar usuário:', error));
         }
     };

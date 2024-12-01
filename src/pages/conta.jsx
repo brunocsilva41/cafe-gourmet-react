@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa'; // Importar ícone de lápis
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Importar SweetAlert
 import '../assets/styles/conta.css';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
@@ -147,15 +148,15 @@ const Conta = () => {
         ...updatedDetails,
         imagem_usuario: prevDetails.imagem_usuario // Manter a URL da imagem
       }));
-      alert('Informações atualizadas com sucesso!');
+      Swal.fire('Sucesso', 'Informações atualizadas com sucesso!', 'success');
       setShowEditPopup(false); // Fechar popup após salvar alterações
     } catch (error) {
       console.error('Erro ao atualizar informações:', error);
       if (error.response) {
         console.error('Detalhes do erro:', error.response.data);
-        alert(`Erro ao atualizar informações: ${error.response.data.message || 'Erro desconhecido'}`);
+        Swal.fire('Erro', `Erro ao atualizar informações: ${error.response.data.message || 'Erro desconhecido'}`, 'error');
       } else {
-        alert('Erro ao atualizar informações. Por favor, tente novamente mais tarde.');
+        Swal.fire('Erro', 'Erro ao atualizar informações. Por favor, tente novamente mais tarde.', 'error');
       }
     }
   };
@@ -174,13 +175,33 @@ const Conta = () => {
         }
       });
       if (response.data.success) {
-        alert('Senha alterada com sucesso!');
+        Swal.fire('Sucesso', 'Senha alterada com sucesso!', 'success');
         setShowPasswordReset(false);
       } else {
-        alert('Erro ao alterar a senha. Verifique a senha atual e tente novamente.');
+        Swal.fire('Erro', 'Erro ao alterar a senha. Verifique a senha atual e tente novamente.', 'error');
       }
     } catch (error) {
       console.error('Erro ao alterar a senha:', error);
+      Swal.fire('Erro', 'Erro ao alterar a senha. Por favor, tente novamente mais tarde.', 'error');
+    }
+  };
+
+  const deleteUserAccount = async () => {
+    const userId = user?.userId || localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    if (window.confirm('Tem certeza que deseja excluir sua conta?')) {
+        try {
+            await axios.delete(`https://api-cafe-gourmet.vercel.app/usuarios/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            Swal.fire('Sucesso', 'Conta excluída com sucesso!', 'success' );
+            navigate('/'); // Redirecionar para a página inicial após a exclusão
+        } catch (error) {
+            console.error('Erro ao excluir conta:', error);
+            Swal.fire('Erro', 'Erro ao excluir conta. Por favor, tente novamente mais tarde.', 'error');
+        }
     }
   };
 
@@ -208,6 +229,7 @@ const Conta = () => {
           )}
           <button onClick={() => setShowPasswordReset(true)}>Redefinir Senha</button>
           <button onClick={() => setShowEditPopup(true)}><FaEdit /> Editar Informações</button>
+          <button onClick={deleteUserAccount}>Excluir Conta</button>
         </div>
       </div>
       {showEditPopup && (
