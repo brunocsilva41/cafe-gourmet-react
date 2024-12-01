@@ -14,7 +14,7 @@ import Home from './pages/home';
 import Pedidos from './pages/pedidos';
 import ProdutoDetalhes from './pages/ProdutoDetalhes';
 import Produtos from './pages/produtos';
-import RecuperaSenha from './pages/recuperasenha';
+import RecuperaSenha from './services/recuperasenha';
 
 const App = () => {
   const [carrinho, setCarrinho] = useState([]);
