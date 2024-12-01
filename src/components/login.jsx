@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { default as React, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import 'reactjs-popup/dist/index.css';
+import Swal from 'sweetalert2';
 import logo from '../assets/imagens/logoOF.png';
 import '../assets/styles/global.css';
 import '../assets/styles/login.css';
@@ -103,7 +103,7 @@ const Login = () => {
             />
             <button type="submit">Login</button>
             <br />
-            <a href="../services/recuperasenha.js">Esqueci a senha</a>
+            <a href='/recuperasenha'>Esqueci a senha</a>
           </form>
           <br />
           <div className="additional-links">
