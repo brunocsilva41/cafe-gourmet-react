@@ -13,7 +13,7 @@ const RecuperaSenha = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://api-cafe-gourmet.vercel.app/recuperar-senha', { email }); // Verifique se a URL está correta
+            const response = await axios.post('https://api-cafe-gourmet.vercel.app/recuperar-senha', { email }); // Verifique se a URL está correta
             console.log(response); // Adicione um log para depuração
             if (response.status === 200) {
                 Swal.fire({
