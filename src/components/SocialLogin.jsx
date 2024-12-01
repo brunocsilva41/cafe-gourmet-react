@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import Swal from 'sweetalert2';
 
 const handleSocialLogin = async (email, name) => {
   console.log('Dados recebidos para login:', { email, name });
@@ -44,8 +45,14 @@ const handleSocialSignUp = async (email, name) => {
       try {
         const createUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', { email, name, password: temporaryPassword });
         if (createUserResponse.status === 201) {
-          alert(`Conta criada com sucesso! Realize o login com as credenciais:\n\nEmail: ${email}\nSenha Temporária: ${temporaryPassword}`);
-          window.location.href = '/login';
+          Swal.fire({
+            title: 'Conta criada com sucesso!',
+            text: `Realize o login com as credenciais:\n\nEmail: ${email}\nSenha Temporária: ${temporaryPassword}`,
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            window.location.href = '/login';
+          });
         }
       } catch (createError) {
         console.error('Erro ao criar conta social:', createError);
