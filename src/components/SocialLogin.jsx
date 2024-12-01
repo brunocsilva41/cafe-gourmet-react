@@ -16,10 +16,22 @@ const handleSocialLogin = async (email, name) => {
     localStorage.setItem('userImage', imagem_usuario);
     localStorage.setItem('role', role);
     console.log('Login realizado com sucesso!', response.data);
-    window.location.href = '/conta';
+    Swal.fire({
+      title: 'Login realizado com sucesso!',
+      text: `Bem-vindo, ${userName}!`,
+      icon: 'success',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      window.location.href = '/conta';
+    });
   } catch (error) {
     console.error('Erro no login social:', error);
-    alert('Erro no login social. Não foi Possivel Localizar essa Conta.');
+    Swal.fire({
+      title: 'Erro no login social',
+      text: 'Não foi possível localizar essa conta.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
   }
 };
 
@@ -37,8 +49,14 @@ const handleSocialSignUp = async (email, name) => {
   try {
     const checkUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/consulta-usuario', { email });
     if (checkUserResponse.status === 200) {
-      alert('Usuário já existe. Por favor, faça login.');
-      window.location.href = '/login';
+      Swal.fire({
+        title: 'Usuário já existe',
+        text: 'Por favor, faça login.',
+        icon: 'info',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        window.location.href = '/login';
+      });
     }
   } catch (error) {
     if (error.response && error.response.status === 401) {
@@ -56,11 +74,21 @@ const handleSocialSignUp = async (email, name) => {
         }
       } catch (createError) {
         console.error('Erro ao criar conta social:', createError);
-        alert('Erro ao criar conta social. Tente novamente mais tarde.');
+        Swal.fire({
+          title: 'Erro ao criar conta social',
+          text: 'Tente novamente mais tarde.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     } else {
       console.error('Erro ao verificar usuário:', error);
-      alert('Erro ao verificar usuário. Tente novamente mais tarde.');
+      Swal.fire({
+        title: 'Erro ao verificar usuário',
+        text: 'Tente novamente mais tarde.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   }
 };
@@ -97,7 +125,12 @@ const handleGoogleCallback = async (accessToken) => {
     handleSocialSignUp(email, name);
   } catch (error) {
     console.error('Erro ao obter informações do usuário:', error);
-    alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
+    Swal.fire({
+      title: 'Erro ao obter informações do usuário',
+      text: 'Tente novamente mais tarde.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
   }
 };
 

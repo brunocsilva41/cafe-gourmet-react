@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import Swal from 'sweetalert2';
 import '../assets/styles/criarConta.css';
 import Header from '../components/Header';
 import { handleGoogleCallback, handleGoogleSignUp } from './SocialLogin';
@@ -40,8 +41,14 @@ const CriarConta = () => {
       console.log('Resposta da API:', response);
 
       if (response.status === 201) {
-        alert('Conta criada com sucesso!');
-        window.location.href = '/login';
+        Swal.fire({
+          title: 'Conta criada com sucesso!',
+          text: 'Realize o login com suas credenciais.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          window.location.href = '/login';
+        });
       } else {
         setError('Erro ao criar conta.');
       }

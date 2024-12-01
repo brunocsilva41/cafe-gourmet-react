@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { default as React, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import 'reactjs-popup/dist/index.css';
 import logo from '../assets/imagens/logoOF.png';
 import '../assets/styles/global.css';
@@ -35,7 +36,12 @@ const Login = () => {
         await handleSocialLogin(email, name);
       } catch (error) {
         console.error('Erro ao obter informações do usuário:', error);
-        alert('Erro ao obter informações do usuário. Tente novamente mais tarde.');
+        Swal.fire({
+          title: 'Erro ao obter informações do usuário',
+          text: 'Tente novamente mais tarde.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     }
   };
@@ -53,6 +59,14 @@ const Login = () => {
       localStorage.setItem('token', userData.token);
       localStorage.setItem('userName', userData.userName);
       localStorage.setItem('role', userData.role);
+      Swal.fire({
+        title: 'Login realizado com sucesso!',
+        text: `Bem-vindo, ${userData.userName}!`,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        navigate('/conta');
+      });
     } catch (err) {
       console.error('Erro no login:', err);
       setError('Falha no login. Verifique suas credenciais e tente novamente.');
