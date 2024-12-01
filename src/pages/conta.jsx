@@ -190,20 +190,24 @@ const Conta = () => {
     const userId = user?.userId || localStorage.getItem('userId');
     const token = localStorage.getItem('token');
     if (window.confirm('Tem certeza que deseja excluir sua conta?')) {
-        try {
-            await axios.delete(`https://api-cafe-gourmet.vercel.app/usuarios/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            Swal.fire('Sucesso', 'Conta excluída com sucesso!', 'success');
-            localStorage.clear(); // Limpar o localStorage
-            setUser(null); // Deslogar o usuário
-            navigate('/'); // Redirecionar para a página inicial após a exclusão
-        } catch (error) {
-            console.error('Erro ao excluir conta:', error);
-            Swal.fire('Erro', 'Erro ao excluir conta. Por favor, tente novamente mais tarde.', 'error');
+      try {
+        await axios.delete(`https://api-cafe-gourmet.vercel.app/usuarios/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        Swal.fire('Sucesso', 'Conta excluída com sucesso!', 'success');
+        localStorage.clear(); // Limpar o localStorage
+        if (typeof setUser === 'function') {
+          setUser(null); // Deslogar o usuário
+        } else {
+          console.error('Erro: setUser não é uma função.');
         }
+        navigate('/'); // Redirecionar para a página inicial após a exclusão
+      } catch (error) {
+        console.error('Erro ao excluir conta:', error);
+        Swal.fire('Erro', 'Erro ao excluir conta. Por favor, tente novamente mais tarde.', 'error');
+      }
     }
   };
 
