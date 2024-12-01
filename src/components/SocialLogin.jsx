@@ -42,7 +42,7 @@ const handleSocialSignUp = async (email, name) => {
   } catch (error) {
     if (error.response && error.response.status === 401) {
       try {
-        const createUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', { email, name, temporaryPassword });
+        const createUserResponse = await axios.post('https://api-cafe-gourmet.vercel.app/criar-conta-social', { email, name, password: temporaryPassword });
         if (createUserResponse.status === 201) {
           alert(`Conta criada com sucesso! Realize o login com as credenciais:\n\nEmail: ${email}\nSenha Temporária: ${temporaryPassword}`);
           window.location.href = '/login';
@@ -67,6 +67,7 @@ const handleGoogleLogin = () => {
 
   window.location.href = url;
 };
+
 const handleGoogleSignUp = () => {
   const clientId = '731636636395-dp041m5mii0ma67ueog72b3kei3uspeo.apps.googleusercontent.com';
   const redirectUri = 'https://coffeforyou.netlify.app/Criarconta'; // Redirecionar para a tela de criar conta
